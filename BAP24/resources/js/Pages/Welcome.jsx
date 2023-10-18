@@ -82,7 +82,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <Link
                             href={route('register')}
                             >
-                                <h2 className="text-primary-red text-xl font-bold text-left">Registreer je hier of meld je aan ></h2>
+                                <h2 className="mt-2 text-primary-red text-3xl font-bold text-left">Registreer je hier of meld je aan &#x21C0;</h2>
                             </Link>
                         </section>
                     </div>
