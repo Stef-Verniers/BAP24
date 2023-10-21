@@ -6,7 +6,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Home" />
-            <div className="relative sm:flex sm:flex-col sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center selection:bg-red-500 selection:text-white">
+            <div className="relative sm:flex sm:flex-col sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center selection:bg-red-500 selection:text-white w-full">
                 <div className="w-11/12 h-12 sm:h-20 top-0 flex flex-row items-center justify-between m-auto text-right lg:w-2/3">
                     <Logo className="w-1/5 lg:w-28" />
                     <div className="w-3/5">
@@ -38,15 +38,15 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 </div>
 
                 <main className="w-full">
-                    <div className='h-[calc(100vh-48px)] sm:h-[calc(100vh-80px)] bg-hero-small w-full bg-bottom bg-cover lg:bg-hero-large xl:w-2/3 xl:m-auto xl:bg-contain bg-no-repeat'>
+                    <div className='h-[calc(100vh-48px)] sm:h-[calc(100vh-80px)] bg-hero-small w-full bg-bottom bg-cover lg:bg-hero-large lg:w-2/3 lg:m-auto lg:bg-contain bg-no-repeat'>
                         <section id="hero" className="w-11/12 lg:w-2/3 m-auto flex flex-col justify-end pt-20">
-                            <h1 className="text-teal-600 text-3xl lg:w-2/3 lg:leading-[calc(36px*1.5)] lg:text-5xl font-bold xl:w-3/5">Een platform met een échte bijdrage</h1>
-                            <p className='text-teal-600 text-lg lg:text-2xl lg:w-2/3 xl:w-3/5 leading-6 font-base mt-2'>
+                            <h1 className="text-teal-600 text-3xl lg:w-4/5 lg:leading-[calc(36px*1.5)] lg:text-5xl font-bold xl:w-4/5">Een platform met een échte bijdrage</h1>
+                            <p className='text-teal-600 text-lg lg:text-2xl xl:text-lg lg:w-2/3 xl:w-5/5 leading-6 font-base mt-2'>
                             Welkom op BAP24, een platform gericht naar studenten die hulp nodig hebben bij het zoeken naar deelnemers van jouw thesis.
                             </p>
                         </section>
                     </div>
-                    <div className='h-auto bg-white py-8 lg:w-2/3 m-auto'>
+                    <div className='h-auto bg-white py-8 lg:w-2/3 m-auto lg:mt-12'>
                         <section id="hero" className="h-full w-11/12 sm:w-full m-auto flex flex-col justify-center mb-6">
                             <h2 className="text-black text-xl font-bold text-left">Een springplank voor een succesvolle thesis</h2>
                             <p className='text-black text-base text-left mt-2 lg:w-2/3'>
@@ -54,24 +54,24 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </p>
                             <Logo className="my-12 w-2/3 lg:w-1/3 m-auto"/>
                         </section>
-                        <section id="hero" className="h-full w-11/12 sm:w-full m-auto flex flex-col justify-center mb-6">
+                        <section id="hero" className="h-full w-11/12 sm:w-full m-auto flex flex-col justify-center lg:mt-12">
                             <h2 className="text-black text-xl font-bold text-left">Eenvoudiger kan niet</h2>
                             <p className='text-black text-base text-left mt-2 lg:w-2/3'>
                             Geregistreerde gebruikers kunnen alle enquêtes invullen die bij hun profiel past. Hoe meer enquêtes ingevuld worden, hoe meer credits er te rapen vallen. Met die credits kan je terecht bij erkende sponsors.                           
                             </p>
-                            <div className="flex flex-col h-auto justify-between relative my-4">
-                                <div className="w-2/3 h-20 bg-gray-200 rounded-lg shadow-lg lg:">
-                                    <h3 className='m-4 text-2xl font-bold'>Registreren</h3>
+                            <div className="flex flex-col lg:flex-row h-auto justify-evenly relative my-8 lg:w-full">
+                                <div className="w-2/3 h-20 bg-gray-200 rounded-lg shadow-lg lg:w-40 lg:h-40 lg:relative">
+                                    <h3 className='m-4 text-2xl font-bold lg:absolute lg:bottom-2 lg:left-3 lg:text-xl lg:m-0'>Registreren</h3>
                                 </div>
-                                <div className="w-2/3 h-20 bg-teal-600 m-auto -translate-y-6 rounded-lg shadow-lg">
-                                    <h3 className='m-4 text-2xl font-bold'>Invullen</h3>
+                                <div className="w-2/3 h-20 bg-teal-600 m-auto -translate-y-6 rounded-lg shadow-lg lg:w-40 lg:h-40 lg:relative lg:-translate-y-0 lg:m-0">
+                                    <h3 className='m-4 text-2xl font-bold lg:absolute lg:bottom-2 lg:left-3 lg:text-xl lg:m-0'>Invullen</h3>
                                 </div>
-                                <div className="w-2/3 h-20 bg-primary-red ml-auto -translate-y-12 rounded-lg shadow-lg">
-                                    <h3 className='m-4 text-2xl font-bold'>Inwisselen</h3>
+                                <div className="w-2/3 h-20 bg-primary-red ml-auto -translate-y-12 rounded-lg shadow-lg lg:w-40 lg:h-40 lg:relative lg:-translate-y-0 lg:m-0">
+                                    <h3 className='m-4 text-2xl font-bold lg:absolute lg:bottom-2 lg:left-3 lg:text-xl lg:m-0'>Inwisselen</h3>
                                 </div>
                             </div>
                         </section>
-                        <section id="hero" className="h-full w-11/12 sm:w-full m-auto flex flex-col justify-center mb-8">
+                        <section id="hero" className="h-full w-11/12 sm:w-full m-auto flex flex-col justify-center lg:mt-12">
                             <h2 className="text-black text-xl font-bold text-left">Dé oplossing tegen een lage prijs</h2>
                             <p className='text-black text-base text-left mt-2 lg:w-2/3'>
                             Het publiceren van een enquête bedraagt slechts 10 euro. Met deze prijs worden onze kosten en uiteraard de sponsors vergoed die hun diensten aanbieden ten goede van ons product.                         
