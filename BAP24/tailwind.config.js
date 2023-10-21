@@ -17,7 +17,11 @@ export default {
             },
             colors: {
                 'primary-red': '#FF360D'
-            }
+            },
+            backgroundImage: {
+                'hero-small': "url('/public/images/hero_sm.png')",
+                'hero-large': "url('/public/images/hero_full.png')",
+              }
         },
     },
 
