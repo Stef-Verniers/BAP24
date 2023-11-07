@@ -1,13 +1,15 @@
 <script>
-    import Header from '../components/Header.svelte';
-    import Footer from '../components/Footer.svelte';
-    import Sponsors from '../components/Sponsors.svelte';
-    import Image from '../components/Image.svelte';
+    import Header from '/src/components/Header.svelte';
+    import Footer from '/src/components/Footer.svelte';
+    import Sponsors from '/src/components/Sponsors.svelte';
+    import Image from '/src/components/Image.svelte';
 
     let innerWidth = 0;
 </script>
 
 <Header />
+
+<!-- typeform -->
 
 <main>
     <section class="section hero">
@@ -64,6 +66,7 @@
 <style>
     main {
         overflow: hidden;    
+        background-color: hsl(167, 46, 98)    
     }
     section {
         width: calc(100% - 50px);
@@ -125,6 +128,7 @@
     }
     .cta > h2 {
         color: #FF360D;
+        line-height: calc(24px * 1.4);
     }
 
     
@@ -317,7 +321,7 @@
             transform: translate(-50%, -13vh);
         }
         .cta > * {
-            margin-inline-start: 105px;
+            margin-inline-start: 115px;
         }
     }
 </style>
