@@ -13,7 +13,6 @@
     <div class="container">
       <form use:form>
         <h1>Login</h1>
-    
         <label for="email">Email</label>
         <div class="error">
           <HintGroup for="email">
@@ -30,6 +29,8 @@
         <input type="password" name="password" use:validators={[required]} />
       
         <button disabled={!$form.valid}>Login</button>
+
+        <p>Nog geen account?<a href="google.com">Registreer hier</a></p>
       </form>
     </div>
   </main>
@@ -78,7 +79,7 @@
         font-size: 2rem;
         color: white;
         font-weight: bold;
-        padding-bottom: 2rem;
+        padding-bottom: 1rem;
       }
       input {
         padding: 0cqmax;
@@ -95,7 +96,7 @@
         font-weight: 500;
         color: white;
         text-indent: 0.5rem;
-        margin-bottom: 10px;
+        margin-bottom: 3px;
       }
       button {
         border-radius: 25px;
@@ -111,5 +112,39 @@
         color: rgb(202, 23, 23);
         font-weight: 800;
       }
+      p {
+        font-size: 0.8rem;
+        text-align: center;
+        margin-top: 2rem;
+      }
+      p > a {
+        text-decoration: none;
+        color: #ce2c0b;
+        margin-left: 0.3rem;
+        font-weight: 500;
+      }
+
+      @media (min-width: 768px) {
+        .container {
+          width: 100%;
+        }
+        .container > form {
+          width: 100%;
+          margin: auto;
+          align-items: center;
+        }
+        input,label, button {
+          width: 25rem;
+        }
+        form > input {
+          margin-bottom: 2rem;
+        }
+        button {
+          margin-top: 1rem;
+        }
+      }
+      @media (min-width: 1025px) {}
+      @media (min-width: 1250px) {}
+
 
   </style>
