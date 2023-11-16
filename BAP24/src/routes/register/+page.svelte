@@ -1,35 +1,40 @@
 <script>
-    import { useForm, validators, HintGroup, Hint, email, required } from "svelte-use-form";
-        // @ts-ignore
+    import { useForm, validators, HintGroup, Hint, email, required} from "svelte-use-form";
+    // @ts-ignore
     import Logo from "/src/components/Logo.svelte";
-    const form = useForm();
+    import { enhance } from "$app/forms";
+    export let form;
   </script>
   
   <main>
     <div class="logo">
       <div class="image-container">
-        <Logo width=200px/>
+        <Logo width=10rem/>
       </div>
     </div>
     <div class="container">
-      <form use:form>
-        <h1>Login</h1>
-        <label for="email">Email</label>
-        <div class="error">
-          <HintGroup for="email">
-            <Hint class="hint" on="required">This is a mandatory field</Hint>
-            <Hint class="hint" on="email" hideWhenRequired>Email is not valid</Hint>
-          </HintGroup>
-        </div>
-        <input type="email" name="email" use:validators={[required, email]} />
+      <form method="POST" action="?/create">
+        <h1>Registreer je nu!</h1>
+
+        {#if form?.error}
+            <div class="error">
+                <p>{form.error}</p>
+            </div>
+        {/if}
         
+        <label for="email">Full name</label>
+            <input type="text" name="name" required />
+
+        <label for="email">Email</label>
+            <input type="email" name="email" required />
+
         <label for="password">Wachtwoord</label>
-        <div class="error">
-          <Hint class="hint" id="myPassword" for="password" on="required">This is a mandatory field</Hint>
-        </div>
-        <input type="password" name="password" use:validators={[required]} />
+            <input type="password" name="password" required />
+
+        <label for="password">Bevestig wachtwoord</label>
+            <input type="password" name="requirePassword" required />
       
-        <button disabled={!$form.valid}>Login</button>
+        <button>Login</button>
 
         <p>Nog geen account?<a href="google.com">Registreer hier</a></p>
       </form>
@@ -42,7 +47,7 @@
           outline-color: #FF360D;
       }
       .logo{
-        height: 30%;
+        height: calc(15% + 10px);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,7 +63,7 @@
         bottom: 0;
         border-radius: 20px 20px 0 0;
         width: 100%;
-        height: 70%;
+        height: 85%;
         margin: auto;
         display: flex;
         justify-content: center;
@@ -77,16 +82,15 @@
         margin-bottom: 25px;
       }
       form > h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: white;
         font-weight: bold;
-        padding-bottom: 1rem;
       }
       input {
-        padding: 0cqmax;
+        padding: 0px;
         border-radius: 25px;
         width: 15rem;
-        height: 2.5rem;
+        height: 2.2rem;
         border: none;
         background-color: hsl(167 46% 38% / 1);
         color: white;
@@ -94,10 +98,11 @@
         font-size: 0.9rem;
       }
       label {
+        font-size: 0.9rem;
         font-weight: 500;
         color: white;
         text-indent: 0.5rem;
-        margin-bottom: 3px;
+        margin-bottom: 1px;
       }
       button {
         border-radius: 25px;
@@ -109,9 +114,27 @@
         padding: 0;
       }
       .error {
-        margin: 5px 0 10px 0.5rem;
-        color: rgb(202, 23, 23);
+        background: rgb(160, 10, 10);
         font-weight: 800;
+        text-align: left;
+        font-size: 0.7rem;
+        min-height: 30px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        margin-bottom: 3vh;
+        width: 100%;
+      }
+      .error > p {
+        width: 100%;
+        font-size: 0.8rem;
+        text-align: left;
+        margin-inline: 10px;
+        margin-top: 0;
+        color: white;
+        line-height: auto;
+        max-width: 25ch;
+        padding: 5px 0;
       }
       p {
         font-size: 0.8rem;
@@ -126,11 +149,15 @@
       }
 
       @media (min-width: 768px) {
+        .logo{
+            height: 25%;
+        }
         .container {
           width: 100%;
+          height: 75%;
         }
         .container > form {
-          width: 100%;
+          width: fit-content;
           margin: auto;
           align-items: center;
         }
@@ -142,6 +169,9 @@
         }
         button {
           margin-top: 1rem;
+        }
+        .error {
+            width: 100%;
         }
       }
       @media (min-width: 1025px) {}
