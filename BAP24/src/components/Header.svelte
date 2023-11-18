@@ -6,7 +6,7 @@
     <div class="header-container">
         <Logo width=120px/>
         <div class="navigation">
-            <h1>X</h1>
+            
         </div>
     </div>
 </header>

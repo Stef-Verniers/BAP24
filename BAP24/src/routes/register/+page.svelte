@@ -1,5 +1,4 @@
 <script>
-    import { useForm, validators, HintGroup, Hint, email, required} from "svelte-use-form";
     // @ts-ignore
     import Logo from "/src/components/Logo.svelte";
     import { enhance } from "$app/forms";
@@ -13,16 +12,16 @@
       </div>
     </div>
     <div class="container">
-      <form method="POST" action="?/create">
+      <form method="POST" use:enhance>
         <h1>Registreer je nu!</h1>
 
-        {#if form?.error}
+        {#if form?.message}
             <div class="error">
-                <p>{form.error}</p>
+                <p>{form.message}</p>
             </div>
         {/if}
         
-        <label for="email">Full name</label>
+        <label for="name">Voor + achternaam</label>
             <input type="text" name="name" required />
 
         <label for="email">Email</label>
@@ -34,7 +33,7 @@
         <label for="password">Bevestig wachtwoord</label>
             <input type="password" name="requirePassword" required />
       
-        <button>Login</button>
+        <button type="submit">Register</button>
 
         <p>Nog geen account?<a href="google.com">Registreer hier</a></p>
       </form>
