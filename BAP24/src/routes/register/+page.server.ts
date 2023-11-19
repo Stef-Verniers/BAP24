@@ -24,7 +24,7 @@ export const actions: Actions = {
 			username.length > 31
 		) {
 			return fail(400, {
-				message: "Onjuiste gebruikersnaam"
+				message: "U hebt uw naam verkeerd ingevoerd. Probeer het opnieuw!"
 			});
 		}
 		if (
@@ -33,7 +33,7 @@ export const actions: Actions = {
 			!email.includes('@')
 		) {
 			return fail(400, {
-				message: "Onjuist email-adres"
+				message: "Uw email-adres werd niet juist ingevoerd"
 			});
 		}
 		if (
@@ -42,7 +42,7 @@ export const actions: Actions = {
 			password.length > 255
 		) {
 			return fail(400, {
-				message: "Onjuist wachtwoord"
+				message: "U hebt geen geldig wachtwoord gekozen. Probeer het opnieuw!"
 			});
 		}
         if (
@@ -58,7 +58,7 @@ export const actions: Actions = {
 			const user = await auth.createUser({
 				key: {
 					providerId: "email", // auth method
-					providerUserId: email.toLowerCase(), // unique id when using "username" auth method
+					providerUserId: email.toLowerCase(), // unique id when using "email" auth method
 					password // hashed by Lucia
 				},
 				attributes: {
@@ -71,15 +71,11 @@ export const actions: Actions = {
 				attributes: {}
 			});
 			locals.auth.setSession(session); // set session cookie
-            console.log(user)
 		} catch (e) {
 			// this part depends on the database you're using
-			// check for unique constraint error in user table
-
-    
+			// check for unique constraint error in user table   
 			if (
-				e instanceof LuciaError &&
-				e.message === USER_TABLE_UNIQUE_CONSTRAINT_ERROR
+				e.code === 'P2002'
 			) {
 				return fail(400, {
 					message: "Er is reeds een account aangemaakt met dit email-adres"
