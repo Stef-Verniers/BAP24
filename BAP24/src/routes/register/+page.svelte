@@ -46,7 +46,7 @@
           outline-color: #FF360D;
       }
       .logo{
-        height: calc(15% + 10px);
+        height: calc(20%);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -62,7 +62,7 @@
         bottom: 0;
         border-radius: 20px 20px 0 0;
         width: 100%;
-        height: 85%;
+        height: 80%;
         margin: auto;
         display: flex;
         justify-content: center;
@@ -76,14 +76,18 @@
         display: flex;
         flex-direction: column;
         padding-bottom: 2vh;
+        width: 70%;
       }
       form > h1, form > input {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
+        width: 100%;
       }
       form > h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
         color: white;
         font-weight: bold;
+        margin-bottom: 60px;
+        text-align: center;
       }
       input {
         padding: 0px;
@@ -101,16 +105,17 @@
         font-weight: 500;
         color: white;
         text-indent: 0.5rem;
-        margin-bottom: 1px;
+        margin-bottom: 3px;
       }
       button {
         border-radius: 25px;
-        width: 15rem;
+        width: 100%;
         height: 2.5rem;
         border: none;
         background-color: #ff6a4c;
         color: white;
         padding: 0;
+        margin-top: 15px;
       }
       .error {
         background: rgb(160, 10, 10);
@@ -132,7 +137,7 @@
         margin-top: 0;
         color: white;
         line-height: auto;
-        max-width: 25ch;
+        max-width: 45ch;
         padding: 5px 0;
       }
       p {
@@ -148,6 +153,12 @@
       }
 
       @media (min-width: 768px) {
+        form > h1 {
+          font-size: 1.5rem;
+          color: white;
+          font-weight: bold;
+          margin-bottom: 7vh;
+      }
         .logo{
             height: 25%;
         }
