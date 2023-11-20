@@ -835,6 +835,13 @@ svelte-check@^3.4.3:
     svelte-preprocess "^5.1.0"
     typescript "^5.0.3"
 
+svelte-french-toast@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/svelte-french-toast/-/svelte-french-toast-1.2.0.tgz#bfe3696ee1e3cbdee2a300e0153dede7d6d802eb"
+  integrity sha512-5PW+6RFX3xQPbR44CngYAP1Sd9oCq9P2FOox4FZffzJuZI2mHOB7q5gJBVnOiLF5y3moVGZ7u2bYt7+yPAgcEQ==
+  dependencies:
+    svelte-writable-derived "^3.1.0"
+
 svelte-hmr@^0.15.3:
   version "0.15.3"
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.15.3.tgz#df54ccde9be3f091bf5f18fc4ef7b8eb6405fbe6"
@@ -856,6 +863,11 @@ svelte-use-form@^2.10.0:
   resolved "https://registry.yarnpkg.com/svelte-use-form/-/svelte-use-form-2.10.0.tgz#fbcd8bf333ed4718d1ca93186b2a441d35dc3a5c"
   integrity sha512-RSYkfRCmJF+2dm4UzhCdORjwmAM+Vueg+Blqcui1It8wsicLnfpUgtXbHWw9NxhXB4cHz88EDK63cxqmamhEyA==
 
+svelte-writable-derived@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/svelte-writable-derived/-/svelte-writable-derived-3.1.0.tgz#ea114125805a9d18398577f2431d1e8cdd4d8d69"
+  integrity sha512-cTvaVFNIJ036vSDIyPxJYivKC7ZLtcFOPm1Iq6qWBDo1fOHzfk6ZSbwaKrxhjgy52Rbl5IHzRcWgos6Zqn9/rg==
+
 svelte@^4.0.5:
   version "4.2.5"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-4.2.5.tgz#f50ae5aa3d60dab3c89ddd8c5ee0c2985eba3f9c"
@@ -874,6 +886,11 @@ svelte@^4.0.5:
     locate-character "^3.0.0"
     magic-string "^0.30.4"
     periscopic "^3.1.0"
+
+sveltekit-flash-message@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/sveltekit-flash-message/-/sveltekit-flash-message-2.2.2.tgz#1f00a41faf22c7d17bc8d68cb53b0fcf3bf2a417"
+  integrity sha512-5xaQbkbEfzIMT2VfyJNtXl/20ugaBLc/9BzeQ+l4rHr+IoWC81qRANKAFlfZqZ2eCGPq1pzIhVeuxaPk74dAgA==
 
 tiny-glob@^0.2.9:
   version "0.2.9"

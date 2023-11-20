@@ -8,6 +8,12 @@ declare global {
             validateUser: import("@lucia-auth/sveltekit").ValidateUser
             setSession: import("@lucia-auth/sveltekit").SetSession
         }
+        interface PageData {
+            flash?: {
+                type: "succes" | "error";
+                message: string;
+            }
+        }
     }
     var __prisma: PrismaClient
 

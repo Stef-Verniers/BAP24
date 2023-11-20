@@ -1,8 +1,8 @@
 <script>
-    import { useForm, validators, HintGroup, Hint, email, required } from "svelte-use-form";
         // @ts-ignore
     import Logo from "/src/components/Logo.svelte";
-    const form = useForm();
+    import { enhance } from "$app/forms";
+    export let form;
   </script>
   
   <main>
@@ -12,24 +12,22 @@
       </div>
     </div>
     <div class="container">
-      <form use:form>
+      <form method="POST" use:enhance>
         <h1>Login</h1>
+
+        {#if form?.message}
+            <div class="error">
+                <p>{form.message}</p>
+            </div>
+        {/if}
+
         <label for="email">Email</label>
-        <div class="error">
-          <HintGroup for="email">
-            <Hint class="hint" on="required">This is a mandatory field</Hint>
-            <Hint class="hint" on="email" hideWhenRequired>Email is not valid</Hint>
-          </HintGroup>
-        </div>
-        <input type="email" name="email" use:validators={[required, email]} />
-        
+            <input type="email" name="email" required />
+
         <label for="password">Wachtwoord</label>
-        <div class="error">
-          <Hint class="hint" id="myPassword" for="password" on="required">This is a mandatory field</Hint>
-        </div>
-        <input type="password" name="password" use:validators={[required]} />
+            <input type="password" name="password" required />
       
-        <button disabled={!$form.valid}>Login</button>
+        <button>Login</button>
 
         <p>Nog geen account?<a href="google.com">Registreer hier</a></p>
       </form>

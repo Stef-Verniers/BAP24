@@ -1,15 +1,15 @@
-<script>
+<script lang="ts">
+// @ts-nocheck
     import Header from '/src/components/Header.svelte';
     import Footer from '/src/components/Footer.svelte';
     import Sponsors from '/src/components/Sponsors.svelte';
     import Image from '/src/components/Image.svelte';
-
+    import type { PageData } from './$types';
+    export let data: PageData;
     let innerWidth = 0;
 </script>
 
-<Header />
-
-<!-- typeform -->
+<Header {data} />
 
 <main>
     <section class="section hero">

@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server';
 import type { PageServerLoad,Actions } from './$types.js';
 import { LuciaError } from "lucia";
 import { auth } from '$lib/server/lucia.js';
@@ -88,6 +89,6 @@ export const actions: Actions = {
 		}
 		// redirect to
 		// make sure you don't throw inside a try/catch block!
-		throw redirect(302, "/");
+		throw redirect(302, "/")
     }
 }
