@@ -2,6 +2,17 @@ import { redirect, fail } from "@sveltejs/kit";
 import type { PageServerLoad, Actions } from "./$types";
 import { auth } from "$lib/server/lucia";
 
+export const actions: Actions = {
+	logout: async ({ locals }) => {
+		const session = await locals.auth.validate();
+		if (!session) return fail(401);
+		await auth.invalidateSession(session.sessionId); // invalidate session
+		locals.auth.setSession(null); // remove cookie
+        console.log('succesvol uitgelogd')
+        if (!session) throw redirect(302, "/");
+	}
+};
+
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) throw redirect(302, "/login");
@@ -10,14 +21,4 @@ export const load: PageServerLoad = async ({ locals }) => {
 		username: session.user.username,
         email: session.user.email
 	};
-};
-
-export const actions: Actions = {
-	logout: async ({ locals }) => {
-		const session = await locals.auth.validate();
-		if (!session) return fail(401);
-		await auth.invalidateSession(session.sessionId); // invalidate session
-		locals.auth.setSession(null); // remove cookie
-		throw redirect(302, "/");
-	}
 };
