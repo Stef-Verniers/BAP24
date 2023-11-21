@@ -38,6 +38,7 @@
     </div>
 </header>
 
+{#if data.userId}
 <div id="mobileNav" class="navigation-mobile-container hidden">
     <ul class="user-nav">
         <a href="/"><li>Mijn dashboard</li></a>
@@ -56,6 +57,7 @@
         <button on:click={toggleNav}>Sluit venster</button>
     </ul>
 </div>
+{/if}
 
 <style>
     header {
