@@ -5,8 +5,13 @@
     export let data: PageData;
     console.log(data.userId)
 
-    function toggleNav() {
+    function toggleMob() {
         const mNav = document.getElementById('mobileNav');
+        console.log(mNav)
+        mNav?.classList.toggle('hidden');
+    }
+    function toggleNav() {
+        const mNav = document.getElementById('screenNav');
         console.log(mNav)
         mNav?.classList.toggle('hidden');
     }
@@ -17,8 +22,8 @@
         <Logo width=120px/>
         <div class="navigation">
             {#if data.userId}
-                <p>{ data.username }</p>
-                <button id="icon" class="nav-icon" on:click={toggleNav}>
+                <button id="icon-lg" on:click={toggleNav}>{ data.username }</button>
+                <button id="icon" class="nav-icon" on:click={toggleMob}>
                     <div></div>
                     <div></div>
                     <div></div>
@@ -35,7 +40,16 @@
 
 <div id="mobileNav" class="navigation-mobile-container hidden">
     <ul class="user-nav">
-        <a href="/"><li>Mijn profiel</li></a>
+        <a href="/"><li>Mijn dashboard</li></a>
+        <form method="post" action="?/logout" use:enhance>
+            <input type="submit" value="Uitloggen" />
+        </form>
+        <button on:click={toggleMob}>Sluit venster</button>
+    </ul>
+</div>
+<div id="screenNav" class="navigation-screen-container hidden">
+    <ul class="user-nav">
+        <a href="/"><li>Mijn dashboard</li></a>
         <form method="post" action="?/logout" use:enhance>
             <input type="submit" value="Uitloggen" />
         </form>
@@ -87,7 +101,7 @@
         display: block;
         visibility: visible; /* Start by hiding the element */
         opacity: 1;
-        transition: visibility 0s, opacity 0.5s ease;
+        transition: visibility 0s, opacity 0.3s ease;
     }
     .user-nav {
         width: 90%;
@@ -148,15 +162,65 @@
     #icon {
         background-color: white;
     }
+    #icon-lg {
+        display: none;
+    }
     .hidden {
         display: none;
         opacity: 0;
+        transform: translateX(15vw);
     }
     @media (min-width: 768px) {}
     @media (min-width: 1025px) {
+        .navigation-screen-container {
+            position: fixed;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(30,30,30,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 345435;
+            display: block;
+            visibility: visible; /* Start by hiding the element */
+            opacity: 1;
+            transition: visibility 0s, opacity 0.3s ease;
+            overflow-x: hidden;
+        }
+        #icon {
+            display: none;
+        }
+        #icon-lg {
+            display: block;
+            border-radius: 10px;
+            padding-inline: 15px;
+        }
+        .navigation {
+            justify-content: flex-end;
+            width: auto;
+        }
+        a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+        }
         .header-container {
             width: calc(80% + 50px);
             margin: auto;
+        }
+        #mobileNav {
+            display: none;
+        }
+        #screenNav {
+            right: 0;
+            width: 12vw;
+            padding-inline: 1vw;
+        }
+        .hidden {
+            display: block;
+            right: -15vw;
+            opacity: 0;
+            transition: visibility 0.1s, opacity 0.3s right 0.5s ease;
         }
     }
     @media (min-width: 1200px) {

@@ -35,7 +35,7 @@
       
         <button type="submit">Register</button>
 
-        <p>Nog geen account?<a href="google.com">Registreer hier</a></p>
+        <p>Nog geen account?<a href="/login">Registreer hier</a></p>
       </form>
     </div>
   </main>
@@ -154,7 +154,7 @@
 
       @media (min-width: 768px) {
         form > h1 {
-          font-size: 1.5rem;
+          font-size: 2rem;
           color: white;
           font-weight: bold;
           margin-bottom: 7vh;

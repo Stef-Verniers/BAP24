@@ -56,7 +56,7 @@
 
     <section class="section cta">
         <h3>Klaar voor de start?</h3>
-        <h2>Registreer je hier of meld je aan &#x21C0;</h2>
+        <h2><a href="/register">Registreer je hier of meld je aan &#x21C0;</a></h2>
     </section>
 
 </main>
@@ -126,9 +126,11 @@
         margin-top: 1vh;
         width: 90%;
     }
-    .cta > h2 {
+    .cta > h2 > a {
         color: #FF360D;
         line-height: calc(24px * 1.4);
+        cursor: pointer;
+        text-decoration: none;
     }
 
     

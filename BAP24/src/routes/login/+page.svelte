@@ -29,7 +29,7 @@
       
         <button>Login</button>
 
-        <p>Nog geen account?<a href="google.com">Registreer hier</a></p>
+        <p>Nog geen account?<a href="/register">Registreer hier</a></p>
       </form>
     </div>
   </main>

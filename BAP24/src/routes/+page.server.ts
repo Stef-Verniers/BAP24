@@ -8,17 +8,18 @@ export const actions: Actions = {
 		if (!session) return fail(401);
 		await auth.invalidateSession(session.sessionId); // invalidate session
 		locals.auth.setSession(null); // remove cookie
-        console.log('succesvol uitgelogd')
-        if (!session) throw redirect(302, "/");
+        if (!session) throw redirect(302, "/login");
 	}
 };
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = await locals.auth.validate();
-	if (!session) throw redirect(302, "/login");
+	if (!session && url.pathname !== "/") {
+	  throw redirect(302, "/");
+	}
 	return {
-		userId: session.user.userId,
-		username: session.user.username,
-        email: session.user.email
+		userId: session?.user.userId,
+		username: session?.user.username,
+        email: session?.user.email
 	};
 };
