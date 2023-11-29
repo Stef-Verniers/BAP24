@@ -3,7 +3,12 @@
     import Logo from "/src/components/Logo.svelte";
     import { enhance } from "$app/forms";
     export let form;
+    import Toasts from "../../components/Toasts.svelte";
+    import { addToast } from "../../stores";
+    import { tick } from "svelte";
   </script>
+
+  <Toasts />
   
   <main>
     <div class="logo">
@@ -12,14 +17,13 @@
       </div>
     </div>
     <div class="container">
-      <form method="POST" use:enhance>
+      <form method="post" use:enhance={() => async ({ update }) => {
+        await update();
+        await tick();
+        if (form)
+          addToast({ message: form?.message, type: form?.type, timeout: 5000 });
+    }}>
         <h1>Registreer je nu!</h1>
-
-        {#if form?.message}
-            <div class="error">
-                <p>{form.message}</p>
-            </div>
-        {/if}
         
         <label for="name">Voor + achternaam</label>
             <input type="text" name="name" required />
@@ -35,7 +39,7 @@
       
         <button type="submit">Register</button>
 
-        <p>Nog geen account?<a href="/login">Registreer hier</a></p>
+        <p>Heb je al een account?<a href="/login">Log je hier in!</a></p>
       </form>
     </div>
   </main>
@@ -68,7 +72,6 @@
         justify-content: center;
         align-items: center;
         background-color: rgb(91, 194, 172);
-;
       }
       form {
         min-height: 30%;
@@ -117,29 +120,6 @@
         padding: 0;
         margin-top: 15px;
       }
-      .error {
-        background: rgb(160, 10, 10);
-        font-weight: 800;
-        text-align: left;
-        font-size: 0.7rem;
-        min-height: 30px;
-        height: auto;
-        display: flex;
-        align-items: center;
-        margin-bottom: 3vh;
-        width: 100%;
-      }
-      .error > p {
-        width: 100%;
-        font-size: 0.8rem;
-        text-align: left;
-        margin-inline: 10px;
-        margin-top: 0;
-        color: white;
-        line-height: auto;
-        max-width: 45ch;
-        padding: 5px 0;
-      }
       p {
         font-size: 0.8rem;
         text-align: center;
@@ -160,11 +140,11 @@
           margin-bottom: 7vh;
       }
         .logo{
-            height: 25%;
+            height: 20%;
         }
         .container {
           width: 100%;
-          height: 75%;
+          height: 80%;
         }
         .container > form {
           width: fit-content;
@@ -179,9 +159,6 @@
         }
         button {
           margin-top: 1rem;
-        }
-        .error {
-            width: 100%;
         }
       }
       @media (min-width: 1025px) {}

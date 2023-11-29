@@ -3,7 +3,6 @@
     import { enhance } from "$app/forms";
     import type { PageData } from "../routes/$types";
     export let data: PageData;
-    console.log(data.userId)
 
     function toggleMob() {
         const mNav = document.getElementById('mobileNav');
@@ -41,7 +40,7 @@
 {#if data.userId}
 <div id="mobileNav" class="navigation-mobile-container hidden">
     <ul class="user-nav">
-        <a href="/"><li>Mijn dashboard</li></a>
+        <a href="/dashboard"><li>Mijn dashboard</li></a>
         <form method="post" action="?/logout" use:enhance>
             <input type="submit" value="Uitloggen" />
         </form>
@@ -50,7 +49,7 @@
 </div>
 <div id="screenNav" class="navigation-screen-container hidden">
     <ul class="user-nav">
-        <a href="/"><li>Mijn dashboard</li></a>
+        <a href="/dashboard"><li>Mijn dashboard</li></a>
         <form method="post" action="?/logout" use:enhance>
             <input type="submit" value="Uitloggen" />
         </form>
@@ -76,13 +75,12 @@
         align-items: center;
     }
     .navigation {
-        width: 40vw;
+        width: auto;
         position: relative;
         display:flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-
     }
     .navigation > p {
         font-weight: 600;
@@ -197,8 +195,12 @@
             padding-inline: 15px;
         }
         .navigation {
-            justify-content: flex-end;
-            width: auto;
+            width: fit-content;
+            position: relative;
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
         }
         a {
             margin-left: 1rem;

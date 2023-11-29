@@ -26,6 +26,7 @@
         height: 30vh;
         padding: 50px 25px;
         background-color: rgb(111, 190, 173);
+        overflow: hidden;
     }
     .footer-container > * {
         margin-bottom: 4vh;

@@ -15,7 +15,7 @@ export const actions: Actions = {
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = await locals.auth.validate();
 	if (!session && url.pathname !== "/") {
-	//   throw redirect(302, "/");
+	  throw redirect(302, "/");
 	}
 	return {
 		userId: session?.user.userId,

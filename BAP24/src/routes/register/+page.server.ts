@@ -2,12 +2,13 @@
 import { fail } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
 import type { PageServerLoad,Actions } from './$types.js';
-import { LuciaError } from "lucia";
 import { auth } from '$lib/server/lucia.js';
+
+let session;
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	if (session) throw redirect(302, "/");
+		if (session) throw redirect(302, "/");
 	return {};
 };
 
@@ -25,7 +26,8 @@ export const actions: Actions = {
 			username.length > 31
 		) {
 			return fail(400, {
-				message: "U hebt uw naam verkeerd ingevoerd. Probeer het opnieuw!"
+				message: "U hebt uw naam verkeerd ingevoerd. Probeer het opnieuw!",
+				type: 'error'
 			});
 		}
 		if (
@@ -34,7 +36,8 @@ export const actions: Actions = {
 			!email.includes('@')
 		) {
 			return fail(400, {
-				message: "Uw email-adres werd niet juist ingevoerd"
+				message: "Uw email-adres werd niet juist ingevoerd",
+				type: 'error'
 			});
 		}
 		if (
@@ -43,7 +46,8 @@ export const actions: Actions = {
 			password.length > 255
 		) {
 			return fail(400, {
-				message: "U hebt geen geldig wachtwoord gekozen. Probeer het opnieuw!"
+				message: "U hebt geen geldig wachtwoord gekozen. Probeer het opnieuw!",
+				type: 'error'
 			});
 		}
         if (
@@ -52,7 +56,8 @@ export const actions: Actions = {
             !password.match(confirmed)
         ) {
 			return fail(400, {
-				message: "De opgegeven wachtwoorden komen niet met elkaar overeen"
+				message: "De opgegeven wachtwoorden komen niet met elkaar overeen",
+				type: 'error'
 			});
 		}
 		try {
@@ -60,14 +65,16 @@ export const actions: Actions = {
 				key: {
 					providerId: "email", // auth method
 					providerUserId: email.toLowerCase(), // unique id when using "email" auth method
-					password // hashed by Lucia
+					password, // hashed by Lucia
+					wizard: false
 				},
 				attributes: {
 					username,
                     email,
+					wizard: false
 				}
 			});
-			const session = await auth.createSession({
+			session = await auth.createSession({
 				userId: user.userId,
 				attributes: {}
 			});
@@ -87,8 +94,6 @@ export const actions: Actions = {
 				message: "Een onverwachte error vond plaats"
 			});
 		}
-		// redirect to
-		// make sure you don't throw inside a try/catch block!
-		throw redirect(302, "/")
+		throw redirect(302, "/interestcheck")
     }
 }

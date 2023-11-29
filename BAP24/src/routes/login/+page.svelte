@@ -1,34 +1,40 @@
-<script>
-        // @ts-ignore
+<script lang="ts">
+    // @ts-ignore
     import Logo from "/src/components/Logo.svelte";
-    import { enhance } from "$app/forms";
-    export let form;
+    import { enhance, type SubmitFunction } from "$app/forms";
+    import Toasts from "../../components/Toasts.svelte";
+    import { addToast } from "../../stores";
+    import type { ActionData, PageData } from "./$types.js";
+    import { tick } from "svelte";
+
+    export let data: PageData;
+    export let form: ActionData;
   </script>
-  
+
+  <Toasts />
+
   <main>
     <div class="logo">
       <div class="image-container">
-        <Logo width=200px/>
+        <Logo width=10rem />
       </div>
     </div>
     <div class="container">
-      <form method="POST" use:enhance>
+      <form method="post" use:enhance={() => async ({ update }) => {
+        await update();
+        await tick();
+        if (form)
+          addToast({ message: form?.message, type: form?.type, timeout: 5000 });
+    }}>
         <h1>Login</h1>
-
-        {#if form?.message}
-            <div class="error">
-                <p>{form.message}</p>
-            </div>
-        {/if}
 
         <label for="email">Email</label>
             <input type="email" name="email" required />
 
         <label for="password">Wachtwoord</label>
             <input type="password" name="password" required />
-      
-        <button>Login</button>
 
+        <button>Login</button>
         <p>Nog geen account?<a href="/register">Registreer hier</a></p>
       </form>
     </div>
@@ -40,7 +46,7 @@
           outline-color: #FF360D;
       }
       .logo{
-        height: 30%;
+        height: 20%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -56,13 +62,12 @@
         bottom: 0;
         border-radius: 20px 20px 0 0;
         width: 100%;
-        height: 70%;
+        height: 80%;
         margin: auto;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: rgb(91, 194, 172);
-;
       }
       form {
         min-height: 30%;
@@ -106,11 +111,11 @@
         color: white;
         padding: 0;
       }
-      .error {
+      /* .error {
         margin: 5px 0 10px 0.5rem;
         color: rgb(202, 23, 23);
         font-weight: 800;
-      }
+      } */
       p {
         font-size: 0.8rem;
         text-align: center;
