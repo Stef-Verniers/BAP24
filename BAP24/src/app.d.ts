@@ -22,6 +22,8 @@ declare global {
         type DatabaseUserAttributes = {
             username: string
             email: string
+            wizard: boolean
+            additional: boolean
         };
         type DatabaseSessionAttributes = {};
     }

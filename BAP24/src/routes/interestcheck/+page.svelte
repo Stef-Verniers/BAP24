@@ -24,7 +24,7 @@
             await update();
             await tick();
             if (data)
-                addToast({ message: form?.message, type: form?.type, timeout: 5000 });
+                addToast({ message: form?.['message'], type: form?.['type'], timeout: 5000 });
             }}>
             <h1>Welkom bij BAP24</h1>
             <p>We willen je snel even iets vragen.</p>

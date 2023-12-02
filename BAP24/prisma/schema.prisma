@@ -11,12 +11,14 @@ datasource db {
 }
 
 model User {
-  id           String    @id @unique
-  email        String    @unique
-  username     String
-  wizard       Boolean
-  auth_session Session[]
-  key          Key[]
+  id                     String                   @id @unique
+  email                  String                   @unique
+  username               String
+  wizard                 Boolean                  @default(false)
+  additional             Boolean                  @default(false)
+  auth_session           Session[]
+  key                    Key[]
+  Additional_Information Additional_Information[]
 }
 
 model Session {
@@ -36,4 +38,16 @@ model Key {
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
+}
+
+model Additional_Information {
+  id         Int    @id @default(autoincrement())
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  age        Int
+  birthplace String
+  domestic   String
+  sex        String
+  religion   String
+  study      String
 }

@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	session = await locals.auth.validate();
      const user = await auth.getUser(session.user.userId)
      if (user.wizard == true) 
-          throw redirect(302, "/dashboard");
+          throw redirect(302, "/additional");
 	return {};
 };
 
@@ -31,7 +31,7 @@ export const actions: Actions = {
 			});
 			locals.auth.setSession(session);
           } catch (e) {
-                    console.log('is oke')
+               console.log('is oke')
           }
 	}
 };
