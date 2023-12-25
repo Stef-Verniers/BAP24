@@ -5,7 +5,6 @@ export async function POST({ request }) {
     try {
 
         const { name, address, city, owner, link } = await request.json();
-        console.log(name, address, city, owner, link)
         await prisma.sponsor.create({
             data: {
                 name: name,

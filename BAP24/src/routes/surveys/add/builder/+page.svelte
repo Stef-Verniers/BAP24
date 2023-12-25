@@ -106,7 +106,6 @@
                         questions: questionsList 
                     })
                 });
-                console.log(response.ok)
                 if (response.ok) {
                     addToast({ message: 'Uw enquete werd met succes opgeslaan', type: 'success', timeout: 5000 });
                     localStorage.removeItem('questionsList');

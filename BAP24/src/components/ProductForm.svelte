@@ -33,7 +33,6 @@
         });
 
         const res = await response.json();
-        console.log(res)
         dispatch('productFormSubmitted', res);
     }
 

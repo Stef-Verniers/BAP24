@@ -24,7 +24,6 @@
     $: couponCode;
     $: completed;
     $: if (exchangedProducts.length > 0) {
-        console.log(exchangedProducts)
     }
 
     // We maken een array aan met de ids van de reeds ingewisselde producten
@@ -61,7 +60,6 @@
     // Openen van modal
     function openModal(coupon) {
         selectedCoupon = coupon;
-        console.log(selectedCoupon)
         showModal = true;
         couponCode = "";
     }
@@ -69,7 +67,6 @@
     // We bevestigen dat we dit product willen verzilveren
     async function confirmSelection(selectedCoupon) {
         isLoading = true;
-        console.log(selectedCoupon)
         const response = await fetch(`/exchange/${selectedCoupon}/redeem`, {
             method: "POST",
             headers: {

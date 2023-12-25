@@ -76,7 +76,6 @@
                 } else {
                     info[element.name] = value;
                 }
-                console.log(value, isValid)
                 break;
             case 'select':
                 value = element.options[element.selectedIndex].value;
@@ -87,7 +86,6 @@
                 } else {
                     info[element.name] = value;
                 }
-                console.log(value, isValid)
                 break;
         }
 
@@ -109,7 +107,6 @@
 
     // Functie om de volgende vraag aan te roepen
     function nextQuestion(currentId) {
-        console.log(info)
         let currentQ = document.getElementById(currentId);
         currentQ?.classList.remove('active');
         currentQ?.classList.add('hidden');

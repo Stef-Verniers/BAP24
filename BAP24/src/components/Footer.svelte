@@ -6,7 +6,6 @@
 
     onMount(() => {
         homepage = window.location.pathname === "/";
-        console.log(homepage)
     });
 
     $: homepage

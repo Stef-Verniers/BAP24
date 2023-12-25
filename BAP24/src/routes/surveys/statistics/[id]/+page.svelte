@@ -19,7 +19,6 @@
     $: if (answeredSurveys) {
         firstelement = answeredSurveys[0];
         lastelement = answeredSurveys[answeredSurveys.length - 1];
-        console.log(answeredSurveys)
     }
 
 

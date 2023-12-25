@@ -68,7 +68,6 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 export const actions: Actions = {
     submitEnquete: async ({ request }) => {
         const formData = await request.formData();
-        console.log(formData)
         const userId = user.userId; 
         const answers: { questionId: number; userId: string; response: string }[] = [];
         for (const [key, value] of formData.entries()) {

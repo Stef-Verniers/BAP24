@@ -23,7 +23,6 @@
 
     // We navigeren door alle ingevulde enquêtes en filteren deze uit de lijst zodat we nooit een enquête 2 keer kunnen invullen
     let ingevuldeEnqueteIds = data.respondents.map(respondent => respondent.enqueteId);
-    console.log(ingevuldeEnqueteIds)
     surveys = surveys.filter(survey => !ingevuldeEnqueteIds.includes(survey.id));
     //We sorteren op deadline zodat de enquêtes met de kortste deadline bovenaan komen te staan
     surveys.sort((a, b) => a.deadline - b.deadline);

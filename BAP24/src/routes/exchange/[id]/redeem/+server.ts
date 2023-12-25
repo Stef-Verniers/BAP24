@@ -5,7 +5,6 @@ import { prisma } from "$lib/server/prisma.js";
 export async function POST({ request }) {
     // We destructuren de data uit het request object
     const { userId, id, credits } = await request.json();
-    console.log(userId, id, credits)
     // We halen de gebruiker op uit de database
     const user = await prisma.user.findUnique({
         where: {
@@ -18,7 +17,6 @@ export async function POST({ request }) {
     }
     try {
         if(user.credits >= credits) {
-            console.log(user.credits >= credits)
             await prisma.user.update({
                 data: {
                     credits: {

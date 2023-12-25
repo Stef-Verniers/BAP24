@@ -7,14 +7,12 @@
   // We wachten op onze component voor een response
   async function showError(response) {
     const message = await response.detail;
-    console.log(message);
     addToast({message: message, type: 'error', timeout: 5000});
   }
 
   // Eens we een response hebben, gaan we kijken of het een succes was of niet
   async function handleResponse(response) {
     const message = await response.detail;
-    console.log(message);
     if (!message.success) {
       addToast({message: message.message, type: 'error', timeout: 5000});
       return;      

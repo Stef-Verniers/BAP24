@@ -4,7 +4,6 @@ import { prisma } from "$lib/server/prisma.js";
 export async function POST({ request }) {
     try {
         const { name, description, points, sponsor, category } = await request.json();
-        console.log(name, description, points, sponsor, category);
         const createProduct = await prisma.product.create({
             data: {
                 name: name,
@@ -15,7 +14,6 @@ export async function POST({ request }) {
             }
         });
 
-        console.log(createProduct);
         const getUpdatedProducts = await prisma.product.findMany({});
         
         return json({ message: 'Data succesvol ontvangen', success: true, body: getUpdatedProducts });

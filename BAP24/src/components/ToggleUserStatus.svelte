@@ -15,7 +15,6 @@ export let data: PageData
 
     // Functie om de rol van de gebruiker aan te passen
     async function changeRole() {
-        console.log(selectedItem)
         const response = await fetch(`/dashboard/admin/edit/role`, {
             method: "POST",
             headers: {

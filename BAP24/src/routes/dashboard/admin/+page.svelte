@@ -63,13 +63,11 @@
 
     // We openen het formulier voor de rol van een gebruiker te wijzigen
     function showUserForm(result) {
-        console.log(sponsorForm)
         productForm.style.background = '#eeeeee';
         sponsorForm.style.background = '#eeeeee';
         selectedItem = result;
         activeForm = 'user';
         showForm = true;
-        console.log(activeForm, showForm)
     }
 
     // We sluiten het formulier
@@ -104,7 +102,6 @@
                 })
             });
             const res = await response.json()
-            console.log(res)
             if (!res) {
                 showModal = false;
                 addToast({ message: 'Verwijderen mislukt...', type: 'error', timeout: 5000 });
@@ -112,7 +109,6 @@
                 showModal = false;
                 addToast({ message: 'Met succes verwijderd!', type: 'success', timeout: 5000 });
                 allItems = res.body
-                console.log(allItems)
                 search.value = '';
             }
         }
@@ -123,7 +119,6 @@
         slider = document.getElementById("myRange");
         if (slider.value < 100) {
             slider.value = 0;
-            console.log(slider.value);
         }
     }
 
@@ -134,7 +129,6 @@
         activeForm = '';
         searchValue = '';
         showForm = false;
-        console.log(activeForm)
         addToast({ message: 'Met succes toegevoegd!', type: 'success', timeout: 5000 });
     }
 
@@ -146,13 +140,11 @@
         searchValue = '';
         showForm = false;
         addToast({ message: 'Met succes toegevoegd!', type: 'success', timeout: 5000 });
-        console.log(activeForm)
     }
 
     // We vangen de data op van de userform uit de component
     function userFormSubmit(res) {
         const response = res.detail;
-        console.log(response)
         allItems = [...response.body.users, ...sponsors, ...products];
         activeForm = '';
         searchValue = '';

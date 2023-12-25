@@ -4,7 +4,6 @@ import { prisma } from "$lib/server/prisma";
 export async function POST({ request }) {
 
     const { user, role } = await request.json();
-    console.log(role)
     try {
         await prisma.user.update({
             where: {

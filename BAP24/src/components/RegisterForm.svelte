@@ -20,8 +20,6 @@ async function handleSubmit(event) {
     let password = (myForm?.querySelector('[name="password"]') as HTMLInputElement)?.value;
     let confirmPassword = (myForm?.querySelector('[name="requirePassword"]') as HTMLInputElement)?.value;
 
-    console.log(name, email, password, confirmPassword)
-
     // Controleer of alle velden zijn ingevuld
     if (!name || !email || !password || !confirmPassword) {
         dispatch('registerError', "Vul alle velden in");
@@ -60,7 +58,6 @@ async function handleSubmit(event) {
     });
 
     const res = await response.json();
-    console.log(res)
     dispatch('registerFormSubmitted', res);
 }
 

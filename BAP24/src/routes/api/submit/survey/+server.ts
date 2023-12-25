@@ -20,7 +20,6 @@ export async function POST({ request }) {
                 })
             )
         );
-        console.log("Vragen opgeslagen")
 
         await prisma.enquete.update({
             where: {
