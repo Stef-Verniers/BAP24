@@ -3,7 +3,7 @@ import { enhance } from "$app/forms";
 import { onMount, tick } from "svelte";
 import { createEventDispatcher } from "svelte";
 import type { PageData } from "../routes/$types";
-export let selectedItem: PageData & { sponsors: any[], rewards: any[] }
+export let selectedItem: PageData & { sponsors: any[], rewards: any[], admin }
 export let data: PageData
 
     const dispatch = createEventDispatcher();
