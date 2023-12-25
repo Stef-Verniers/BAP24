@@ -1,7 +1,5 @@
 <script>
   import { navigating } from "$app/stores";
-  import "../app.pcss";
-  console.log("Hello from %2Blayout.svelte");
   import { SyncLoader } from "svelte-loading-spinners";
 
 </script>

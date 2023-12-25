@@ -28,7 +28,7 @@
             <p>Gedaan met hopeloos zitten wachten op mensen die je enquête willen invullen. Publiceer je enquête en onze gebruikers doen de rest.</p>
         </div>
         <div class="section-image">
-            <Image name='home1.jpg' radius=30px/>
+            <Image name='home1.png' radius=30px/>
         </div>
     </section>
 
@@ -38,7 +38,7 @@
             <p>Het publiceren van een enquête bedraagt slechts 10 euro. Met deze prijs worden onze kosten en uiteraard de sponsors vergoed die hun diensten aanbieden ten goede van ons product.</p>
         </div>
         <div class="section-image">
-            <Image name='home3.jpg' radius=30px/>
+            <Image name='home3.png' radius=30px/>
         </div>
     </section>
     
@@ -48,7 +48,7 @@
             <p>Geregistreerde gebruikers kunnen alle enquêtes invullen die bij hun profiel past. Hoe meer enquêtes ingevuld worden, hoe meer credits er te rapen vallen. Met die credits kan je terecht bij erkende sponsors.</p>
         </div>
         <div class="section-image">
-            <Image name='home2.jpg' radius=30px/>
+            <Image name='home2.png' radius=30px/>
         </div>
     </section>
 

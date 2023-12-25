@@ -67,13 +67,10 @@
         .disclaimer {
             margin-top: 2rem;
         }
-        .footer-container, .footer-container-regular {
+        .footer-container {
             width: calc(90% - 80px );
             margin: auto;
             height: auto;
-        }
-        .footer-container-regular {
-            padding-top: 5vh;
         }
     }
     @media (min-width: 1250px) {
