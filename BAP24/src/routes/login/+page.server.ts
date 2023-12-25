@@ -6,18 +6,18 @@ import type { Actions, PageServerLoad } from "./$types";
 let session;
 
 export const load: PageServerLoad = async ({ locals }) => {
+	// Validatie van de sessie
 	const session = await locals.auth.validate();
-	// if (session) throw redirect(302, "/");
-	return {  };
+	if (session) throw redirect(302, "/dashboard");
 };
-
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
+		// We vragen de data op van de request
 		const formData = await request.formData();
 		const email = formData.get("email");
 		const password = formData.get("password");
-		// basic check
+		// Formvalidatie op serverside niveau
 		if (
 			typeof email !== "string" ||
 			email.length < 4 ||
@@ -37,7 +37,6 @@ export const actions: Actions = {
 			});
 		}
 		try {
-			// Perform login operations
 			const key = await auth.useKey(
 			  "email",
 			  email.toLowerCase(),
@@ -47,32 +46,26 @@ export const actions: Actions = {
 			  userId: key.userId,
 			  attributes: {},
 			});
-			locals.auth.setSession(session); // set session cookid
+			locals.auth.setSession(session);
 		  } catch (e) {
 			if (
 			  e instanceof LuciaError &&
 			  (e.message === "AUTH_INVALID_KEY_ID" ||
 				e.message === "AUTH_INVALID_PASSWORD")
 			) {
-			  // handle invalid credentials error
+			  
 			  return fail(400, {
 				message: "Incorrect username or password",
 				type: "error",
 			  });
 			} else {
-			  // handle other errors
+			 
 			  return fail(500, {
 				message: "An unknown error occurred",
 				type: "error",
 			  });
 			}
 		}
-
-		const user = await auth.getUser(session.user.userId)
-		if (!user.wizard) {
-			throw redirect(302, "/interestcheck")
-		}
-		
-	throw redirect(302, "/");
+	throw redirect(302, "/dashboard");
 	}
 };

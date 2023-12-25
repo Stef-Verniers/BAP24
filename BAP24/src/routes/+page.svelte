@@ -6,7 +6,6 @@
     import Image from '/src/components/Image.svelte';
     import type { PageData } from './$types';
     export let data: PageData;
-    let innerWidth = 0;
 </script>
 
 <Header {data} />
@@ -16,9 +15,10 @@
         <div class="section-text">
             <h1>Een platform met een échte bijdrage</h1>
             <p>Welkom op BAP24, een platform gericht naar studenten die hulp nodig hebben bij het zoeken naar deelnemers van jouw thesis.</p>
+            <button class="cta-button"><a href="/register">Registreer je meteen!</a></button>
         </div>
         <div class="section-image hero-image">
-            <Image name='hero_full.png'/>
+            <Image name='hero2.png' shadow=false/>
         </div>
     </section>
 
@@ -31,6 +31,16 @@
             <Image name='home1.jpg' radius=30px/>
         </div>
     </section>
+
+    <section class="section">
+        <div class="section-text">
+            <h2>Dé academische oplossing tegen een lage prijs</h2>
+            <p>Het publiceren van een enquête bedraagt slechts 10 euro. Met deze prijs worden onze kosten en uiteraard de sponsors vergoed die hun diensten aanbieden ten goede van ons product.</p>
+        </div>
+        <div class="section-image">
+            <Image name='home3.jpg' radius=30px/>
+        </div>
+    </section>
     
     <section class="section">
         <div class="section-text">
@@ -39,16 +49,6 @@
         </div>
         <div class="section-image">
             <Image name='home2.jpg' radius=30px/>
-        </div>
-    </section>
-    
-    <section class="section">
-        <div class="section-text">
-            <h2>Dé academische oplossing tegen een lage prijs</h2>
-            <p>Het publiceren van een enquête bedraagt slechts 10 euro. Met deze prijs worden onze kosten en uiteraard de sponsors vergoed die hun diensten aanbieden ten goede van ons product.</p>
-        </div>
-        <div class="section-image">
-            <Image name='home3.jpg' radius=30px/>
         </div>
     </section>
 
@@ -66,7 +66,8 @@
 <style>
     main {
         overflow: hidden;    
-        background-color: hsl(167, 46, 98)    
+        background-color: hsl(167, 46, 98);
+        margin-top: -1rem;    
     }
     section {
         width: calc(100% - 50px);
@@ -75,10 +76,11 @@
         padding-bottom: 50px;
     }
     h1 {
-        font-size: 34px;
+        font-size: 1.8rem;
         font-weight: bold;
         color: rgb(91, 194, 172);
-        width: 90%;
+        width: 100%;
+        line-height: calc(1.8rem * 1.3);
     }
     h2 {
         font-size: 30px;
@@ -93,9 +95,9 @@
         margin-bottom: 8px;
     }
     p {
-        font-size: 16px;
-        color: rgb(111, 190, 173);
-        line-height: 160%;
+        font-size: 0.9rem;
+        color: rgb(32, 32, 32);
+        line-height: calc(0.9rem * 1.3);
     }
     .section-text {
         margin-bottom: 30px;
@@ -115,9 +117,11 @@
         align-items: center;
         display: flex;
         justify-content: center;
-        width: 100%;
-        bottom: 0%;
+        width: 64%;
+        bottom: 0px;
+        right: 2.5rem;
         margin-bottom: 0px;
+        box-shadow: none;
     }
     .hero > .section-text {
         padding-top: 3vh;
@@ -132,13 +136,31 @@
         cursor: pointer;
         text-decoration: none;
     }
-
+    .cta-button {
+        width: 20rem;
+        height: 3.5rem;
+        border: none;
+        background-color: #ff6a4c;
+        color: white;
+        padding: 0;
+        font-weight: 600;
+        border-radius: 8px;
+        padding-inline: 1rem;
+        margin-top: 1rem;
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+    }
+    .cta-button > a {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 1.3rem;
+    }
     
     @media (min-width: 768px) {
         main {
             width: calc(100vw - 17px);
+            margin-top: -4rem;
         }
-
         section {
             width: 90%;
             margin: 0 auto;
@@ -146,6 +168,7 @@
         }
 
         h1 {
+            margin-top: 3vh;
             font-size: 46px;
             width: 80%;
             line-height: 110%;
@@ -164,7 +187,7 @@
         p {
             font-size: 18px;
             line-height: 140%;
-            width: 70%;
+            width: 90%;
         }
 
         .hero > .section-text > p {
@@ -181,18 +204,18 @@
         .section-image {
             margin-top: 40px;
             margin-bottom: 20px;
-            width: 80%;
-            margin-right: 0;
+            width: 100%;
+            margin-left: 0;
+            height: fit-content;
         }
 
-        /* Probeer hero image te vergroten en tekst moet ook groter */
         .hero {
             height: calc(100vh - 16vh);
             margin-bottom: 5vh;
         }
 
         .hero-image {
-            width: 70%;
+            width: 59%;
             margin-left: auto;
             right: 0;
         }
@@ -214,14 +237,14 @@
             width: 80%;
         }
         .section-text {
-            width: 100%;
+            width: 50%;
             margin: 0;
         }
         .section-text > p {
-            width: 80%;
+            width: 100%;
         }
         .section-image {
-            width: 50%;
+            width: 80%;
         }
         .hero {
             flex-direction: column;
@@ -238,22 +261,22 @@
         }
         section {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        section:nth-child(3) {
             flex-direction: row-reverse;
+            align-items: center;
             justify-content: space-between;
         }
-        section:nth-child(3) > .section-text {
-            width: 60%;
-            display: flex;
-            justify-content: end;
-            flex-direction: column;
-            align-items: end;
+        section h2 {
+            line-height: calc(1.6rem * 1.4);
+        }
+        section > .section-image {
+            width: 40%;
+        }
+        section:nth-child(3) {
+            flex-direction: row;
+            justify-content: space-between;
         }
         section:nth-child(3) > .section-image {
-            width: 50%;
+            margin-right: 0;
         }
         .cta {
             flex-direction: column;
@@ -311,12 +334,14 @@
         }
         .hero > .section-text > h1 {
             width: 40%;
+            margin-top: 15vh;
         }
         .hero > .section-text > p {
             width: 50%;
         }
         .hero-image {
             right: 10%;
+            width: 40%;
         }
         .cta {
             padding: 80px 10px;

@@ -1,168 +1,91 @@
 <script>
-    // @ts-ignore
-    import Logo from "/src/components/Logo.svelte";
-    import { enhance } from "$app/forms";
-    export let form;
-    import Toasts from "../../components/Toasts.svelte";
-    import { addToast } from "../../stores";
-    import { tick } from "svelte";
-  </script>
+  import Toasts from '../../components/Toasts.svelte';
+  import { addToast, navigateTo } from '../../stores';
+  import Logo from '../../components/Logo.svelte';
+  import RegisterForm from '../../components/RegisterForm.svelte';
 
-  <Toasts />
-  
-  <main>
-    <div class="logo">
-      <div class="image-container">
-        <Logo width=10rem/>
-      </div>
+  // We wachten op onze component voor een response
+  async function showError(response) {
+    const message = await response.detail;
+    console.log(message);
+    addToast({message: message, type: 'error', timeout: 5000});
+  }
+
+  // Eens we een response hebben, gaan we kijken of het een succes was of niet
+  async function handleResponse(response) {
+    const message = await response.detail;
+    console.log(message);
+    if (!message.success) {
+      addToast({message: message.message, type: 'error', timeout: 5000});
+      return;      
+    }
+    localStorage.setItem("toast", JSON.stringify({ message: message.message, type: 'success', timeout: 5000 }));
+    navigateTo('/additional');
+  }
+
+</script>
+
+<Toasts />
+
+<main>
+  <div class="logo">
+    <div class="image-container">
+      <Logo width=10rem/>
     </div>
-    <div class="container">
-      <form method="post" use:enhance={() => async ({ update }) => {
-        await update();
-        await tick();
-        if (form)
-          addToast({ message: form?.message, type: form?.type, timeout: 5000 });
-    }}>
+  </div>
+  <div class="container">
+    <div class="wrapper">
+      <div class="title">
         <h1>Registreer je nu!</h1>
-        
-        <label for="name">Voor + achternaam</label>
-            <input type="text" name="name" required />
-
-        <label for="email">Email</label>
-            <input type="email" name="email" required />
-
-        <label for="password">Wachtwoord</label>
-            <input type="password" name="password" required />
-
-        <label for="password">Bevestig wachtwoord</label>
-            <input type="password" name="requirePassword" required />
-      
-        <button type="submit">Register</button>
-
-        <p>Heb je al een account?<a href="/login">Log je hier in!</a></p>
-      </form>
+      </div>
+        <RegisterForm  on:registerError={showError} on:registerFormSubmitted={handleResponse}/>
     </div>
-  </main>
-  
-  <style>
-      :global(.touched:invalid) {
-          border-color: #FF360D;
-          outline-color: #FF360D;
-      }
-      .logo{
-        height: calc(20%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      main {
-        width: 100vw;
-        height: 100vh;
-        background-color: rgb(240, 249, 247);
-        position: relative;
-      }
-      .container {
-        position: absolute;
-        bottom: 0;
-        border-radius: 20px 20px 0 0;
-        width: 100%;
-        height: 80%;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(91, 194, 172);
-      }
-      form {
-        min-height: 30%;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 2vh;
-        width: 70%;
-      }
-      form > h1, form > input {
-        margin-bottom: 30px;
-        width: 100%;
-      }
-      form > h1 {
-        font-size: 2rem;
-        color: white;
-        font-weight: bold;
-        margin-bottom: 60px;
-        text-align: center;
-      }
-      input {
-        padding: 0px;
-        border-radius: 25px;
-        width: 15rem;
-        height: 2.2rem;
-        border: none;
-        background-color: hsl(167 46% 38% / 1);
-        color: white;
-        text-indent: 1rem;
-        font-size: 0.9rem;
-      }
-      label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: white;
-        text-indent: 0.5rem;
-        margin-bottom: 3px;
-      }
-      button {
-        border-radius: 25px;
-        width: 100%;
-        height: 2.5rem;
-        border: none;
-        background-color: #ff6a4c;
-        color: white;
-        padding: 0;
-        margin-top: 15px;
-      }
-      p {
-        font-size: 0.8rem;
-        text-align: center;
-        margin-top: 2rem;
-      }
-      p > a {
-        text-decoration: none;
-        color: #ce2c0b;
-        margin-left: 0.3rem;
-        font-weight: 500;
-      }
+  </div>
+</main>
 
-      @media (min-width: 768px) {
-        form > h1 {
-          font-size: 2rem;
-          color: white;
-          font-weight: bold;
-          margin-bottom: 7vh;
-      }
-        .logo{
-            height: 20%;
-        }
-        .container {
-          width: 100%;
-          height: 80%;
-        }
-        .container > form {
-          width: fit-content;
-          margin: auto;
-          align-items: center;
-        }
-        input,label, button {
-          width: 25rem;
-        }
-        form > input {
-          margin-bottom: 2rem;
-        }
-        button {
-          margin-top: 1rem;
-        }
-      }
-      @media (min-width: 1025px) {}
-      @media (min-width: 1250px) {}
+<style>
+  .logo{
+      height: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  main {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(240, 249, 247);
+      position: relative;
+    }
+  .wrapper {
+      width: 80%;
+      height: calc(100% - 4rem);
+      margin: 2rem auto;
+  }
+  .title {
+      color: white;
+      height: 20%;
+      text-align: center;
+  }
+  .title > h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      padding-top: 1rem
+  }
+  .container {
+      position: absolute;
+      bottom: 0;
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      height: 80%;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      background-color: hsl(167 46% 38% / 1);
+  }
+    @media (min-width: 1025px) {}
+    @media (min-width: 1250px) {}
 
 
   </style>

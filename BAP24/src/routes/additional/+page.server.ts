@@ -1,55 +1,63 @@
-import { goto } from "$app/navigation";
 import { auth } from "$lib/server/lucia";
 import type { PageServerLoad,Actions } from './$types.js';
 import { redirect } from "@sveltejs/kit";
-import { PrismaClient } from "@prisma/client";
 import { prisma } from "$lib/server/prisma.js";
-import { generateKey } from "crypto";
-import { parse } from "path";
-
-// const prisma = new PrismaClient()
-
 
 export const load: PageServerLoad = async ({ locals }) => {
-    // if (!session) 
-    //     throw redirect(302, '/')
+    // Validatie van de sessie
 	session = await locals.auth.validate();
+    if (!session) {
+        throw redirect(302, "/");
+    }
+    // Haal de gebruiker op
     const user = await auth.getUser(session.user.userId)
-    //  if (user.additional === true) 
-    //       throw redirect(302, "/dashboard");
-	return {};
+    // Heeft de gebuiker al extra informatie gegeven? Dan redirecten we naar het dashboard
+    if (user.additional) {
+        throw redirect(302, "/dashboard");
+    }
+    // We halen alle informatie op die we nodig hebben
+    const age = await prisma.ageCategory.findMany();
+    const getDepartment = await prisma.department.findMany();
+    const schools = await prisma.institute.findMany();
+    const nationalitiesResponse = await fetch('https://restcountries.com/v3.1/all')
+    const nationalities = await nationalitiesResponse.json();
+    const occupied = await prisma.occupation.findMany();
+    const sexGender = await prisma.sex.findMany();
+    return {
+        user,
+        age: age,
+        department: getDepartment,
+        schools: schools,
+        nationalities: nationalities,
+        occupation: occupied,
+        sex: sexGender,
+    }
 };
 
 let session;
 let user;
 
 export const actions: Actions = {
+    // We slaan de opgegegeven data op in de database
 	default: async ({ request, locals }) => {
         const data = await request.formData();
         const userId = session.user.userId
-
-        let age: number | null = null
-        let getAge = data.get('age')
-        age = Number(getAge)
-
-        let birthplace = data.get('birthplace')
-        let domestic = data.get('domestic')
-        let religion = data.get('religion')
-        let sex = data.get('sex')
-        let study = data.get('study')
+        let audienceId = Number(data.get('age'))
+        let nationality = data.get('nationality') as string
+        let sexId = Number(data.get('sex'))
+        let occupationId = Number(data.get('occupation'))
+        let departmentId = Number(data.get('department'))
         try {
             await prisma.additional_Information.create({
                 data: {
-                    age,
-                    birthplace,
-                    domestic,
-                    religion,
-                    sex,
-                    study,
-                    userId
+                    userId: session.user.userId,
+                    audienceId,
+                    nationality,
+                    sexId,
+                    occupationId,
+                    departmentId,
                 }
             })
-
             user = await auth.updateUserAttributes(session.user.userId, {
                 additional: true
             });
@@ -59,10 +67,8 @@ export const actions: Actions = {
                 attributes: {}
             });
         locals.auth.setSession(session);
-            console.log('great succes')
-            throw redirect(308, '/dashboard')
         } catch (e) {
-            console.log(e)
+            console.error(e)
         }
 	}
 } satisfies Actions;

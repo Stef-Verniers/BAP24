@@ -14,10 +14,21 @@ export const auth = lucia({
         return {
             username: data.username,
             email: data.email,
-            wizard: data.wizard,
-            additional: data.additional
+            additional: data.additional,
+            credits: data.credits,
+            admin: data.admin,
+            sponsor: data.sponsor
         }
     },
 });
+
+interface UserSchema {
+    username: string;
+    email: string;
+    additional: string;
+    credits: number;
+    admin: boolean;
+    sponsor: boolean;
+}
 
 export type Auth = typeof auth;
