@@ -17,14 +17,28 @@
   
   <style lang="postcss">
     section {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      width: fit-content;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 1000;
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        width: 80vw;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 1000;
+        transform: translateX(-50%);
+    }
+    @media (min-width: 768px) {
+      section {
+        transform: translateX(0);
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 1000;
+    }
     }
   </style>
   

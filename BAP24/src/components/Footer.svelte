@@ -1,66 +1,85 @@
 <script>
     import Logo from "./Logo.svelte";
+    import { onMount } from "svelte";
+
+    let homepage;
+
+    onMount(() => {
+        homepage = window.location.pathname === "/";
+        console.log(homepage)
+    });
+
+    $: homepage
+
+
 </script>
 
-<footer>
-    <div class="footer-container">
-        <div class="logo">
-            <Logo width=180px />
+{#if homepage}
+    <footer class="homepage">
+        <div class="footer-container">
+            <div class="logo">
+                <Logo width=180px />
+            </div>
+            <div class="disclaimer">
+                <span>&copy; BAP24 | Arteveldehogeschool 2023 - 2024</span>
+            </div>
         </div>
-        <div class="navigation">
-            <ul>
-                <li><a href="google.com">Link 1</a></li>
-                <li><a href="google.com">Link 2</a></li>
-                <li><a href="google.com">Link 3</a></li>
-            </ul>
+    </footer>	
+{:else}
+    <footer class="regularpage">
+        <div class="footer-container">
+            <div class="logo">
+                <Logo width=180px />
+            </div>
+            <div class="disclaimer">
+                <span>&copy; BAP24 | Arteveldehogeschool 2023 - 2024</span>
+            </div>
         </div>
-        <div class="disclaimer">
-            <span>&copy; BAP24 | Arteveldehogeschool 2023 - 2024</span>
-        </div>
-    </div>
-</footer>
+    </footer>
+{/if}
 
 <style>
     footer {
-        width: calc(100vw - 50px);
-        height: 30vh;
+        height: auto;
         padding: 50px 25px;
-        background-color: rgb(111, 190, 173);
+        background-color: hsl(167 46% 38% / 1);
         overflow: hidden;
     }
+    .regularpage {
+        background-color: hsl(167 46% 38% / 1);
+        padding: 3rem 25px;
+    }
     .footer-container > * {
-        margin-bottom: 4vh;
-    }
-    .navigation > ul {
-        display: flex;
-        flex-direction: column;
-        margin: 7vh 0;
-    }
-    .navigation > ul > li {
-        margin-bottom: 16px;
-    }
-    .navigation > ul > li > a {
-        color: white;
-        text-decoration: none;
+        padding: 0.5rem 0;
     }
     .disclaimer > span {
         font-size: 12px;
         color: rgb(233, 233, 233);
-        margin-top: 3vh;
+        margin-top: 2rem;
     }
     @media (min-width: 1025px) {
         footer {
             position: absolute;
-            padding-top: 20vh;
+            padding-top: 15vh;
             z-index: 1;
+            width: 100%;
         }
-        .footer-container {
+        .disclaimer {
+            margin-top: 2rem;
+        }
+        .footer-container, .footer-container-regular {
             width: calc(90% - 80px );
             margin: auto;
             height: auto;
         }
+        .footer-container-regular {
+            padding-top: 5vh;
+        }
     }
     @media (min-width: 1250px) {
+        footer {
+            padding-top: 20vh;
+        }
         .footer-container {
             width: 70%;
             margin: auto;
