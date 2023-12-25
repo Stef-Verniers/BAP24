@@ -1,30 +1,44 @@
 {
-	"name": "bap24",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.20.4",
-		"prisma": "^5.6.0",
-		"svelte": "^4.0.5",
-		"svelte-check": "^3.4.3",
-		"vite": "^4.4.2"
-	},
-	"type": "module",
-	"dependencies": {
-		"@lucia-auth/adapter-prisma": "^3.0.2",
-		"@lucia-auth/oauth": "^3.5.0",
-		"@prisma/client": "^5.6.0",
-		"lucia": "^2.7.4",
-		"svelte-french-toast": "^1.2.0",
-		"svelte-use-form": "^2.10.0",
-		"sveltekit-flash-message": "^2.2.2"
-	}
+  "name": "bap24",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/kit": "^1.20.4",
+    "@types/node": "^20.10.5",
+    "postcss": "^8.4.32",
+    "postcss-load-config": "^5.0.2",
+    "prisma": "^5.6.0",
+    "svelte": "^4.0.5",
+    "svelte-add": "^2023.12.16-0.0",
+    "svelte-check": "^3.4.3",
+    "svelte-loading-spinners": "^0.3.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "vite": "^4.4.2"
+  },
+  "type": "module",
+  "dependencies": {
+    "@lucia-auth/adapter-prisma": "^3.0.2",
+    "@lucia-auth/oauth": "^3.5.0",
+    "@mollie/api-client": "^3.7.0",
+    "@prisma/client": "^5.6.0",
+    "@sveltejs/adapter-node": "^1.3.1",
+    "axios": "^1.6.2",
+    "charts.css": "^1.1.0",
+    "lucia": "^2.7.4",
+    "svelte-french-toast": "^1.2.0",
+    "svelte-use-form": "^2.10.0",
+    "sveltekit-flash-message": "^2.2.2"
+  },
+  "prisma": {
+    "seed": "node prisma\\seed.js"
+  }
 }

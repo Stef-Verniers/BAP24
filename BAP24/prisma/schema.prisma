@@ -14,11 +14,17 @@ model User {
   id                     String                   @id @unique
   email                  String                   @unique
   username               String
-  wizard                 Boolean                  @default(false)
   additional             Boolean                  @default(false)
+  admin                  Boolean                  @default(false)
+  sponsor                Boolean                  @default(false)
+  credits                Int                      @default(0)
   auth_session           Session[]
   key                    Key[]
   Additional_Information Additional_Information[]
+  Enquete                Enquete[]
+  EnqueteResponse        EnqueteResponse[]
+  EnqueteAnswer          EnqueteAnswer[]
+  exchangedReward        exchangedReward[]
 }
 
 model Session {
@@ -40,14 +46,167 @@ model Key {
   @@index([user_id])
 }
 
+model Sponsor {
+  id        Int       @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  owner     String
+  url       String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+}
+
+model Product {
+  id               Int               @id @default(autoincrement())
+  name             String
+  description      String
+  points           Int
+  sponsor          Sponsor           @relation(fields: [sponsorId], references: [id], onDelete: Cascade)
+  sponsorId        Int
+  code             String            @default(uuid())
+  isUsed           Boolean           @default(false)
+  rewardCategoryId Int
+  category         RewardCategories  @relation(fields: [rewardCategoryId], references: [id])
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  exchangedReward  exchangedReward[]
+}
+
+model AgeCategory {
+  id                     Int                      @id @default(autoincrement())
+  category               String
+  enquetes               Enquete[]
+  Additional_Information Additional_Information[]
+}
+
+model Sex {
+  id                     Int                      @id @default(autoincrement())
+  sex                    String
+  enquetes               Enquete[]
+  Additional_Information Additional_Information[]
+}
+
+model Occupation {
+  id                     Int                      @id @default(autoincrement())
+  occupation             String
+  enquetes               Enquete[]
+  Additional_Information Additional_Information[]
+}
+
+model Department {
+  id                     Int                      @id @default(autoincrement())
+  department             String
+  enquetes               Enquete[]
+  Additional_Information Additional_Information[]
+}
+
+model Institute {
+  id      Int       @id @default(autoincrement())
+  school  String
+  Enquete Enquete[]
+}
+
+model RewardCategories {
+  id       Int       @id @default(autoincrement())
+  category String
+  Products Product[] // Relatie naar Producten
+}
+
 model Additional_Information {
-  id         Int    @id @default(autoincrement())
-  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           Int          @id @default(autoincrement())
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String       @unique
+  audienceId   Int?
+  nationality  String
+  sexId        Int?
+  occupationId Int?
+  departmentId Int?
+  audience     AgeCategory? @relation(fields: [audienceId], references: [id])
+  sex          Sex?         @relation(fields: [sexId], references: [id])
+  occupation   Occupation?  @relation(fields: [occupationId], references: [id])
+  department   Department?  @relation(fields: [departmentId], references: [id])
+}
+
+model Enquete {
+  id              Int               @id @default(autoincrement())
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String            @unique
+  title           String
+  explanation     String            @db.LongText
+  deadline        DateTime
+  quota           Int
+  respondents     Int               @default(0)
+  audienceId      Int?
+  nationality     String
+  sexId           Int?
+  occupationId    Int?
+  instituteId     Int?
+  departmentId    Int?
+  audience        AgeCategory?      @relation(fields: [audienceId], references: [id])
+  sex             Sex?              @relation(fields: [sexId], references: [id])
+  occupation      Occupation?       @relation(fields: [occupationId], references: [id])
+  institute       Institute?        @relation(fields: [instituteId], references: [id])
+  department      Department?       @relation(fields: [departmentId], references: [id])
+  isVisible       Boolean           @default(true)
+  isCreated       Boolean           @default(false)
+  isPaid          Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  EnqueteResponse EnqueteResponse[]
+  EnqueteQuestion EnqueteQuestion[]
+  EnqueteAnswer   EnqueteAnswer[]
+}
+
+model EnqueteQuestion {
+  id        Int             @id @default(autoincrement())
+  enqueteId Int
+  enquete   Enquete         @relation(fields: [enqueteId], references: [id], onDelete: Cascade)
+  text      String
+  type      String // Bijvoorbeeld 'open' of 'meerkeuze'
+  options   EnqueteOption[] // Alleen als het een meerkeuzevraag is
+  answers   EnqueteAnswer[] // Antwoorden op deze specifieke vraag
+}
+
+model EnqueteOption {
+  id         Int             @id @default(autoincrement())
+  questionId Int
+  question   EnqueteQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  text       String
+}
+
+model EnqueteAnswer {
+  id         Int             @id @default(autoincrement())
+  enqueteId  Int
+  enquete    Enquete         @relation(fields: [enqueteId], references: [id], onDelete: Cascade)
+  questionId Int
+  question   EnqueteQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
   userId     String
-  age        Int
-  birthplace String
-  domestic   String
-  sex        String
-  religion   String
-  study      String
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  response   String          @db.LongText
+}
+
+model EnqueteResponse {
+  id        Int       @id @default(autoincrement())
+  enquete   Enquete   @relation(fields: [enqueteId], references: [id], onDelete: Cascade)
+  enqueteId Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  completed Boolean   @default(false)
+  time      String
+  startTime DateTime? // Tijd waarop de gebruiker begint met het invullen van de enquête
+  endTime   DateTime? // Tijd waarop de gebruiker de enquête voltooit
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model exchangedReward {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
