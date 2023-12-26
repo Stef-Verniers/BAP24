@@ -86,7 +86,7 @@ async function handleSubmit(event) {
 
   <style>
     form {
-      height: 70%;
+      height: auto;
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -126,12 +126,13 @@ async function handleSubmit(event) {
         padding: 0;
         font-weight: 600;
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+        margin-top: 1rem;
     }
     button:hover {
         cursor: pointer;
     }
     p {
-        font-size: 0.8rem;
+        font-size: 0.7rem !important;
         text-align: center;
         margin-top: 1rem;
         color: white

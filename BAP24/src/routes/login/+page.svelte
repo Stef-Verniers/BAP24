@@ -114,7 +114,7 @@
         background-color: hsl(167 46% 38% / 1);
     }
     form {
-        height: 70%;
+        height: auto;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -159,7 +159,7 @@
         cursor: pointer;
     }
     p {
-      font-size: 0.8rem;
+      font-size: 0.7rem !important;
       text-align: center;
       margin-top: 1rem;
       color: white
