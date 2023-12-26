@@ -15,6 +15,13 @@ export async function POST({ request }) {
     if (!user) {
         return json({ error: "User not found" }, { status: 404 });
     }
+    const product = await prisma.product.findUnique({
+        where: {
+            id: id
+        }
+    })
+    console.log(product)
+    console.log(user)
     try {
         if(user.credits >= credits) {
             await prisma.user.update({
@@ -33,6 +40,7 @@ export async function POST({ request }) {
             data: {
                 userId: userId,
                 productId: id,
+                sponsorId: product?.sponsorId
             }
         })
         return json({ message: 'Aanvraag verwerkt', body: id, status: 200} );
