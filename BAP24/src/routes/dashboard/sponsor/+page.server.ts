@@ -39,17 +39,17 @@ export const load: PageServerLoad = async ({ locals }) => {
         }
     })
 
-    // We halen alle verzilverde producten op die bij ons ingeruild zijn
     const exchangedProducts = await prisma.exchangedReward.findMany({
-        where: {
-            sponsorId : sponsor?.id,
-        },
-            include: {
-                user: true,
-                product: true
+        include: {
+            user: true,
+            product: {
+                include: {
+                    sponsor: true // Voegt de sponsor informatie toe
+                }
             }
-    })
-    console.log(exchangedProducts)
+        }
+    });
+
     // We halen de verschillende productcategorieën op
     const rewards = await prisma.rewardCategories.findMany({});
     return {

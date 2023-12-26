@@ -25,9 +25,14 @@ export const load: PageServerLoad = async ({ locals }) => {
 		  category: true,
 		}
 	});
+	console.log(products)
 	// We halen alle categorieën van producten op
 	const categories = await prisma.rewardCategories.findMany();
+	// We nemen de producten die de ingelogde gebruiker al heeft ingewisseld
 	const exchangedRewards = await prisma.exchangedReward.findMany({
+		where: {
+			userId: session?.user.userId
+		},
 		include: {
 			user: true,
 			product: {

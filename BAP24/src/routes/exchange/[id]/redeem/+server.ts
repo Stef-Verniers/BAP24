@@ -4,7 +4,7 @@ import { prisma } from "$lib/server/prisma.js";
 // Post functie om een reward te claimen
 export async function POST({ request }) {
     // We destructuren de data uit het request object
-    const { userId, id, credits } = await request.json();
+    const { userId, id, credits, sponsorId } = await request.json();
     // We halen de gebruiker op uit de database
     const user = await prisma.user.findUnique({
         where: {
@@ -37,7 +37,6 @@ export async function POST({ request }) {
             data: {
                 userId: userId,
                 productId: id,
-                sponsorId: product.sponsorId,
             }
         })
         return json({ message: 'Aanvraag verwerkt', body: id, status: 200} );

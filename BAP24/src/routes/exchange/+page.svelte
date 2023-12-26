@@ -33,10 +33,12 @@
     onMount(() => {
         allItems = data.products;
         myCategories = data.category;
+        
         filterBar = document.getElementById('filter') as HTMLSelectElement;
         filtered = allItems
             .filter(item => !exchangedIds.includes(item.id))
             .sort((a, b) => a.points - b.points);
+        excludeExchangedProducts(allItems, exchangedIds)
     })
     
     // We filteren producten op basis van de categorie
@@ -48,6 +50,7 @@
 
     // Met deze functie filteren we de reeds ingewisselde producten uit de lijst
     function excludeExchangedProducts(items, exchangedIds) {
+        console.log(items, exchangedIds)
         return items.filter(item => !exchangedIds.includes(item.id));
     }
 
@@ -67,6 +70,7 @@
     // We bevestigen dat we dit product willen verzilveren
     async function confirmSelection(selectedCoupon) {
         isLoading = true;
+        console.log(selectedCoupon)
         const response = await fetch(`/exchange/${selectedCoupon}/redeem`, {
             method: "POST",
             headers: {
@@ -75,7 +79,8 @@
             body: JSON.stringify({
                 id: selectedCoupon.id,
                 userId: data.userId,
-                credits: selectedCoupon.points
+                credits: selectedCoupon.points,
+                sponsorId: selectedCoupon.sponsor.id,
             })
         });
         const code = await response.json();
