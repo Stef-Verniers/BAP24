@@ -82,9 +82,9 @@
 
     // We sluiten het formulier
     function closeForm() {
-        activeForm = '';
         productForm.style.background = 'hsl(167 46% 38% / 1)';
         sponsorForm.style.background = 'hsl(167 46% 38% / 1)';
+        activeForm = '';
     }
 
     // We verwijderen een item door de slider te verslepen
@@ -158,6 +158,8 @@
         allItems = [...response.body.users, ...sponsors, ...products, ...surveys];
         activeForm = '';
         searchValue = '';
+        productForm.style.background = 'hsl(167 46% 38% / 1)';
+        sponsorForm.style.background = 'hsl(167 46% 38% / 1)';
         showForm = false;
         results = []
         addToast({ message: response.message, type: 'success', timeout: 5000 });

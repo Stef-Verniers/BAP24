@@ -5,14 +5,13 @@
     import type { PageData } from "../routes/$types";
     export let data: PageData & { sponsors: any[], rewards: any[] };
 
-    const { rewards, sponsor } = data;
+    const { rewards, sponsor, sponsors } = data;
     const dispatch = createEventDispatcher();
 
-    console.log(sponsor)
 
-    let myForm;
+    let myProductForm;
     onMount(() => {
-        myForm = document.getElementById('myForm');
+        myProductForm = document.getElementById('myProductForm');
     });
     
     // We voegen een nieuwe product toe aan de database
@@ -20,18 +19,19 @@
 
         event.preventDefault();
         const form = event.target
-
+        console.log(myProductForm)
+        console.log(myProductForm.description.value)
         const response = await fetch('/dashboard/admin/create/product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: myForm.name.value,
-                description: myForm.description.value,
-                points: myForm.points.value,
-                sponsor: myForm.sponsor?.value || sponsor.id,
-                category: myForm.category.value
+                name: myProductForm.name.value,
+                description: myProductForm.description.value,
+                points: myProductForm.points.value,
+                sponsor: myProductForm.sponsor?.value || sponsor.id,
+                category: myProductForm.category.value
             })
         });
 
@@ -50,7 +50,7 @@
 
 </script>
 
-<form method="post" on:submit={handleSubmit} id="myForm" action="/dashboard/admin/create/product" use:enhance={() => async ({ update }) => {
+<form method="post" on:submit={handleSubmit} id="myProductForm" action="/dashboard/admin/create/product" use:enhance={() => async ({ update }) => {
     await update();
     await tick();
 }}>
@@ -63,7 +63,7 @@
     <label for="points">Aantal punten</label>
     <input type="number" id="points" name="points" placeholder="20" required />
 
-    {#if !data.user.sponsor}
+    {#if !data?.user.sponsor}
         <label for="sponsor">Voor welke sponsor?</label>
         <select name="sponsor" id="sponsor">
             <option disabled selected>Kies een sponsor</option>

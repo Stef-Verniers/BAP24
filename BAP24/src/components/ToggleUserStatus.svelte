@@ -46,7 +46,11 @@ export let data: PageData
     <label class="switch" for="role">Gebruikersrol voor {selectedItem.username}</label>
     <select class="role__select" name="role">
         <option value="user">Algemene gebruiker</option>
+        {#if selectedItem.sponsor}
+            <option value="sponsor" selected>Sponsor</option>
+        {:else }
         <option value="sponsor">Sponsor</option>
+        {/if}
         {#if selectedItem.admin}
             <option value="admin" selected>Administrator</option>
         {:else }
