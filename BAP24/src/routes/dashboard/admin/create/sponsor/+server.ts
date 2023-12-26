@@ -10,10 +10,18 @@ export async function POST({ request }) {
                 name: name,
                 address: address,
                 city: city,
-                owner: owner,
+                ownerId: owner,
                 url: link
             }
         });
+        await prisma.user.update({
+            where: {
+                id: owner
+            },
+            data: {
+                sponsor: true
+            }
+        })
         const getUpdatedSponsors = await prisma.sponsor.findMany({});
 
         return json({ message: 'Data succesvol ontvangen', success: true, body: getUpdatedSponsors});

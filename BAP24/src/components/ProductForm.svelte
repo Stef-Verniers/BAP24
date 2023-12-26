@@ -5,8 +5,10 @@
     import type { PageData } from "../routes/$types";
     export let data: PageData & { sponsors: any[], rewards: any[] };
 
-    const { sponsors, rewards } = data;
+    const { rewards, sponsor } = data;
     const dispatch = createEventDispatcher();
+
+    console.log(sponsor)
 
     let myForm;
     onMount(() => {
@@ -17,6 +19,7 @@
     async function handleSubmit(event) {
 
         event.preventDefault();
+        const form = event.target
 
         const response = await fetch('/dashboard/admin/create/product', {
             method: 'POST',
@@ -27,12 +30,17 @@
                 name: myForm.name.value,
                 description: myForm.description.value,
                 points: myForm.points.value,
-                sponsor: myForm.sponsor.value,
+                sponsor: myForm.sponsor?.value || sponsor.id,
                 category: myForm.category.value
             })
         });
 
         const res = await response.json();
+        console.log(res)
+        if (res.success) {
+            console.log('ok')
+            form.reset();
+        }
         dispatch('productFormSubmitted', res);
     }
 
@@ -55,21 +63,23 @@
     <label for="points">Aantal punten</label>
     <input type="number" id="points" name="points" placeholder="20" required />
 
-    <label for="sponsor">Voor welke sponsor?</label>
-    <select name="sponsor" id="sponsor">
-        <option disabled selected>Kies een sponsor</option>
-        {#each sponsors as sponsor}
-            <option value={sponsor.id}>{sponsor.name}</option>
-        {/each}
-    </select>
+    {#if !data.user.sponsor}
+        <label for="sponsor">Voor welke sponsor?</label>
+        <select name="sponsor" id="sponsor">
+            <option disabled selected>Kies een sponsor</option>
+            {#each sponsors as sponsor}
+                <option value={sponsor.id}>{sponsor.name}</option>
+            {/each}
+        </select>
+    {/if}
 
     <label for="category">Tot welke categorie behoort dit?</label>
     <select name="category" id="category">
         <option disabled selected>Kies een productcategorie</option>
-        {#each rewards as prodcat}
-            <option value={prodcat.id}>{prodcat.category}</option>
+        {#each rewards as product}
+            <option value={product.id}>{product.category}</option>
         {/each}
-    </select>
+    </select> 
 
     <button type="submit">Submit</button>
 </form>
@@ -122,6 +132,7 @@
         padding: 0;
         font-weight: 600;
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+        margin-bottom: 1rem;
     }
     button:hover {
         cursor: pointer;
@@ -134,5 +145,13 @@
         text-decoration: underline;
         padding-bottom: 1px;
         margin-top: 1rem;
+    }
+    .cancel {
+        display: none;
+    }
+    @media screen and (max-width: 768px) {
+        .cancel {
+            display: block;
+        }
     }
 </style>

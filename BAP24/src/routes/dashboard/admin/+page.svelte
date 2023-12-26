@@ -164,7 +164,7 @@
         goto(`/dashboard`);
     }
 
-    // We gebruiken Sveltekits reactive declaration om de resultaten te filteren
+    // We gebruiken Sveltekits reactive declaration om het huidig gekozen item te vinden in alle items
     $: results = searchValue ? 
         allItems.filter(item => 
             (item.username || item.name || item.title).toLowerCase().includes(searchValue.toLowerCase())
@@ -195,7 +195,7 @@
     {#if showForm}
         {#if activeForm === 'sponsor'}
         <div class="form__modal">
-            <SponsorForm on:sponsorformSubmitted={sponsorFormSubmit} on:sponsorformCancelled={closeForm} />
+            <SponsorForm {data} on:sponsorformSubmitted={sponsorFormSubmit} on:sponsorformCancelled={closeForm} />
         </div>
         {:else if activeForm === 'product'}
         <div class="form__modal">
@@ -275,7 +275,7 @@
         <div class="form_content" id="sponsorForm">
             <h2>Voeg een nieuwe sponsor toe</h2>
             <div class="form__content">
-                <SponsorForm on:sponsorformSubmitted={sponsorFormSubmit} on:sponsorformCancelled={closeForm} />
+                <SponsorForm {data} on:sponsorformSubmitted={sponsorFormSubmit} on:sponsorformCancelled={closeForm} />
             </div> 
         </div>
         <div class="form_content" id="productForm">
@@ -331,13 +331,13 @@
         padding: 0.5rem 0;
         padding-bottom: 3px;
         margin-bottom: 0.5rem;
-        background-color: rgb(165, 165, 165);
+        background-color: rgb(218, 218, 218);
         min-height: 4rem;
         height: auto;
         border-radius: 5px;
     }
     .result:nth-child(odd) {
-        background-color: #e2e2e2;
+        background-color: #ececec;
     }
     .result__survey {
         font-size: 1rem;
@@ -478,11 +478,9 @@
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
         margin-top: 0.3rem;
     }
-
     .slider:hover {
         opacity: 1;
     }
-
     .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -566,7 +564,7 @@
             padding: 0.5rem 0;
             padding-bottom: 3px;
             margin-bottom: 0.5rem;
-            background-color: rgb(165, 165, 165);
+            /* background-color: rgb(212, 212, 212); */
             min-height: 4rem;
             height: auto;
             border-radius: 5px;

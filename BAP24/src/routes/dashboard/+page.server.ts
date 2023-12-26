@@ -24,6 +24,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, "/dashboard/admin");
 	}
 
+	if (user?.sponsor) {
+		throw redirect(302, "/dashboard/sponsor");
+	}
+
 	// We zoeken de enquete van de gebruiker
 	const getSurvey = await prisma.enquete.findUnique({ 
 		where: {

@@ -1,7 +1,14 @@
-<script>
+<script lang="ts">
     import { enhance } from "$app/forms";
     import { onMount, tick } from "svelte";
     import { createEventDispatcher } from "svelte";
+    import type { PageServerData } from "../routes/$types";
+    export let data;
+
+    // We halen alle gebruikers op uit de database en filteren de admins eruit
+    const { users } = data;
+    const allUsers = users.filter(user => user.admin !== true);
+    allUsers.sort((a, b) => a.username.localeCompare(b.username));
 
     const dispatch = createEventDispatcher();
 
@@ -13,6 +20,8 @@
     // We voegen een nieuwe sponsor toe aan de database
     async function handleSubmit(event) {
         event.preventDefault();
+        const form = event.target
+        console.log(myForm.owner.value)
         const response = await fetch('/dashboard/admin/create/sponsor', {
             method: 'POST',
             headers: {
@@ -26,8 +35,10 @@
                 link: myForm.link.value
             })
         });
-
         const res = await response.json();
+        if (response.ok) {
+            form.reset();
+        }
         dispatch('sponsorformSubmitted', res);
     }
 
@@ -35,12 +46,10 @@
         dispatch('sponsorformCancelled', 'test');
     }
 
-
-
 </script>
 
 <form method="post" on:submit={handleSubmit} id="myForm" action="/dashboard/admin/create/sponsor" use:enhance={() => async ({ update }) => {
-    await update();
+    await update({reset: true});
     await tick();
 }}>
     <label for="name">Naam van handelszaak</label>
@@ -53,7 +62,12 @@
     <input type="text" id="city" name="city" placeholder="Gent" required />
 
     <label for="owner">Eigenaar</label>
-    <input type="text" id="owner" name="owner" placeholder="Niels Viaene" required />
+    <select name="owner">
+        <option selected disabled>Kies een gebruiker</option>
+        {#each allUsers as user}
+            <option value={user.id}>{user.username}</option>
+        {/each}
+    </select>
 
     <label for="address">Link naar website/socials</label>
     <input type="url" id="link" name="link" placeholder="https://www.devrolijkeviking.be/" required />
@@ -79,12 +93,16 @@
         font-size: 0.8rem;
     }
 
-    input { 
+    input, select, option { 
         padding: 0.5rem;
         border-radius: 5px;
         border: 1px solid #ccc;
         margin-bottom: 2rem;
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+    }
+    p {
+        margin-top: 5px;
+        color: rgb(70, 17, 17);
     }
     button {
         border-radius: 8px;
@@ -96,6 +114,7 @@
         padding: 0;
         font-weight: 600;
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+        margin-bottom: 1rem;
     }
     button:hover {
         cursor: pointer;
@@ -108,5 +127,13 @@
         text-decoration: underline;
         padding-bottom: 1px;
         margin-top: 1rem;
+    }
+    .cancel {
+        display: none;
+    }
+    @media screen and (max-width: 768px) {
+        .cancel {
+            display: block;
+        }
     }
 </style>
