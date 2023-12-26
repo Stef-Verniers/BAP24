@@ -6,7 +6,6 @@
     import { addToast } from "../../stores";
     import { tick } from "svelte";
     import type { ActionData, PageData } from "./$types.js";
-    import { SyncLoader } from "svelte-loading-spinners";
     import { onMount } from "svelte";
     export let data: PageData;
     export const form: ActionData = null;
@@ -95,9 +94,9 @@
         if (nextId <= 5) {
             e.preventDefault();
             currentQuestionId = nextId;
+            console.log(currentQuestionId)
             buttonText = currentQuestionId < 5 ? `Volgende (${currentQuestionId}/5)` : "Bevestigen";
         } else if (nextId > 5) {
-            <SyncLoader size="60" color="#FF3E00" unit="px" duration="1s" />
             myForm.submit();
         }
         } else {
@@ -121,6 +120,24 @@
         return nextQId;
     }
 
+    function previousQ(currentId) {
+        let currentQ = document.querySelector(".active");
+        if (!currentQ) return;
+
+        let prevQId = parseInt(currentQ.id) - 1;
+        if (prevQId < 1) return;
+
+        let prevQ = document.getElementById(prevQId.toString());
+        if (!prevQ) return;
+
+        currentQ.classList.remove('active');
+        currentQ.classList.add('hidden');
+        prevQ.classList.add('active');
+        prevQ.classList.remove('hidden');
+
+        buttonText = prevQId < 5 ? `Volgende (${prevQId}/5)` : "Bevestigen";
+    }
+
 </script>
 
 <Toasts />
@@ -141,7 +158,7 @@
                 await update();
                 await tick();
                 if (data)
-                    addToast({ message: 'Jouw gegevens werden met succes opgeslagen', type: 'success', timeout: 5000 });
+                localStorage.setItem("toast", JSON.stringify({ message: 'Jouw gegevens werden met succes opgeslagen', type: 'success', timeout: 5000 }));
                 }}>
                 <div class="question active" id="1">
                     <h2>Tot welke leeftijdcategorie behoor je?</h2>
@@ -188,7 +205,10 @@
                     </div>
             </form>
             <div class="button">
-                <button type="submit" id="button" on:click={cycleQ}>{buttonText}</button> 
+                <div class="button">
+                    <button class="prev__mobile" type="submit" id="previuous" on:click={previousQ}>&larr;</button> 
+                    <button type="submit" id="progress" on:click={cycleQ}>{buttonText}</button> 
+                </div>
             </div>
         </div>
     </div>
@@ -249,12 +269,13 @@
         margin-left: 2px;
     }
     .button {
-        height: 2.2rem;
-        display: flex;
-        align-items: end;
-        border-radius: 8px;
-        outline: 3px solid #ff6a4c;
-        position: relative;
+      height: 2.2rem;
+      display: flex;
+      align-items: end;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      gap: 2rem
     }
     button {
         border-radius: 8px;
@@ -264,10 +285,13 @@
         background-color: #ff6a4c;
         color: white;
         padding: 0;
-        position: absolute;
-        z-index: 234;
         font-weight: 600;
-        box-shadow: 0px 2px 6px rgb(0, 0, 0, 0.43);
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+    }
+    .prev__mobile {
+        width: 30%;
+        background-color: #eeeeee;
+        color: #494949
     }
     button:hover {
         cursor: pointer;

@@ -67,7 +67,6 @@
     const submitSurvey = () => {
         surveyForm?.dispatchEvent(new Event('submit'));
     }
-
     questions = data.questions;
 
 </script>
@@ -102,11 +101,9 @@
                 await update();
                 await tick();
                 if (data) {
-                    addToast({ message: 'Jouw gegevens werden met succes opgeslagen', type: 'success', timeout: 5000 });
+                    localStorage.setItem("toast", JSON.stringify({ message: 'Jouw antwoorden werden met succes opgeslagen', type: 'success', timeout: 5000 }));
                     localStorage.removeItem('surveyStarted');
-                    setTimeout(() => {
-                        goto(`/surveys`);
-                    }, 2000);
+                    goto(`/surveys`);
                 }
             }}>
                 {#each questions as question}

@@ -15,6 +15,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	});
 
+	if (!user?.additional) {
+		throw redirect(302, "/additional");
+	}
+
 	// We kijken of de ingelogde gebruiker een admin is
 	if (user?.admin) {
 		throw redirect(302, "/dashboard/admin");

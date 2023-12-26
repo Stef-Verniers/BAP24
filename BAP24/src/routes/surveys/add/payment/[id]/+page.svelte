@@ -6,6 +6,16 @@
     import { addToast } from '../../../../../stores';
     import Toasts from '../../../../../components/Toasts.svelte';
     import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        // Hebben we eventueel een Toast?
+        const toast = JSON.parse(localStorage.getItem("toast") as string);
+        if (toast) {
+            addToast(toast);
+            localStorage.removeItem("toast");
+        }
+    })
 
     // Functie die mollie aanroept
     async function mollie() {
@@ -34,10 +44,8 @@
         });
 
         if (response.ok) {
-            addToast({ message: 'Uw publicatie is succesvol', type: 'success', timeout: 5000 });
-            setTimeout(() => {
-                goto('/dashboard');
-            }, 2000);
+            localStorage.setItem("toast", JSON.stringify({ message: 'Uw publicatie is succesvol', type: 'success', timeout: 5000 }));
+            goto('/dashboard');
         } else {
             addToast({ message: 'U heeft niet voldoende credits om deze optie te kiezen. Vul enquêtes in om meer credits te verdienen', 
                 type: 'error', timeout: 5000 });

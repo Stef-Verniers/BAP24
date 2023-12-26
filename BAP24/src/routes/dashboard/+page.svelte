@@ -143,6 +143,9 @@
                 <button class="enq" on:click={() => navigateTo(`/surveys/statistics/${data.userId}`)}>Bekijk statistieken</button>
             </div>
             <div class="item">
+                <button class="enq" on:click={() => navigateTo(`/surveys/${data.getSurvey.id}/show`)}>Bekijk mijn enquête</button>
+            </div>
+            <div class="item">
                 <button class="enq deact" on:click={deactivate}>Deactiveer mijn enquête</button>
             </div>
         </section>
@@ -286,6 +289,7 @@
         color: white;
         padding: 0;
         transition: all 0.3s ease-in-out;
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
     }
     h2 {
         font-weight: 600;

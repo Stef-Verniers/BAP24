@@ -26,14 +26,24 @@
     let showForm = true;
     let sponsorForm;
     let productForm;
+    let surveys;
 
     // We halen de data op van de server tijdens het renderen van de pagina
     onMount(async () => {
+        
+        // We kijken voor eventuele toasts
+        const toast = JSON.parse(localStorage.getItem("toast") as string);
+        if (toast) {
+            addToast(toast);
+            localStorage.removeItem("toast");
+        }
+
         search = document.getElementById("search");
         users = [...data.users];
         sponsors = [...data.sponsors];
         products = [...data.products];
-        allItems = [...users, ...sponsors, ...products];
+        surveys = [...data.surveys];
+        allItems = [...users, ...sponsors, ...products, ...surveys];
         sponsorForm = document.getElementById("sponsorForm");
         productForm = document.getElementById("productForm");
     });
@@ -125,7 +135,7 @@
     // We vangen de data op van de sponsorform uit de component
     function sponsorFormSubmit(res) {
         const response = res.detail;
-        allItems = [...users, ...response.body, ...products];
+        allItems = [...users, ...response.body, ...products, ...surveys];
         activeForm = '';
         searchValue = '';
         showForm = false;
@@ -135,7 +145,7 @@
     // We vangen de data op van de productform uit de component
     function productFormSubmit(res) {
         const response = res.detail;
-        allItems = [...users, ...sponsors, ...response.body];
+        allItems = [...users, ...sponsors, ...response.body, ...surveys];
         activeForm = '';
         searchValue = '';
         showForm = false;
@@ -145,7 +155,7 @@
     // We vangen de data op van de userform uit de component
     function userFormSubmit(res) {
         const response = res.detail;
-        allItems = [...response.body.users, ...sponsors, ...products];
+        allItems = [...response.body.users, ...sponsors, ...products, ...surveys];
         activeForm = '';
         searchValue = '';
         showForm = false;
@@ -219,8 +229,9 @@
                 <div class="result__guidelines">
                     <p class="result__title">Naam</p>
                     <p class="result__type">Soort</p>
-                    <p class="icon">Gebruikersrol</p>
-                    <p class="icon">Verwijderen?</p>
+                    <p class="icon disabled">Gebruikersrol</p>
+                    <p class="icon disabled">Enquête</p>
+                    <p class="icon disabled">Verwijderen?</p>
                 </div>
                 <!-- svelte-ignore a11y-no-static-element-interactions -->
                 {#each results as result}
@@ -243,8 +254,14 @@
                     {:else if result.name && result.points}
                         <p class="result__type killMargin">Product</p>
                     {/if}
+                    {#each surveys as survey}
+                        {#if survey.userId === result.id}
+                            <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                            <p class="result__survey icon" on:click={() => goto(`/surveys/${survey.id}/show`)}>📋</p>
+                        {/if}
+                    {/each}
                     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-                    <p class="result__delete icon" on:click={()=> openModal(result)}>❌</p>
+                    <p class="result__delete icon" on:click={()=> openModal(result)}>🗑️</p>
                 </div>
                 {/each}
                 {:else if !results.length && searchValue}
@@ -322,12 +339,12 @@
     .result:nth-child(odd) {
         background-color: #e2e2e2;
     }
-    .result__delete {
+    .result__survey {
         font-size: 1rem;
         width: fit-content;
         text-align: center;
         font-weight: bold;
-        grid-column: 4;
+        grid-column: 3;
     }
     .result__role {
         font-size: 0.8rem !important;
@@ -335,6 +352,7 @@
         width: fit-content;
         text-align: center;
         font-weight: bold;
+        grid-column: 2;
     }
     .icon {
         padding: 0.5rem;
@@ -357,6 +375,8 @@
     }
     .result__type {
         font-size: 0.6rem !important;
+        display: none;
+        grid-column: 2;
     }
     label {
         font-size: 0.8rem;
@@ -409,7 +429,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
     }
     .modal__content {
         width: 100%;
@@ -515,6 +534,12 @@
     .delete {
         background-color: #ff6a4c;
     }
+    .result__survey {
+        grid-column: 3;
+    }
+    .result__delete {
+        grid-column: 4;
+    }
     @media (min-width: 1025px) {
         main {
             min-height: calc(90vh - 4rem);
@@ -529,9 +554,13 @@
         .buttons {
             display: none;
         }
+        .result__type {
+            font-size: 0.6rem !important;
+            display: block;
+        }
         .result, .result__guidelines {
             display: grid;
-            grid-template-columns: 70% 10% 10% 10%;
+            grid-template-columns: 60% 10% 10% 10% 10%;
             align-items: center;
             width: 100%;
             padding: 0.5rem 0;
@@ -552,7 +581,18 @@
             font-size: 1rem !important;
         }
         .result__type {
-            font-size: 0.8rem !important;
+            font-size: 0.7rem !important;
+            text-align: center;
+            grid-column: 2;
+        }
+        .result__role {
+            grid-column: 3;
+        }
+        .result__survey {
+            grid-column: 4;
+        }
+        .result__delete {
+            grid-column: 5;
         }
         .form-container {
             display: flex;
@@ -586,6 +626,9 @@
             right: 0;
             background-color: hsl(167 46% 38% / 1);
             color: black;
+        }
+        .disabled {
+            pointer-events: none;
         }
     }
     @media (min-width: 1250px) {

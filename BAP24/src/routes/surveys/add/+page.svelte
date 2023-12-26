@@ -18,7 +18,15 @@
     $: buttonText = currentId < 10 ? `Volgende (${currentId}/10)` : "Bevestigen"
 
     onMount(() => {
-        theButton = document.querySelector("button")
+        
+        // Hebben we eventueel een Toast?
+        const toast = JSON.parse(localStorage.getItem("toast") as string);
+        if (toast) {
+            addToast(toast);
+            localStorage.removeItem("toast");
+        }
+
+        theButton = document.querySelector("#progress")
     })
 
     // We verhinderen dat de gebruiker een datum in het verleden kan kiezen
@@ -62,6 +70,7 @@
 
     // We navigeren door de enquête
     const cycleQ = (e) => {
+        console.log(enquete)
         let currentQ = document.querySelector(".active");
         let element = currentQ?.querySelector("input, textarea, select");
         let myForm = document.getElementById("myForm");
@@ -141,6 +150,28 @@
     }
     currentId = nextQuestion(currentQ?.id);
     buttonText = currentId < 10 ? `Volgende (${currentId}/10)` : "Bevestigen"; 
+    console.log(buttonText)
+
+}
+
+function previousQ() {
+    let currentQ = document.querySelector(".active");
+    if (!currentQ) return;
+
+    let prevQId = parseInt(currentQ.id) - 1;
+    if (prevQId < 1) return; // Voorkomt dat we voorbij de eerste vraag gaan
+
+    let prevQ = document.getElementById(prevQId.toString());
+    if (!prevQ) return;
+
+    currentQ.classList.remove('active');
+    currentQ.classList.add('hidden');
+    prevQ.classList.add('active');
+    prevQ.classList.remove('hidden');
+
+    // Update de huidige vraag ID en de knoptekst
+    currentId = prevQId;
+    buttonText = currentId < 10 ? `Volgende (${currentId}/10)` : "Bevestigen";
 }
 
 
@@ -160,7 +191,7 @@
                 await update();
                 await tick();
                 if (form)
-                addToast({ message: form?.message, type: form?.type, timeout: 5000 });
+                localStorage.setItem("toast", JSON.stringify({ message: form?.message, type: form?.type, timeout: 5000 }));
             }}>
                 <div class="form-container active" id="1">
                     <label for="nationality">Onder welke schoolinstelling valt deze thesis?</label>
@@ -235,6 +266,7 @@
                 </div>
             </form>
             <div class="button">
+                <button class="prev__mobile" type="submit" id="previuous" on:click={previousQ}>&larr;</button> 
                 <button type="submit" id="progress" on:click={cycleQ}>{buttonText}</button> 
             </div>
         </section>
@@ -300,6 +332,7 @@
         text-indent: 0.5rem;
         font-size: 0.9rem;
         line-height: calc(0.9rem * 1.3);
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
     }
     input[type="date"] {
         text-indent: 0.35rem;
@@ -317,6 +350,9 @@
       display: flex;
       align-items: end;
       border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      gap: 2rem
     }
     button {
         border-radius: 8px;
@@ -327,11 +363,21 @@
         color: white;
         padding: 0;
         font-weight: 600;
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
     }
     button:hover {
         cursor: pointer;
     }
     .hidden {
+        display: none;
+    }
+    .prev__mobile {
+        width: 30%;
+        background-color: transparent;
+        border: solid 2px #ff6a4c;
+        color: #ff6a4c
+    }
+    .prev__screen {
         display: none;
     }
     @media (min-width: 768px) {

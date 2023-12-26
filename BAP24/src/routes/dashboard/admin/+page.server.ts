@@ -22,6 +22,11 @@ export const load: PageServerLoad = async ({ locals }) => {
     const products = await prisma.product.findMany({});
     const sponsors = await prisma.sponsor.findMany({});
     const rewards = await prisma.rewardCategories.findMany({});
+    const surveys = await prisma.enquete.findMany({
+        include: {
+            user: true
+        }
+    });
 
     return {
         user,
@@ -29,6 +34,7 @@ export const load: PageServerLoad = async ({ locals }) => {
         products,
         sponsors,
         rewards,
+        surveys: surveys,
         userId: session?.user.userId,
         username: session?.user.username,
         email: session?.user.email,

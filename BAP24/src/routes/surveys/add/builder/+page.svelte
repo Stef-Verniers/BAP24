@@ -14,6 +14,13 @@
 
     // We kijken of we de opbouw van een enquete in de localstorage hebben opgeslagen
     onMount(() => {
+
+        // Hebben we eventueel een Toast?
+        const toast = JSON.parse(localStorage.getItem("toast") as string);
+        if (toast) {
+            addToast(toast);
+            localStorage.removeItem("toast");
+        }
         if (browser) {
             const savedQuestions = localStorage.getItem('questionsList');
             if (savedQuestions) {
@@ -21,6 +28,7 @@
             }
             isInitialized = true;
         }
+        
     });
 
     // We maken een nieuwe vraag aan
@@ -107,11 +115,9 @@
                     })
                 });
                 if (response.ok) {
-                    addToast({ message: 'Uw enquete werd met succes opgeslaan', type: 'success', timeout: 5000 });
+                    localStorage.setItem("toast", JSON.stringify({ message: 'Uw enquete werd met succes opgeslaan', type: 'success', timeout: 5000 }));
                     localStorage.removeItem('questionsList');
-                    setTimeout(() => {
-                        goto(`/surveys/add/payment/${data.surveyId}`);
-                    }, 2000);
+                    goto(`/surveys/add/payment/${data.surveyId}`);
                 } else {
                     addToast({ message: 'Er ging iets mis, probeer het later opnieuw..', type: 'error', timeout: 5000 });                
                 }

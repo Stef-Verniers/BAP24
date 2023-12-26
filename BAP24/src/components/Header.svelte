@@ -277,8 +277,7 @@
             border-radius: 0px;
             color: rgb(238, 75, 0);
             width: fit-content;
-            padding-inline: 3rem;
-            width: fit-content;
+            padding-inline: 1rem;
             height: 3rem;
             transition: all 0.3s ease;
             text-wrap: nowrap;
@@ -289,7 +288,7 @@
             transition: all 0.3s ease;
         }
         .loggedUser {
-            width: 50%;
+            width: 70%;
             height: 3rem;
             display: flex;
             justify-content: center;
