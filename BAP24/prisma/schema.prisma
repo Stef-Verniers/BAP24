@@ -25,6 +25,7 @@ model User {
   EnqueteResponse        EnqueteResponse[]
   EnqueteAnswer          EnqueteAnswer[]
   exchangedReward        exchangedReward[]
+  Sponsor                Sponsor[]
 }
 
 model Session {
@@ -47,15 +48,17 @@ model Key {
 }
 
 model Sponsor {
-  id        Int       @id @default(autoincrement())
-  name      String
-  address   String
-  city      String
-  owner     String
-  url       String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Product   Product[]
+  id              Int              @id @default(autoincrement())
+  name            String
+  address         String
+  city            String
+  ownerId         String           @unique
+  owner           User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  url             String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  Product         Product[]
+  exchangedReward exchangedReward?
 }
 
 model Product {
@@ -65,8 +68,6 @@ model Product {
   points           Int
   sponsor          Sponsor           @relation(fields: [sponsorId], references: [id], onDelete: Cascade)
   sponsorId        Int
-  code             String            @default(uuid())
-  isUsed           Boolean           @default(false)
   rewardCategoryId Int
   category         RewardCategories  @relation(fields: [rewardCategoryId], references: [id])
   createdAt        DateTime          @default(now())
@@ -207,6 +208,8 @@ model exchangedReward {
   userId    String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
+  sponsor   Sponsor  @relation(fields: [sponsorId], references: [id], onDelete: Cascade)
+  sponsorId Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
