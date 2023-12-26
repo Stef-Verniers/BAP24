@@ -20,8 +20,6 @@ export async function POST({ request }) {
             id: id
         }
     })
-    console.log(product)
-    console.log(user)
     try {
         if(user.credits >= credits) {
             await prisma.user.update({
@@ -35,12 +33,11 @@ export async function POST({ request }) {
                 }
             })
         }
-        // We geven aan welk product we hebben geclaimd en door wie het verzilverd is.
         await prisma.exchangedReward.create({
             data: {
                 userId: userId,
                 productId: id,
-                sponsorId: product?.sponsorId
+                sponsorId: product.sponsorId,
             }
         })
         return json({ message: 'Aanvraag verwerkt', body: id, status: 200} );

@@ -48,17 +48,17 @@ model Key {
 }
 
 model Sponsor {
-  id              Int              @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   name            String
   address         String
   city            String
-  ownerId         String           @unique
-  owner           User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId         String            @unique
+  owner           User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   url             String
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   Product         Product[]
-  exchangedReward exchangedReward?
+  exchangedReward exchangedReward[]
 }
 
 model Product {
@@ -208,8 +208,8 @@ model exchangedReward {
   userId    String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
+  sponsorId Int
   sponsor   Sponsor  @relation(fields: [sponsorId], references: [id], onDelete: Cascade)
-  sponsorId Int      @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
