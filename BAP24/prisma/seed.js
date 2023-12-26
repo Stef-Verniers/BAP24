@@ -17,11 +17,6 @@ async function main() {
         skipDuplicates: false,
     })
 
-    const seedSponsor = await prisma.sponsor.createMany({
-        data: sponsor,
-        skipDuplicates: false,
-    })
-
     const seedDepartment = await prisma.department.createMany({
         data: department,
         skipDuplicates: false,
@@ -44,11 +39,6 @@ async function main() {
 
     const sexGender = await prisma.sex.createMany({
         data: sex,
-        skipDuplicates: false,
-    })
-
-    const seedProducts = await prisma.product.createMany({
-        data: products,
         skipDuplicates: false,
     })
 
