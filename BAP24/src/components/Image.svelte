@@ -11,7 +11,7 @@
 
 </script>
 
-<img src="/images/{name}" alt="" style=" border-radius: {radius}; box-shadow: {shadow};">
+<img src="./images/{name}" alt="" style=" border-radius: {radius}; box-shadow: {shadow};">
 
 <style>
     img {

@@ -68,7 +68,7 @@
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 8px;
-      padding-top: 1rem
+      padding-top: 3rem
   }
   .container {
       position: absolute;

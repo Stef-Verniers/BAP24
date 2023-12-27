@@ -3,7 +3,10 @@
     import Header from '/src/components/Header.svelte';
     import Footer from '/src/components/Footer.svelte';
     import Sponsors from '/src/components/Sponsors.svelte';
-    import Image from '/src/components/Image.svelte';
+    import home1 from '$lib/images/home1.png'
+    import home2 from '$lib/images/home2.png'
+    import home3 from '$lib/images/home3.png'
+    import hero from '$lib/images/hero2.png'
     import type { PageData } from './$types';
     export let data: PageData;
 </script>
@@ -18,7 +21,7 @@
             <button class="cta-button"><a href="/register">Registreer je meteen!</a></button>
         </div>
         <div class="section-image hero-image">
-            <Image name='hero2.png' shadow=false/>
+            <img id="hero__image" src={hero} alt="hero" />
         </div>
     </section>
 
@@ -28,7 +31,7 @@
             <p>Gedaan met hopeloos zitten wachten op mensen die je enquête willen invullen. Publiceer je enquête en onze gebruikers doen de rest.</p>
         </div>
         <div class="section-image">
-            <Image name='home1.png' radius=30px/>
+            <img src={home1} alt="hero1">
         </div>
     </section>
 
@@ -38,7 +41,7 @@
             <p>Het publiceren van een enquête bedraagt slechts 10 euro. Met deze prijs worden onze kosten en uiteraard de sponsors vergoed die hun diensten aanbieden ten goede van ons product.</p>
         </div>
         <div class="section-image">
-            <Image name='home3.png' radius=30px/>
+            <img src={home2} alt="hero2">
         </div>
     </section>
     
@@ -48,7 +51,7 @@
             <p>Geregistreerde gebruikers kunnen alle enquêtes invullen die bij hun profiel past. Hoe meer enquêtes ingevuld worden, hoe meer credits er te rapen vallen. Met die credits kan je terecht bij erkende sponsors.</p>
         </div>
         <div class="section-image">
-            <Image name='home2.png' radius=30px/>
+            <img src={home3} alt="hero3">
         </div>
     </section>
 
@@ -121,7 +124,6 @@
         bottom: 0px;
         right: 2.5rem;
         margin-bottom: 0px;
-        box-shadow: none;
     }
     .hero > .section-text {
         padding-top: 3vh;
@@ -154,6 +156,15 @@
         text-decoration: none;
         cursor: pointer;
         font-size: 1.3rem;
+    }
+    .section-image > img {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.545);
+        border-radius: 20px;
+    }
+    #hero__image {
+        box-shadow: none;
     }
     
     @media (min-width: 768px) {

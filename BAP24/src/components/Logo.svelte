@@ -1,10 +1,11 @@
 <script>
     export let width = '';
-    export let bg = ''
+    export let bg = '';
+    import logo from '$lib/images/BAP24.svg'
 </script>
 
 <div class="image-container" style="background-color: {bg}; width:{width}">
-    <img src='/images/BAP24.svg' alt="Logo BAP24" />
+    <img src={logo} alt="Logo BAP24" />
 </div>
 
 <style>
