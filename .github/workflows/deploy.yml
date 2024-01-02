@@ -22,17 +22,11 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: npm run build && echo "$SSH_HOST"
         env:
           MOLLIE: ${{ secrets.MOLLIE }}
           MOLLIE_ACCESS: ${{ secrets.MOLLIE_ACCESS }}
           DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
-
-      - name: Check for variable name
-        run: 'echo "$SSH_HOST" > key'
-          shell: bash
-          env:
-            SSH_HOST: ${{secrets.SSH_SSH_HOST}}
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
