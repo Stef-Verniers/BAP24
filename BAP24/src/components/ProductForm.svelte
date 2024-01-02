@@ -19,8 +19,6 @@
 
         event.preventDefault();
         const form = event.target
-        console.log(myProductForm)
-        console.log(myProductForm.description.value)
         const response = await fetch('/dashboard/admin/create/product', {
             method: 'POST',
             headers: {

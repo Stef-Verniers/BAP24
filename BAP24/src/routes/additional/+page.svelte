@@ -94,7 +94,6 @@
         if (nextId <= 5) {
             e.preventDefault();
             currentQuestionId = nextId;
-            console.log(currentQuestionId)
             buttonText = currentQuestionId < 5 ? `Volgende (${currentQuestionId}/5)` : "Bevestigen";
         } else if (nextId > 5) {
             myForm.submit();
