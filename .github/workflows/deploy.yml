@@ -28,6 +28,12 @@ jobs:
           MOLLIE_ACCESS: ${{ secrets.MOLLIE_ACCESS }}
           DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
 
+      - name: Check for variable name
+       - run: 'echo "$SSH_KEY" > key'
+          shell: bash
+          env:
+            SSH_KEY: ${{secrets.SSH_KEY}}
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
