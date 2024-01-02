@@ -28,6 +28,9 @@ jobs:
           MOLLIE_ACCESS: ${{ secrets.MOLLIE_ACCESS }}
           DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
 
+      - name: Check
+        run: echo "Deploying to ${{ secrets.SSH_HOST }}"
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
         with:
