@@ -21,7 +21,7 @@ jobs:
         env:
           MOLLIE = ${{ secrets.MOLLIE }}
           MOLLIE_ACCESS = ${{ secrets.MOLLIE_ACCESS }}
-
+          DATABASE_URL = ${{ secrets.DATABASE_URL_PRODUCTION }}
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master

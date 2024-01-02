@@ -1,23 +1,24 @@
 import { prisma } from "$lib/server/prisma";
 import { json } from "@sveltejs/kit";
-import createMollieClient from "@mollie/api-client";
-import MOLLIE from '$env/static/private'
+import { createMollieClient }  from "@mollie/api-client";
+import { MOLLIE } from '$env/static/private'
 import { stringify } from "querystring";
 
 // Mollie integratie... 
 export async function POST({ request }) {
     try {
-        const userId = request.body?.userId;
-        const mollieClient = createMollieClient({ apiKey: "test_HrRGzGPRh57QFeaD7Pkk7zqWuTze8f" });
-          
+        const requestBody = await request.json();
+        const userId = requestBody.userId;
+        const mollieClient = createMollieClient({ apiKey: MOLLIE });
+
         const payment = await mollieClient.payments.create({
           amount: {
             currency: 'EUR',
             value: '10.00'
           },
           description: 'Survey for user #' + userId,
-          redirectUrl: 'http://localhost:3000/dashboard',
-          webhookUrl: 'http://localhost:3000/payments/webhook/',
+          redirectUrl: 'https://bap24.hosted-power.dev/dashboard',
+          webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
             userId: userId
           }
