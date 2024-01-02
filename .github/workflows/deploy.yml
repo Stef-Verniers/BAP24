@@ -29,7 +29,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
 
       - name: Check for variable name
-       - run: 'echo "$SSH_KEY" > key'
+        run: 'echo "$SSH_KEY" > key'
           shell: bash
           env:
             SSH_KEY: ${{secrets.SSH_KEY}}
