@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -19,9 +19,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          MOLLIE = ${{ secrets.MOLLIE }}
-          MOLLIE_ACCESS = ${{ secrets.MOLLIE_ACCESS }}
-          DATABASE_URL = ${{ secrets.DATABASE_URL_PRODUCTION }}
+          MOLLIE: ${{ secrets.MOLLIE }}
+          MOLLIE_ACCESS: ${{ secrets.MOLLIE_ACCESS }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
