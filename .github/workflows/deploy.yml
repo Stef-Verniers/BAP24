@@ -33,9 +33,9 @@ jobs:
         run: echo "Deploying to $HOST"
 
       - name: Setup SSH Key
-            uses: webfactory/ssh-agent@v0.5.2
-            with:
-              ssh-private-key: ${{ secrets.SSH_DEPLOY_KEY }}
+        uses: webfactory/ssh-agent@v0.5.2
+        with:
+          ssh-private-key: ${{ secrets.SSH_DEPLOY_KEY }}
 
       - name: Deploy to Server
         run: |
