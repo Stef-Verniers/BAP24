@@ -25,7 +25,13 @@ export async function POST({ request }) {
         });
     return new Response(null, { status: 403, headers: { 'Content-Type': 'application/json' }})
     } catch (error) {
-      console.error(error)
-        return new Response(null, { status: 500, headers: { 'Content-Type': 'application/json' }})
+      console.error(error);
+    
+      const errorMessage = { message: error.message || "An unknown error occurred" };
+      
+      return new Response(JSON.stringify(errorMessage), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 }
