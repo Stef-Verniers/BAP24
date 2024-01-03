@@ -20,19 +20,19 @@
             <h2>{title}</h2>
         </div>
         <div class="department">
-            <h2>{department}</h2>
+            <h2>📓 {department}</h2>
         </div>
         <div class="info">
-            <p>{onderzoeker}</p>
+            <p>👤 {onderzoeker}</p>
         </div>
         <div class="info">
-            <p>{deadline}</p>
+            <p>📆 {deadline}</p>
         </div>
         <div class="info">
-            <p>{school}</p>
+            <p>🏫 {school}</p>
         </div>
         <div class="info">
-            <p>{quota}</p>
+            <p>🎯 {quota}</p>
         </div>
     </div>
 
