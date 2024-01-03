@@ -1,7 +1,7 @@
 import { prisma } from "$lib/server/prisma";
 import { json } from "@sveltejs/kit";
 import { createMollieClient }  from "@mollie/api-client";
-import { MOLLIE } from '$env/static/private'
+import { MOLLIE } from "$lib/server/config";
 import { stringify } from "querystring";
 
 // Mollie integratie... 
