@@ -37,6 +37,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "lucia": "^2.7.4",
+    "stripe": "^14.10.0",
     "svelte-french-toast": "^1.2.0",
     "svelte-use-form": "^2.10.0",
     "sveltekit-flash-message": "^2.2.2"
