@@ -32,7 +32,6 @@ export async function POST({ request }) {
         message: 'Checkout URL gegenereerd',
         success: true,
         checkoutUrl: checkoutUrl,
-        paymentId: payment.id
     });
 } catch (error) {
       console.error(error)
