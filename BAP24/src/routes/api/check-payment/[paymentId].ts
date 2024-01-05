@@ -4,8 +4,8 @@ import { MOLLIE } from "$lib/server/config";
 
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
-export async function GET ({ query }) {
-    const paymentId = query.get('paymentId');
+export async function GET ({ params }) {
+    const paymentId = params.paymentId;
     try {
         const payment = await mollieClient.payments.get(paymentId);
         return {
