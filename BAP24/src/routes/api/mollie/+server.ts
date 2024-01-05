@@ -28,9 +28,10 @@ export async function POST({ request }) {
         });
         testmode: true
       const checkoutUrl = payment.getCheckoutUrl();
-      return new Response(JSON.stringify({ checkoutUrl }), {
-        status: 303,
-        headers: { 'Content-Type': 'application/json', 'Location': checkoutUrl as string | undefined }
+      return json({
+        message: 'Checkout URL gegenereerd',
+        success: true,
+        checkoutUrl: checkoutUrl
     });
 } catch (error) {
       console.error(error)
