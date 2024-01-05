@@ -3,17 +3,18 @@ import { createMollieClient }  from "@mollie/api-client";
 import { MOLLIE, PROFILE_ID } from "$lib/server/config";
 import type { PaymentMethod } from "@mollie/api-client";
 
-let surveyName = "";
-
 // Mollie integratie... 
 export async function POST({ request }) {
     try {
         const requestBody = await request.json();
+        console.log(requestBody);
         const userId = requestBody.userId;
         const surveyName = requestBody.surveyName;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
         console.log(surveyName)
+
+        return;
 
         const payment = await mollieClient.payments.create({
           amount: {
