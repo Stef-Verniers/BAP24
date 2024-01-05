@@ -19,7 +19,7 @@ export async function POST({ request }) {
             currency: 'EUR',
             value: '10.00'
           },
-          description: SURVEY_NAME,
+          description: '' + SURVEY_NAME + ' - ' + userId,
           redirectUrl: 'https://bap24.hosted-power.dev/dashboard',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
