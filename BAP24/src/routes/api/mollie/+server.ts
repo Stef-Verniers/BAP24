@@ -14,8 +14,6 @@ export async function POST({ request }) {
 
         console.log(surveyName)
 
-        return;
-
         const payment = await mollieClient.payments.create({
           amount: {
             currency: 'EUR',
@@ -31,6 +29,7 @@ export async function POST({ request }) {
         });
         testmode: true
       const checkoutUrl = payment.getCheckoutUrl();
+      return;
       return json({
         message: 'Checkout URL gegenereerd',
         success: true,
