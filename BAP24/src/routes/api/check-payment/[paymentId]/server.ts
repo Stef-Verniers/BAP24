@@ -4,8 +4,6 @@ import { MOLLIE } from "$env/static/private"; // Zorg ervoor dat MOLLIE correct 
 
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
-console.log('test');
-
 export async function GET ({ params }) {
     try {
         const paymentId = params.paymentId;

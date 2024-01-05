@@ -4,8 +4,13 @@
     import type { PageData } from "../$types";
     export let data: PageData; 
     import { onMount } from "svelte";
-
+    import { createMollieClient } from "@mollie/api-client";
+    import { MOLLIE } from "$env/static/private";
+    
+    
     let paymentId;
+
+    const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
     onMount(async () => {
         paymentId = sessionStorage.getItem('paymentId');
@@ -13,24 +18,40 @@
 
     $: paymentId
 
-    async function checkPaymentStatus(paymentId) {
-    // Verzoek naar je backend om de status van de betaling op te vragen
-    const response = await fetch(`/api/check-payment/${paymentId}`);
-    const data = await response.json();
-    console.log(data);
-
-    if (data.paymentStatus === 'paid') {
-        localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
-        navigateTo('/dashboard')
-    } else {
-        localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
-        navigateTo('/dashboard')
-    }
+    const verifyPayment = async () => {
+        const payment = await mollieClient.payments.get(paymentId);
+        console.log(payment);
+        if (payment.isPaid()) {
+            localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
+            navigateTo('/dashboard')
+        } else {
+            localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
+            navigateTo('/dashboard')
+        }
     }
 
     $: if (paymentId !== undefined) {
-      checkPaymentStatus(paymentId);
+      verifyPayment();
     }
+
+    // async function checkPaymentStatus(paymentId) {
+
+    // const response = await fetch(`/api/check-payment/${paymentId}`);
+    // const data = await response.json();
+    // console.log(data);
+
+    // if (data.paymentStatus === 'paid') {
+    //     localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
+    //     navigateTo('/dashboard')
+    // } else {
+    //     localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
+    //     navigateTo('/dashboard')
+    // }
+    // }
+
+    // $: if (paymentId !== undefined) {
+    //   checkPaymentStatus(paymentId);
+    // }
 
 </script>
 
