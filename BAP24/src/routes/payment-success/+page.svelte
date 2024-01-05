@@ -4,12 +4,8 @@
     import type { PageData } from "../$types";
     export let data: PageData; 
     import { onMount } from "svelte";
-    import { createMollieClient } from "@mollie/api-client";
-    import { MOLLIE } from "$lib/server/config";
     
     let paymentId;
-
-    const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
     onMount(async () => {
         paymentId = sessionStorage.getItem('paymentId');
@@ -17,10 +13,10 @@
 
     $: paymentId
 
-    const verifyPayment = async () => {
-        const payment = await mollieClient.payments.get(paymentId);
-        console.log(payment);
-        if (payment.status === 'paid') {
+    async function verifyPayment(paymentId) {
+        const res = await fetch(`/api/check-payment/${paymentId}`);
+        const data = await res.json();
+        if (data.paymentStatus === 'paid') {
             localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
             navigateTo('/dashboard')
         } else {
@@ -30,7 +26,7 @@
     }
 
     $: if (paymentId !== undefined) {
-      verifyPayment();
+      verifyPayment(paymentId);
     }
 
     // async function checkPaymentStatus(paymentId) {
