@@ -27,6 +27,8 @@
     }
     }
 
+    console.log(paymentId)
+
     checkPaymentStatus(paymentId);
 
 </script>
