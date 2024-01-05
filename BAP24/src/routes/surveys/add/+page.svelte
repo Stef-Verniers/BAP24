@@ -371,14 +371,14 @@ function previousQ() {
     .hidden {
         display: none;
     }
+    .active {
+        display: block;
+    }
     .prev__mobile {
         width: 30%;
         background-color: transparent;
         border: solid 2px #ff6a4c;
         color: #ff6a4c
-    }
-    .prev__screen {
-        display: none;
     }
     @media (min-width: 768px) {
         main {
