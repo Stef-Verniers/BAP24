@@ -7,11 +7,11 @@
 
     let paymentId;
 
-    onMount(() => {
+    onMount(async () => {
         paymentId = sessionStorage.getItem('paymentId');
     })
    
-    console.log(paymentId)
+   $: console.log(paymentId)
 
     async function checkPaymentStatus(paymentId) {
     // Verzoek naar je backend om de status van de betaling op te vragen
