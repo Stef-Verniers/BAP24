@@ -1,7 +1,7 @@
 <script lang="ts">
     import Header from "../../components/Header.svelte";
-    import { navigateTo } from "../../../../stores";
-    export let data: PageData; 
+    import { navigateTo } from "../../stores";
+    // export let data: PageData; 
 
     async function checkPaymentStatus(paymentId) {
     // Verzoek naar je backend om de status van de betaling op te vragen
@@ -26,7 +26,7 @@
 
 </script>
 
-<Header {data} />
+<!-- <Header {data} /> -->
 
 <main>
     <div class="container">
