@@ -20,7 +20,7 @@
     const verifyPayment = async () => {
         const payment = await mollieClient.payments.get(paymentId);
         console.log(payment);
-        if (payment.isPaid()) {
+        if (payment.status === 'paid') {
             localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
             navigateTo('/dashboard')
         } else {
