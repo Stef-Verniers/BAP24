@@ -368,11 +368,11 @@ function previousQ() {
     button:hover {
         cursor: pointer;
     }
-    .hidden {
-        display: none;
-    }
     .active {
         display: block;
+    }
+    .hidden {
+        display: none;
     }
     .prev__mobile {
         width: 30%;
