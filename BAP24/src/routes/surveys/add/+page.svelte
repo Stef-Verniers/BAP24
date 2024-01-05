@@ -193,7 +193,7 @@ function previousQ() {
                 if (form)
                 localStorage.setItem("toast", JSON.stringify({ message: form?.message, type: form?.type, timeout: 5000 }));
             }}>
-                <div class="form-container active" id="1">
+                <div class="form-container hidden active" id="1">
                     <label for="nationality">Onder welke schoolinstelling valt deze thesis?</label>
                     <select name="school" id="enq" required>
                         <option value="" selected disabled>Kies een optie</option>
