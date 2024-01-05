@@ -22,8 +22,6 @@
 
     checkPaymentStatus(paymentId);
 
-    console.log('test')
-
 </script>
 
 <Header {data} />

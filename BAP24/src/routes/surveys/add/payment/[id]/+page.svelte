@@ -38,8 +38,6 @@
 
             sessionStorage.setItem('paymentId', responseData.paymentId);
 
-            return;
-
             // Controleer of de operatie succesvol was en of er een checkout URL is
             if (response.ok && responseData.success && responseData.checkoutUrl) {
                 // Omleiden naar de Mollie checkout URL
