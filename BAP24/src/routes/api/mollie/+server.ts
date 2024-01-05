@@ -11,6 +11,8 @@ export async function POST({ request }) {
         const userId = requestBody.userId;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
+        console.log(PROFILE_ID)
+
         const payment = await mollieClient.payments.create({
           amount: {
             currency: 'EUR',
@@ -29,6 +31,6 @@ export async function POST({ request }) {
     return new Response(null, { status: 403, headers: { 'Content-Type': 'application/json' }})
     } catch (error) {
       console.error(error)
-        return new Response(null, { status: 500, headers: { 'Content-Type': 'application/json' }})
+      return json({ message: error, success: true});
     }
 }
