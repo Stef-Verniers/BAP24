@@ -27,6 +27,7 @@ export async function POST({ request }) {
         });
         testmode: true
       const checkoutUrl = payment.getCheckoutUrl();
+      sessionStorage.setItem('paymentId', payment.id);
       return json({
         message: 'Checkout URL gegenereerd',
         success: true,

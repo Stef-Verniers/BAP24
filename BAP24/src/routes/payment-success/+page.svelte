@@ -2,18 +2,9 @@
     import Header from "../../components/Header.svelte";
     import { navigateTo } from "../../stores";
     import type { PageData } from "../$types";
-    import { browser } from "$app/environment";
     export let data: PageData; 
 
-    if (browser) {
-        const params = new URLSearchParams(window.location.search);
-        const paymentId = params.get('paymentId'); 
-        if (paymentId) {
-            checkPaymentStatus(paymentId);
-        }
-    }
-
-    console.log(paymentId);
+    const paymentId = sessionStorage.getItem('paymentId');
 
     async function checkPaymentStatus(paymentId) {
     // Verzoek naar je backend om de status van de betaling op te vragen
@@ -28,6 +19,8 @@
         navigateTo('/dashboard')
     }
     }
+
+    checkPaymentStatus(paymentId);
 
     console.log('test')
 
