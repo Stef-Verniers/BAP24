@@ -9,7 +9,7 @@ export async function POST({ request }) {
         const requestBody = await request.json();
         console.log(requestBody);
         const userId = requestBody.userId;
-        const surveyName = requestBody.surveyName;
+        const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
         console.log(surveyName)
