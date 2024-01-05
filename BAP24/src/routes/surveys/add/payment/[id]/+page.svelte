@@ -20,27 +20,28 @@
     // Functie die mollie aanroept
     async function mollie() {
         try {
-        const response = await fetch('/api/mollie', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                userId: data.userId
-            })
-        });
-        const responseData = await response.json();
+            const response = await fetch('/api/mollie', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId: data.userId,
+                    surveyTitle: data.surveyName
+                })
+            });
+            const responseData = await response.json();
 
-        console.log(responseData)
+            console.log(responseData)
 
-        // Controleer of de operatie succesvol was en of er een checkout URL is
-        if (response.ok && responseData.success && responseData.checkoutUrl) {
-            // Omleiden naar de Mollie checkout URL
-            window.location.href = responseData.checkoutUrl;
-        } else {
-            // Toon foutmelding of neem andere actie
-            console.error('Fout bij het aanmaken van Mollie betaling:', responseData.message);
-        }
+            // Controleer of de operatie succesvol was en of er een checkout URL is
+            if (response.ok && responseData.success && responseData.checkoutUrl) {
+                // Omleiden naar de Mollie checkout URL
+                window.location.href = responseData.checkoutUrl;
+            } else {
+                // Toon foutmelding of neem andere actie
+                console.error('Fout bij het aanmaken van Mollie betaling:', responseData.message);
+            }
         } catch (error) {
         // Vang netwerkfouten of andere fouten op
         console.error('Er is een fout opgetreden:', error);

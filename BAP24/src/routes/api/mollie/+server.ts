@@ -10,6 +10,7 @@ export async function POST({ request }) {
     try {
         const requestBody = await request.json();
         const userId = requestBody.userId;
+        const surveyName = requestBody.surveyName;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
         console.log(PROFILE_ID)
@@ -19,7 +20,7 @@ export async function POST({ request }) {
             currency: 'EUR',
             value: '10.00'
           },
-          description: '' + SURVEY_NAME + ' - ' + userId,
+          description: '' + surveyName + ' - ' + userId,
           redirectUrl: 'https://bap24.hosted-power.dev/dashboard',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
