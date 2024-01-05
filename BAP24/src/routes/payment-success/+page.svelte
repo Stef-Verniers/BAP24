@@ -5,8 +5,7 @@
     export let data: PageData; 
     import { onMount } from "svelte";
     import { createMollieClient } from "@mollie/api-client";
-    import { MOLLIE } from "$env/static/private";
-    
+    import { MOLLIE } from "$lib/server/config";
     
     let paymentId;
 
