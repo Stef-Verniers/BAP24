@@ -6,13 +6,26 @@
     import { onMount } from "svelte";
     
     let paymentId;
-
-    onMount(async () => {
-        paymentId = sessionStorage.getItem('paymentId');
-    });
-
     $: paymentId
 
+    onMount(async () => {
+    paymentId = sessionStorage.getItem('paymentId');
+    if (paymentId) {
+            await verifyPaymentStatus(paymentId);
+        }
+    });
+
+    async function verifyPaymentStatus(paymentId) {
+    const response = await fetch(`/api/verify-payment-status?paymentId=${paymentId}`);
+    const result = await response.json();
+
+    if (result.paymentStatus === 'paid') {
+        localStorage.setItem("toast", JSON.stringify({ message: 'De betaling is succesvol!', type: 'success', timeout: 5000 }));
+        navigateTo('/dashboard');
+    } else {
+      localStorage.setItem("toast", JSON.stringify({ message: 'De betaling is mislukt!', type: 'error', timeout: 5000 }));
+    }
+}
 
 </script>
 
