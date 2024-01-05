@@ -4,6 +4,7 @@ import { createMollieClient } from '@mollie/api-client';
 import { MOLLIE } from "$lib/server/config";
 import { auth } from '$lib/server/lucia';
 import { prisma } from '$lib/server/prisma';
+import { goto } from '$app/navigation';
 
 
 
@@ -31,6 +32,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
                 where: { userId: user.userId },
                 data: { isPaid: true }
             });
+            goto('/dashboard');
         }
 
         return {

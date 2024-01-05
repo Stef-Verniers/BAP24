@@ -23,7 +23,6 @@ export async function POST({ request }) {
             userId: PROFILE_ID
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
-          testmode: true
         });
       const checkoutUrl = payment.getCheckoutUrl();
       return json({

@@ -13,40 +13,6 @@
 
     $: paymentId
 
-    // async function verifyPayment(paymentId) {
-    //     // const res = await fetch(`/api/check-payment/${paymentId}`);
-    //     const data = await res.json();
-    //     if (data.paymentStatus === 'paid') {
-    //         localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
-    //         navigateTo('/dashboard')
-    //     } else {
-    //         localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
-    //         navigateTo('/dashboard')
-    //     }
-    // }
-
-    // $: if (paymentId !== undefined) {
-    //   verifyPayment(paymentId);
-    // }
-
-    // async function checkPaymentStatus(paymentId) {
-
-    // const response = await fetch(`/api/check-payment/${paymentId}`);
-    // const data = await response.json();
-    // console.log(data);
-
-    // if (data.paymentStatus === 'paid') {
-    //     localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
-    //     navigateTo('/dashboard')
-    // } else {
-    //     localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
-    //     navigateTo('/dashboard')
-    // }
-    // }
-
-    // $: if (paymentId !== undefined) {
-    //   checkPaymentStatus(paymentId);
-    // }
 
 </script>
 
