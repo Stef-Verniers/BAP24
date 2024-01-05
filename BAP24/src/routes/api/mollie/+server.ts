@@ -15,7 +15,7 @@ export async function POST({ request }) {
         const payment = await mollieClient.payments.create({
           amount: {
             currency: 'EUR',
-            value: '10.00'
+            value: '7.99'
           },
           description:  `${surveyName} - ` + userId,
           redirectUrl: 'https://bap24.hosted-power.dev/payment-success',
@@ -27,11 +27,11 @@ export async function POST({ request }) {
         });
         testmode: true
       const checkoutUrl = payment.getCheckoutUrl();
-      sessionStorage.setItem('paymentId', payment.id);
       return json({
         message: 'Checkout URL gegenereerd',
         success: true,
         checkoutUrl: checkoutUrl,
+        paymentId: payment.id
     });
 } catch (error) {
       console.error(error)
