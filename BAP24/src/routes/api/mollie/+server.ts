@@ -26,6 +26,7 @@ export async function POST({ request }) {
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[]
         });
+        testmode: true
     payment.getCheckoutUrl();
     console.log(payment.getCheckoutUrl());
     return new Response(null, { status: 403, headers: { 'Content-Type': 'application/json' }})
