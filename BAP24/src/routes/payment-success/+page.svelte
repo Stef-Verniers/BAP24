@@ -145,3 +145,5 @@
         }
       }
       @media (min-width: 1250px) {}
+
+    </style>
