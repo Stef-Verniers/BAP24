@@ -1,26 +1,10 @@
-// src/routes/api/mollie-webhook.ts
 import type { RequestHandler } from '@sveltejs/kit';
 import { createMollieClient } from '@mollie/api-client';
 import { MOLLIE } from "$lib/server/config";
-import { auth } from '$lib/server/lucia';
-import { prisma } from '$lib/server/prisma';
-import { goto } from '$app/navigation';
-
-
 
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
-export const POST: RequestHandler = async ({ request, locals }) => {
-
-    const session = await locals.auth.validate();
-    if (!session) {
-        return {
-            status: 401,
-            body: { error: 'Geen toegang' }
-        };
-    }
-
-    const user = await auth.getUser(session.user.userId)
+export const POST: RequestHandler = async ({ request }) => {
 
     try {
         const body = await request.json();
@@ -28,11 +12,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
         const payment = await mollieClient.payments.get(paymentId);
         if (payment.status === 'paid') {
-            await prisma.enquete.update({
-                where: { userId: user.userId },
-                data: { isPaid: true }
-            });
-            goto('/dashboard');
+            console.log('Payment received');
         }
 
         return {

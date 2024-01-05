@@ -16,7 +16,8 @@
     });
 
     async function verifyPaymentStatus(paymentId) {
-    const response = await fetch(`/api/check-payment?paymentId=${paymentId}`);
+    const response = await fetch(`/api/check-payment/${paymentId}`);
+    console.log(response);
     const result = await response.json();
 
     if (result.paymentStatus === 'paid') {
