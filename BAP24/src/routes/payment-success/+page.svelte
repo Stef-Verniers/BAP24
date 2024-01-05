@@ -11,6 +11,8 @@
         checkPaymentStatus(paymentId);
     }
 
+    console.log(paymentId);
+
     async function checkPaymentStatus(paymentId) {
     // Verzoek naar je backend om de status van de betaling op te vragen
     const response = await fetch(`/api/check-payment/${paymentId}`);
