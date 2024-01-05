@@ -17,6 +17,8 @@
     let gender;
     let userGender = ''
     let duplicate;
+    let complete = false;
+    let inputs = [];
 
     // Kijkt naar het geslacht van de eigenaar van de enquête en past de emoji aan
     $: if (gender = data.ownerSex.Additional_Information[0].sexId) {
@@ -35,6 +37,7 @@
     }
 
     // Als de survey al in de localstorage staat, dan wordt de enquête gestart.
+    // Er wordt tevens gecontroleerd of alle velden zijn ingevuld.
     onMount(() => {
         preflight = document.getElementById("preflight");
         surveyScreen = document.getElementById("survey");
@@ -44,7 +47,21 @@
         if (surveyStarted && surveyStarted["started?"] === true) {
             startSurvey();
         }
+        inputs = surveyForm.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', validateForm);
+        });
     });
+
+    // Formulier valideren
+    function validateForm() {
+        complete = true;
+        inputs.forEach(input => {
+            if (!input.value && input.hasAttribute('required')) {
+                complete = false;
+            }
+        });
+    }
 
     // Start de enquête
     const startSurvey = () => {
@@ -60,13 +77,16 @@
         "started?" : true,
         "stopwatch" : stopwatchNow
     }));
-    stopwatchValue = stopwatchNow; // Update de waarde hier
+    stopwatchValue = stopwatchNow;
 };
 
     // Enquête inleveren
     const submitSurvey = () => {
+        if (!complete) {
+            addToast({ message: 'Vul alle velden in', type: 'error', timeout: 5000 });
+        } else {
         surveyForm?.dispatchEvent(new Event('submit'));
-    }
+    }}
     questions = data.questions;
 
 </script>
@@ -117,7 +137,7 @@
                         {#each question.options as option}
                             {#if question.allowMultiple}
                                 <label for={`option-${option.id}`}>
-                                    <input type="checkbox" id={`option-${option.id}`} name={`question-${question.id}[]`} value={option.text}>{option.text}
+                                    <input required type="checkbox" id={`option-${option.id}`} name={`question-${question.id}[]`} value={option.text}>{option.text} 
                                 </label>
                             {:else}
                                 <input type="radio" id={`option-${option.id}`} name={`question-${question.id}`} value={option.text} required>
@@ -128,7 +148,7 @@
                         {#if question.allowMultiple}
                             {#each question.options as option}
                                 <label for={`option-${option.id}`}>
-                                    <input type="checkbox" id={`option-${option.id}`} name={`question-${question.id}[]`} value={option.text}>{option.text}
+                                    <input required type="checkbox" id={`option-${option.id}`} name={`question-${question.id}[]`} value={option.text}>{option.text}
                                 </label>
                             {/each}
                         {:else}
