@@ -17,8 +17,8 @@
 
     async function verifyPaymentStatus(paymentId) {
     const response = await fetch(`/api/check-payment/${paymentId}`);
-    console.log(response);
     const result = await response.json();
+    console.log(result);
 
     if (result.paymentStatus === 'paid') {
         localStorage.setItem("toast", JSON.stringify({ message: 'De betaling is succesvol!', type: 'success', timeout: 5000 }));
