@@ -9,12 +9,9 @@
 
     onMount(async () => {
         paymentId = sessionStorage.getItem('paymentId');
-        if (paymentId) {
-            await checkPaymentStatus(paymentId);
-        }
     });
 
-    $: console.log('dit is mijn' + paymentId)
+    $: paymentId
 
     async function checkPaymentStatus(paymentId) {
     // Verzoek naar je backend om de status van de betaling op te vragen
@@ -30,9 +27,9 @@
     }
     }
 
-    console.log(paymentId)
-
-    checkPaymentStatus(paymentId);
+    $: if (paymentId !== undefined) {
+      checkPaymentStatus(paymentId);
+    }
 
 </script>
 
