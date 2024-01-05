@@ -27,10 +27,12 @@ export async function POST({ request }) {
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[]
         });
         testmode: true
-    payment.getCheckoutUrl();
-    console.log(payment.getCheckoutUrl());
-    return new Response(null, { status: 403, headers: { 'Content-Type': 'application/json' }})
-    } catch (error) {
+      const checkoutUrl = payment.getCheckoutUrl();
+      return new Response(JSON.stringify({ checkoutUrl }), {
+        status: 303,
+        headers: { 'Content-Type': 'application/json', 'Location': checkoutUrl as string | undefined }
+    });
+} catch (error) {
       console.error(error)
       return json({ message: error, success: true});
     }
