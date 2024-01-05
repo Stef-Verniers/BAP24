@@ -3,8 +3,15 @@
     import { navigateTo } from "../../stores";
     import type { PageData } from "../$types";
     export let data: PageData; 
+    import { onMount } from "svelte";
 
-    const paymentId = sessionStorage.getItem('paymentId');
+    let paymentId;
+
+    onMount(() => {
+        paymentId = sessionStorage.getItem('paymentId');
+    })
+   
+    console.log(paymentId)
 
     async function checkPaymentStatus(paymentId) {
     // Verzoek naar je backend om de status van de betaling op te vragen
