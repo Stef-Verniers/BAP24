@@ -12,11 +12,6 @@
             checkPaymentStatus(paymentId);
         }
     }
-    const params = new URLSearchParams(window.location.search);
-    const paymentId = params.get('paymentId'); 
-    if (paymentId) {
-        checkPaymentStatus(paymentId);
-    }
 
     console.log(paymentId);
 
