@@ -45,6 +45,7 @@
         // Vang netwerkfouten of andere fouten op
         console.error('Er is een fout opgetreden:', error);
     }
+}
 
     // Als we niet betalen met echt geld, dan maar met credits
     async function credits() {
