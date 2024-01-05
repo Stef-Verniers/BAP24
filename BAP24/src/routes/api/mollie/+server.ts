@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import { createMollieClient }  from "@mollie/api-client";
-import { MOLLIE, PROFILE_ID, SURVEY_NAME } from "$lib/server/config";
+import { MOLLIE, PROFILE_ID } from "$lib/server/config";
 import type { PaymentMethod } from "@mollie/api-client";
 
 let surveyName = "";
@@ -13,14 +13,14 @@ export async function POST({ request }) {
         const surveyName = requestBody.surveyName;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
-        console.log(PROFILE_ID)
+        console.log(surveyName)
 
         const payment = await mollieClient.payments.create({
           amount: {
             currency: 'EUR',
             value: '10.00'
           },
-          description: '' + surveyName + ' - ' + userId,
+          description: surveyName + ' - ' + userId,
           redirectUrl: 'https://bap24.hosted-power.dev/dashboard',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
