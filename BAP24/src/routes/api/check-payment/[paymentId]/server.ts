@@ -8,7 +8,7 @@ console.log('test');
 
 export const get: RequestHandler = async ({ params }) => {
     try {
-        const paymentId = params.id;
+        const paymentId = params.paymentId;
         const payment = await mollieClient.payments.get(paymentId);
         return {
             status: 200,
