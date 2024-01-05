@@ -2,9 +2,16 @@
     import Header from "../../components/Header.svelte";
     import { navigateTo } from "../../stores";
     import type { PageData } from "../$types";
+    import { browser } from "$app/environment";
     export let data: PageData; 
 
-
+    if (browser) {
+        const params = new URLSearchParams(window.location.search);
+        const paymentId = params.get('paymentId'); 
+        if (paymentId) {
+            checkPaymentStatus(paymentId);
+        }
+    }
     const params = new URLSearchParams(window.location.search);
     const paymentId = params.get('paymentId'); 
     if (paymentId) {

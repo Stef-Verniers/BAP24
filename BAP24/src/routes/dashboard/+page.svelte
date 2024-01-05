@@ -143,7 +143,7 @@
                 <button class="enq" on:click={() => navigateTo(`/surveys/statistics/${data.userId}`)}>Bekijk statistieken</button>
             </div>
             <div class="item">
-                <button class="enq" on:click={() => navigateTo(`/surveys/${data.getSurvey.id}/show`)}>Bekijk mijn enquête</button>
+                <button class="enq" on:click={() => navigateTo(`/surveys/${data.getSurvey?.id}/show`)}>Bekijk mijn enquête</button>
             </div>
             <div class="item">
                 <button class="enq deact" on:click={deactivate}>Deactiveer mijn enquête</button>
