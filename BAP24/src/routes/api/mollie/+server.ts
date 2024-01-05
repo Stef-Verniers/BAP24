@@ -12,8 +12,6 @@ export async function POST({ request }) {
         const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
-        console.log(surveyName)
-
         const payment = await mollieClient.payments.create({
           amount: {
             currency: 'EUR',
@@ -32,7 +30,8 @@ export async function POST({ request }) {
       return json({
         message: 'Checkout URL gegenereerd',
         success: true,
-        checkoutUrl: checkoutUrl
+        checkoutUrl: checkoutUrl,
+        paymentId: payment.id
     });
 } catch (error) {
       console.error(error)
