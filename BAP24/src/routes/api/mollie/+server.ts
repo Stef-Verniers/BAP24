@@ -2,7 +2,6 @@ import { prisma } from "$lib/server/prisma";
 import { json } from "@sveltejs/kit";
 import { createMollieClient }  from "@mollie/api-client";
 import { MOLLIE } from "$lib/server/config";
-import { stringify } from "querystring";
 
 // Mollie integratie... 
 export async function POST({ request }) {
@@ -24,6 +23,7 @@ export async function POST({ request }) {
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[]
         });
+    payment.getCheckoutUrl();
     return new Response(null, { status: 403, headers: { 'Content-Type': 'application/json' }})
     } catch (error) {
       console.error(error)
