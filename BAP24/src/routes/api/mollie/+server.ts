@@ -19,7 +19,7 @@ export async function POST({ request }) {
             currency: 'EUR',
             value: '10.00'
           },
-          description: surveyName + ' - ' + userId,
+          description:  'tralala - ' + userId,
           redirectUrl: 'https://bap24.hosted-power.dev/dashboard',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
@@ -29,7 +29,6 @@ export async function POST({ request }) {
         });
         testmode: true
       const checkoutUrl = payment.getCheckoutUrl();
-      return;
       return json({
         message: 'Checkout URL gegenereerd',
         success: true,
