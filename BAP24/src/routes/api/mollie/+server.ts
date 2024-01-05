@@ -22,9 +22,9 @@ export async function POST({ request }) {
           metadata: {
             userId: PROFILE_ID
           },
-          method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[]
+          method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
+          testmode: true
         });
-        testmode: true
       const checkoutUrl = payment.getCheckoutUrl();
       return json({
         message: 'Checkout URL gegenereerd',
