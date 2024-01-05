@@ -17,6 +17,8 @@
         }
     })
 
+    console.log(data.surveyName)
+
     // Functie die mollie aanroept
     async function mollie() {
         try {
