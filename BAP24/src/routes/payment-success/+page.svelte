@@ -31,8 +31,6 @@
       checkPaymentStatus(paymentId);
     }
 
-    console.log(paymentId);
-
 </script>
 
 <Header {data} />

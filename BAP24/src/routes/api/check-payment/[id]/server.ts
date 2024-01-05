@@ -1,16 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const { createMollieClient } = require('@mollie/api-client'); // Importeer Mollie client
+const { createMollieClient } = require('@mollie/api-client');
+import { MOLLIE } from "$lib/server/config";
 
 app.use(cors());
 
-// Stel de Mollie client in
-const mollieClient = createMollieClient({ apiKey: 'jouw_mollie_api_sleutel' });
+const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
 app.use(express.json());
 
-// Definieer de route
 app.get('/api/check-payment/:paymentId', async (req, res) => {
     try {
         const paymentId = req.params.paymentId;
