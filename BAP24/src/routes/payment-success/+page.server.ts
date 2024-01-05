@@ -8,3 +8,4 @@ export const load: PageServerLoad = async ({ locals }) => {
         email: session?.user.email
 	};
 };
+

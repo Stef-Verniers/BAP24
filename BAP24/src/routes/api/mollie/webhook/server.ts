@@ -1,15 +1,27 @@
-import { createMollieClient }  from "@mollie/api-client";
+// src/routes/api/mollie-webhook.ts
+import type { RequestHandler } from '@sveltejs/kit';
+import { createMollieClient } from '@mollie/api-client';
 import { MOLLIE } from "$lib/server/config";
 
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
-const express = require('express');
-const app = express();
+export const POST: RequestHandler = async ({ request }) => {
+    try {
+        const body = await request.json();
+        const paymentId = body.id;
 
-app.use(express.json());
+        const payment = await mollieClient.payments.get(paymentId);
+        console.log(payment);
 
-app.get('/api/check-payment/:paymentId', async (req, res) => {
-    const paymentId = req.params.paymentId;
-    const status = await mollieClient.payments.get(paymentId);
-    res.json({ paymentStatus: status.status });
-});
+        return {
+            status: 200,
+            body: { message: 'Webhook verwerkt' }
+        };
+    } catch (error) {
+        console.error(error);
+        return {
+            status: 500,
+            body: { error: 'Er is een fout opgetreden bij het verwerken van de webhook.' }
+        };
+    }
+};
