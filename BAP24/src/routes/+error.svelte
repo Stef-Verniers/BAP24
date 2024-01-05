@@ -13,7 +13,7 @@ function startCountdown() {
         countdown.update(n => {
             if (n === 1) {
                 clearInterval(interval);
-                window.history.back(); 
+                // window.history.back(); 
             }
             return n - 1;
         });
