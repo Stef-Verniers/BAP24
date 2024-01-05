@@ -23,6 +23,7 @@
         checkPaymentStatus(paymentId);
     }
 
+    console.log('test')
 
 </script>
 
