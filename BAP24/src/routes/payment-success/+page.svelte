@@ -4,25 +4,25 @@
     import type { PageData } from "../$types";
     export let data: PageData; 
 
-    async function checkPaymentStatus(paymentId) {
-    // Verzoek naar je backend om de status van de betaling op te vragen
-    const response = await fetch(`/api/check-payment/${paymentId}`);
-    const data = await response.json();
+    // async function checkPaymentStatus(paymentId) {
+    // // Verzoek naar je backend om de status van de betaling op te vragen
+    // const response = await fetch(`/api/check-payment/${paymentId}`);
+    // const data = await response.json();
 
-    if (data.paymentStatus === 'paid') {
-        localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
-        navigateTo('/dashboard')
-    } else {
-        localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
-        navigateTo('/dashboard')
-    }
-    }
+    // if (data.paymentStatus === 'paid') {
+    //     localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
+    //     navigateTo('/dashboard')
+    // } else {
+    //     localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is mislukt', type: 'error', timeout: 5000 }));
+    //     navigateTo('/dashboard')
+    // }
+    // }
 
-    const params = new URLSearchParams(window.location.search);
-    const paymentId = params.get('paymentId'); 
-    if (paymentId) {
-        checkPaymentStatus(paymentId);
-    }
+    // const params = new URLSearchParams(window.location.search);
+    // const paymentId = params.get('paymentId'); 
+    // if (paymentId) {
+    //     checkPaymentStatus(paymentId);
+    // }
 
     console.log('test')
 
