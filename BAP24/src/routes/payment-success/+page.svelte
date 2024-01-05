@@ -17,6 +17,7 @@
     // Verzoek naar je backend om de status van de betaling op te vragen
     const response = await fetch(`/api/check-payment/${paymentId}`);
     const data = await response.json();
+    console.log(data);
 
     if (data.paymentStatus === 'paid') {
         localStorage.setItem("toast", JSON.stringify({ message: 'Uw betaling is met succes voltooid', type: 'success', timeout: 5000 }));
