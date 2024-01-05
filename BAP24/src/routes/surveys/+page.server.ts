@@ -1,9 +1,7 @@
-import type { PageServerLoad, Actions } from "./$types";
-import { fail, redirect } from "@sveltejs/kit";
+import type { PageServerLoad } from "./$types";
+import { redirect } from "@sveltejs/kit";
 import { prisma } from "$lib/server/prisma";
 import { auth } from "$lib/server/lucia";
-import { get } from "http";
-import { add } from "svelte-french-toast/dist/core/store";
 
 let user;
 
