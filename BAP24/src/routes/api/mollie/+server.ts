@@ -7,7 +7,6 @@ import type { PaymentMethod } from "@mollie/api-client";
 export async function POST({ request }) {
     try {
         const requestBody = await request.json();
-        console.log(requestBody);
         const userId = requestBody.userId;
         const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
