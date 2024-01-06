@@ -18,7 +18,7 @@ export async function POST({ request }) {
             currency: 'EUR',
             value: '7.99'
           },
-          description:  `${surveyName} - ` + userId,
+          description:  `${surveyName} - ` + loggedUser,
           redirectUrl: 'https://bap24.hosted-power.dev/payment-success',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
