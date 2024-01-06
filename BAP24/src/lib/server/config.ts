@@ -16,4 +16,4 @@ export const load: PageServerLoad = async ({ locals }) => {
     user = await auth.getUser(session.user.userId)
 }
 
-export const loggedUser = user.userId;
+export const loggedUser = session?.user.userId;
