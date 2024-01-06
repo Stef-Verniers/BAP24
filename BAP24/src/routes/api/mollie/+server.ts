@@ -1,21 +1,9 @@
 import { json } from "@sveltejs/kit";
 import { createMollieClient }  from "@mollie/api-client";
-import { MOLLIE, PROFILE_ID } from "$lib/server/config";
-import { auth } from '$lib/server/lucia';
+import { MOLLIE, PROFILE_ID, loggedUser } from "$lib/server/config";
 import type { PaymentMethod } from "@mollie/api-client";
-import type { PageServerLoad } from "../../$types";
-import { redirect } from "@sveltejs/kit";
+import { log } from "console";
 
-let session;
-let user;
-
-export const load: PageServerLoad = async ({ locals }) => {
-	session = await locals.auth.validate();
-    if (!session) {
-        throw redirect(302, "/");
-    }
-    user = await auth.getUser(session.user.userId)
-}
 
 // Mollie integratie... 
 export async function POST({ request }) {
@@ -35,7 +23,7 @@ export async function POST({ request }) {
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
             userId: PROFILE_ID,
-            currentLoggedInUser: user.userId,
+            currentLoggedInUser: loggedUser,
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
         });
