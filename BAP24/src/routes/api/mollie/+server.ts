@@ -1,8 +1,7 @@
 import { json } from "@sveltejs/kit";
 import { createMollieClient }  from "@mollie/api-client";
-import { MOLLIE, PROFILE_ID, loggedUser } from "$lib/server/config";
+import { MOLLIE } from "$lib/server/config";
 import type { PaymentMethod } from "@mollie/api-client";
-import { log } from "console";
 
 
 // Mollie integratie... 
