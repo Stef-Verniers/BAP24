@@ -51,10 +51,10 @@
         <p class="mobile__item">{data.username}</p>
         <a class="" href="/">🏚️ Home</a>
         <a class="" href="/dashboard">📋 Mijn dashboard</a>
-        <form method="post" action="/logout?/logout" use:enhance>
-            <input type="submit" value="🔓 Uitloggen" />
+        <form class="safari__block" method="post" action="/logout?/logout" use:enhance>
+            <input class="safari__block" type="submit" value="🔓 Uitloggen" />
         </form>
-        <button class="safari__block" on:click={toggleMob}>Sluit venster</button>
+        <button on:click={toggleMob}>Sluit venster</button>
     </ul>
 </div>
 <!-- Het navigatie menu voor de desktop versie -->
