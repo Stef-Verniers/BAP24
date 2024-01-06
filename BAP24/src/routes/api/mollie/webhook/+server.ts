@@ -1,16 +1,15 @@
-import type { RequestHandler } from '@sveltejs/kit';
 import { createMollieClient } from '@mollie/api-client';
 import { MOLLIE } from "$lib/server/config";
-import { auth } from '$lib/server/lucia';
 import { prisma } from '$lib/server/prisma';
-import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from '../../../$types';
 
 console.log('MOLLIE: ' + MOLLIE);
 
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
 export async function POST ({ request }) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+    };
     try {
         const body = await request.json();
         const paymentId = body.id;
