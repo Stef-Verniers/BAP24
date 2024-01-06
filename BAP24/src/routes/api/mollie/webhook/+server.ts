@@ -14,18 +14,19 @@ export async function POST ({ request }) {
     try {
         const body = await request.json();
         const paymentId = body.id;
+        const userId = body.metadata.currentLoggedInUser;
         const payment = await mollieClient.payments.get(paymentId);
         console.log(payment);
         if (payment.status === 'paid') {
             const survey = await prisma.enquete.findUnique({
                 where: {
-                    userId: user.userId
+                    userId: userId
                 }
             });
             if (survey) {
                 await prisma.enquete.update({
                     where: {
-                        userId: user.userId
+                        userId: userId
                     },
                     data: {
                         isPaid: true
