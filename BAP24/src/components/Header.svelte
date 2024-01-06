@@ -195,6 +195,7 @@
     }
     .safari__block {
         background-color: #eeeeee !important;
+        color: black !important;
     }
     @media (min-width: 768px) {
         header {
