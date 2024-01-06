@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 export async function GET (request) {
     const body = await request.json();
     const paymentId = body.id;
-    const payment = await mollieClient.payments.get(paymentId);
+    const payment = await mollieClient.payments.get('tr_4SCfhenyXR');
     if (payment.status === 'paid') {
         isSurveyCompleted = true;
     } else {
