@@ -19,6 +19,7 @@ async function handleSubmit(event) {
     let email = (myForm?.querySelector('[name="email"]') as HTMLInputElement)?.value;
     let password = (myForm?.querySelector('[name="password"]') as HTMLInputElement)?.value;
     let confirmPassword = (myForm?.querySelector('[name="requirePassword"]') as HTMLInputElement)?.value;
+    let terms = (myForm?.querySelector('[name="terms"]') as HTMLInputElement)?.checked;
 
     // Controleer of alle velden zijn ingevuld
     if (!name || !email || !password || !confirmPassword) {
@@ -41,6 +42,12 @@ async function handleSubmit(event) {
     // Controleer of de wachtwoorden overeenkomen
     if (password !== confirmPassword) {
         dispatch('registerError', "Wachtwoorden komen niet overeen");
+        return;
+    }
+
+    // Controleer of de gebruiker akkoord is gegaan met de voorwaarden
+    if (!terms) {
+        dispatch('registerError', "Gelieve jouw consent te geven");
         return;
     }
 
@@ -67,21 +74,27 @@ async function handleSubmit(event) {
     await update()
     await tick();
     }}>
-      <label for="name">Voor + achternaam</label>
-          <input type="text" name="name" required />
+    <label for="name">Voor + achternaam</label>
+        <input type="text" name="name" required />
 
-      <label for="email">Email</label>
-          <input type="email" name="email" required />
+    <label for="email">Email</label>
+        <input type="email" name="email" required />
 
-      <label for="password">Wachtwoord</label>
-          <input type="password" name="password" required />
+    <label for="password">Wachtwoord</label>
+        <input type="password" name="password" required />
 
-      <label for="password">Bevestig wachtwoord</label>
-          <input type="password" name="requirePassword" required />
-      <div class="button">
+    <label for="password">Bevestig wachtwoord</label>
+        <input type="password" name="requirePassword" required />
+
+    <div class="consent">
+        <input type="checkbox" name="terms" required />
+        <label for="terms">Ik ga akkoord dat mijn persoonlijke gegevens verwerkt mogen worden</label>
+    </div>
+        
+    <div class="button">
         <button type="submit">Bevestig je registratie</button>
         <p>Heb je al een account?<a href="/login">Log je hier in!</a></p>
-      </div>
+    </div>
   </form>
 
   <style>
@@ -144,6 +157,26 @@ async function handleSubmit(event) {
         font-weight: 500;
         text-decoration: underline;
     }
+    .consent {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2vh;
+        flex-direction: row;
+    }
+    .consent > input {
+        box-shadow: none;
+        width: 1.3rem;
+        height: 1.3rem;
+        margin: 0;
+        margin-right: 1rem;
+    }
+    .consent > label {
+        font-size: 0.7rem;
+        margin: 0;
+        margin-left: 0.5rem;
+        width: 100%;
+        line-height: calc(0.7rem * 1.5);
+    }
 
     @media (min-width: 768px) {
         input,label, button {
@@ -173,5 +206,9 @@ async function handleSubmit(event) {
         .button > p {
             width: 25rem;
         }
+        .consent {
+            width: 25rem;
+            align-items: start;
         }
+    }
   </style>

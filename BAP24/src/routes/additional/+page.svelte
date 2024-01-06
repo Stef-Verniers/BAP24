@@ -203,7 +203,7 @@
                     </select>
                     </div>
             </form>
-            <div class="button">
+            <div class="buttons">
                 <div class="button">
                     <button class="prev__mobile" type="submit" id="previuous" on:click={previousQ}>&larr;</button> 
                     <button type="submit" id="progress" on:click={cycleQ}>{buttonText}</button> 
@@ -305,9 +305,8 @@
         width: 100%;
     }
     .question > h2 {
-        margin: 1vh auto;
-        margin-left: 10px;
-        text-align: left;
+        font-size: 0.7rem;
+        margin: 1vh 0;
     }
     select {
         padding: 0px;

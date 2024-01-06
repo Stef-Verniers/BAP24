@@ -43,7 +43,7 @@
 
 <style>
   .logo{
-      height: 20%;
+      height: 20vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -56,31 +56,29 @@
     }
   .wrapper {
       width: 80%;
-      height: calc(100% - 4rem);
-      margin: 2rem auto;
+      margin-inline: auto;
+      padding-top: 4rem;
+      height: 100%;
   }
   .title {
       color: white;
-      height: 20%;
       text-align: center;
   }
   .title > h1 {
       font-size: 2rem;
       font-weight: bold;
-      margin-bottom: 8px;
-      padding-top: 3rem
+      margin-bottom: 4rem;
+      padding-top: 1rem
   }
   .container {
-      position: absolute;
-      bottom: 0;
       border-radius: 20px 20px 0 0;
       width: 100%;
-      height: 80%;
       margin: auto;
       display: flex;
       justify-content: center;
       align-items: start;
       background-color: hsl(167 46% 38% / 1);
+      height: 80vh;
   }
     @media (min-width: 1025px) {}
     @media (min-width: 1250px) {}
