@@ -7,9 +7,6 @@ console.log('MOLLIE: ' + MOLLIE);
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
 export async function POST ({ request }) {
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-    };
     try {
         const body = await request.json();
         const paymentId = body.id;
