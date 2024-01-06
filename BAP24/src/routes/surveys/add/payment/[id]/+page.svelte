@@ -28,7 +28,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    userId: data.userId,
+                    loggedUser: data.userId,
                     surveyTitle: data.surveyName
                 })
             });

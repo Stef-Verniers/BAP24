@@ -9,16 +9,6 @@ import type { PageServerLoad } from '../../../$types';
 console.log('MOLLIE: ' + MOLLIE);
 
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
-let session;
-let user;
-
-export const load: PageServerLoad = async ({ locals }) => {
-	session = await locals.auth.validate();
-    if (!session) {
-        throw redirect(302, "/");
-    }
-    user = await auth.getUser(session.user.userId)
-}
 
 export async function POST ({ request }) {
     try {

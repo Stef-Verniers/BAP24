@@ -9,7 +9,8 @@ import { log } from "console";
 export async function POST({ request }) {
     try {
         const requestBody = await request.json();
-        const userId = requestBody.userId;
+        console.log(requestBody)
+        const userId = requestBody.loggedUser;
         const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
 
