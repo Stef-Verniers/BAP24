@@ -4,29 +4,6 @@
     import type { PageData } from "../$types";
     export let data: PageData; 
     import { onMount } from "svelte";
-    
-    let paymentId;
-    $: paymentId
-
-    onMount(async () => {
-    paymentId = sessionStorage.getItem('paymentId');
-    if (paymentId) {
-            await verifyPaymentStatus(paymentId);
-        }
-    });
-
-    async function verifyPaymentStatus(paymentId) {
-    const response = await fetch(`/api/check-payment/${paymentId}`);
-    const result = await response.json();
-    console.log(result);
-
-    if (result.paymentStatus === 'paid') {
-        localStorage.setItem("toast", JSON.stringify({ message: 'De betaling is succesvol!', type: 'success', timeout: 5000 }));
-        navigateTo('/dashboard');
-    } else {
-      localStorage.setItem("toast", JSON.stringify({ message: 'De betaling is mislukt!', type: 'error', timeout: 5000 }));
-    }
-}
 
 </script>
 
