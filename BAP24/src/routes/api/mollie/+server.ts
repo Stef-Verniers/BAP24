@@ -22,7 +22,6 @@ export async function POST({ request }) {
           redirectUrl: 'https://bap24.hosted-power.dev/payment-success',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
-            userId: PROFILE_ID,
             currentLoggedInUser: loggedUser,
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
