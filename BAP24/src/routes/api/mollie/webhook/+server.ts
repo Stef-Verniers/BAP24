@@ -11,7 +11,6 @@ console.log('MOLLIE: ' + MOLLIE);
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 let session;
 let user;
-let isSurveyCompleted;
 
 export const load: PageServerLoad = async ({ locals }) => {
 	session = await locals.auth.validate();
@@ -21,21 +20,12 @@ export const load: PageServerLoad = async ({ locals }) => {
     user = await auth.getUser(session.user.userId)
 }
 
-export async function GET (request) {
-    const body = await request.json();
-    const paymentId = body.id;
-    const payment = await mollieClient.payments.get('tr_4SCfhenyXR');
-    if (payment.status === 'paid') {
-        isSurveyCompleted = true;
-    } else {
-        isSurveyCompleted = false;
-        console.log( 'Payment status: ' + payment.status)
-    }
-}
-
 export async function POST ({ request }) {
     try {
-        if (isSurveyCompleted) {
+        const body = await request.json();
+        const paymentId = body.id;
+        const payment = await mollieClient.payments.get(paymentId);
+        if (payment.status === 'paid') {
             const survey = await prisma.enquete.findUnique({
                 where: {
                     userId: user.userId

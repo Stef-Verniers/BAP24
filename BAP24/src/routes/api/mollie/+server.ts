@@ -24,6 +24,7 @@ export async function POST({ request }) {
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
         });
+      console.log(payment);
       const checkoutUrl = payment.getCheckoutUrl();
       return json({
         message: 'Checkout URL gegenereerd',
