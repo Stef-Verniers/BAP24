@@ -6,6 +6,8 @@ import { prisma } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from '../../../$types';
 
+console.log('MOLLIE: ' + MOLLIE);
+
 const mollieClient = createMollieClient({ apiKey: MOLLIE });
 let session;
 let user;
