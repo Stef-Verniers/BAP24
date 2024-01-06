@@ -18,11 +18,11 @@ export async function POST({ request }) {
             currency: 'EUR',
             value: '7.99'
           },
-          description:  `${surveyName} - ` + loggedUser,
+          description:  `${surveyName} - ` + userId,
           redirectUrl: 'https://bap24.hosted-power.dev/payment-success',
           webhookUrl: 'https://bap24.hosted-power.dev/api/mollie/webhook',
           metadata: {
-            currentLoggedInUser: loggedUser,
+            currentLoggedInUser: userId,
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
         });
