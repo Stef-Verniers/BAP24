@@ -8,6 +8,7 @@
     import { goto } from "$app/navigation";
     export let data;
 
+
     // Variabelen staan klaar
     let preflight;
     let surveyScreen;
@@ -107,6 +108,10 @@
                 <h2>Waar gaat deze enquete over?</h2>
                 <p>{data.survey?.explanation}</p>
             </div>
+            <div class="about">
+                <h2>Hoeveel vragen telt deze enquête?</h2>
+                <p>{data.questions.length}</p>
+            </div>
             <div class="button">
                 <button type="submit" id="progress" on:click={startSurvey}>Start de enquête!</button> 
             </div>
@@ -126,9 +131,9 @@
                     goto(`/surveys`);
                 }
             }}>
-                {#each questions as question}
+                {#each questions as question, key}
                 <div class="question-container">
-                    <label for={question.id}>{question.text}</label>
+                    <label for={question.id}>{question.text} {key += 1}/{data.questions.length}</label>
                     {#if question.type === "string"}
                         <input type="text" id={question.id} name={`question-${question.id}`} placeholder="Typ hier je antwoord" required>
                     {:else if question.type === "textarea"}
