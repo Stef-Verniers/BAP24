@@ -52,9 +52,9 @@
         <a class="" href="/">🏚️ Home</a>
         <a class="" href="/dashboard">📋 Mijn dashboard</a>
         <form method="post" action="/logout?/logout" use:enhance>
-            <input type="submit" value="Uitloggen" />
+            <input type="submit" value="🔓 Uitloggen" />
         </form>
-        <button on:click={toggleMob}>Sluit venster</button>
+        <button class="safari__block" on:click={toggleMob}>Sluit venster</button>
     </ul>
 </div>
 <!-- Het navigatie menu voor de desktop versie -->
@@ -192,6 +192,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .safari__block {
+        background-color: #eeeeee !important;
     }
     @media (min-width: 768px) {
         header {
