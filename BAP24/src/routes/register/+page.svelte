@@ -78,9 +78,13 @@
       justify-content: center;
       align-items: start;
       background-color: hsl(167 46% 38% / 1);
-      height: 80vh;
+      height: 95vh;
   }
-    @media (min-width: 1025px) {}
+    @media (min-width: 1025px) {
+      .container{
+        height: 80vh;
+      }
+    }
     @media (min-width: 1250px) {}
 
 
