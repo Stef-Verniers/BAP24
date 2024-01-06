@@ -57,8 +57,28 @@
     // Formulier valideren
     function validateForm() {
         complete = true;
+        // Controleer tekstvelden en textarea's
         inputs.forEach(input => {
             if (!input.value && input.hasAttribute('required')) {
+                complete = false;
+            }
+        });
+
+        // Controleer radio buttons en checkboxes
+        const radioAndCheckboxGroups = new Map();
+        document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+            const name = input.getAttribute('name');
+            if (input.hasAttribute('required')) {
+                if (!radioAndCheckboxGroups.has(name)) {
+                    radioAndCheckboxGroups.set(name, false);
+                }
+                if (input.checked) {
+                    radioAndCheckboxGroups.set(name, true);
+                }
+            }
+        });
+        radioAndCheckboxGroups.forEach((isSelected) => {
+            if (!isSelected) {
                 complete = false;
             }
         });
