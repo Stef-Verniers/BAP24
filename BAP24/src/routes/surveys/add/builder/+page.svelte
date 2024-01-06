@@ -146,6 +146,17 @@
                 <p>Welkom op onze buildtool om jouw enquête aan te maken.</p>
                 <p>Klik aan wat voor soort vraag je wil, stel de vraag en ga door tot je klaar bent om ze te publiceren</p>
             </div>
+            <div class="wrapper highlight">
+                <h1 id="highlight__title">Tips & tricks</h1>
+                <p>We geven je graag volgende tips & tricks mee zodat jouw enquête luchtig blijft</p>
+                <ul class="tips">
+                    <li>Maak gebruik van de verschillende vraagsoorten die beschikbaar zijn</li>
+                    <li>Hou je enquête zo kort mogelijk. Stel gerichte en duidelijke vragen</li>
+                    <li>Persoonlijke vragen hoe je best voor het einde 😉</li>
+                    <li>Vermijd neutrale opties. Bvb: misschien</li>
+                    <li>Voorzie bij meerkeuze vragen een niet-van-toepassing optie</li>
+                </ul>
+            </div>
             <div class="factory">
                 <div class="questions" id="questionslist">
                     {#each questionsList as question, index}
@@ -212,7 +223,7 @@
         font-weight: bold;
         margin-bottom: 8px;
     }
-    .wrapper p {
+    .wrapper p, .tips li {
         width: auto;
         font-size: 1rem;
         line-height: calc(1.05rem * 1.3);
@@ -229,7 +240,6 @@
     .options-bar {
         display: flex;
         justify-content: space-between;
-        width: calc(100% - 10px);
         flex-direction: row;
         flex-wrap: wrap;
         margin: 2vh 0;
@@ -323,6 +333,26 @@
     .disabled {
         opacity: 0.5;
         pointer-events: none;
+    }
+    .highlight {
+        background-color: #dfffe1;
+        border: solid 5px #60a860;
+        padding: 1rem;
+        border-radius: 5px;
+    }
+    .highlight p, li {
+        color: #366d36;
+    }
+    #highlight__title {
+        color: #60a860 !important;
+    }
+    .tips {
+        margin-left: 1.5rem;
+        list-style-type: disc;
+        margin-top: 1rem;
+    }
+    .tips li {
+        margin-top: 1rem;
     }
     @media (min-width: 768px) {
         .container {
