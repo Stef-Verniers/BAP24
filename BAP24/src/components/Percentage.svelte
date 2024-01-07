@@ -89,7 +89,7 @@
     .percentage {
         fill: #666;
         font-family: sans-serif;
-        font-size: 0.5rem;
+        font-size: 0.4rem;
         text-anchor: middle;
         font-weight: bold;
     }

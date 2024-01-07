@@ -3,7 +3,6 @@ import { page } from "$app/stores";
 import Logo from "../components/Logo.svelte";
 import { onMount } from "svelte";
 import { writable } from 'svelte/store';
-import { goto } from '$app/navigation';
 
 
 // Functie om door te verwijzen naar een andere pagina met live counter 
