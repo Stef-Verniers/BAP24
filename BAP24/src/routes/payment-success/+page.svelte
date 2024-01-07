@@ -61,7 +61,7 @@
         margin-inline: 25px;
     }
     p {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
     p:first-child {
       margin-bottom: 1rem;
