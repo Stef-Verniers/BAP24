@@ -13,7 +13,7 @@
             countdown.update(n => {
                 if (n === 1) {
                     clearInterval(interval);
-                    navigateTo("/dashboard");
+                    // navigateTo("/dashboard");
                   }
                 return n - 1;
             });
