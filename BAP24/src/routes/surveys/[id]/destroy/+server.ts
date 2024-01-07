@@ -6,11 +6,9 @@ import { auth } from "$lib/server/lucia";
 export async function DELETE({ request, locals }) {
     const session = await locals.auth.validate();
     const user = session?.user;
-    console.log(session);
 
     try {
         const { userId, id, owner } = await request.json();
-        console.log(userId, id, owner)
         const getSurvey = await prisma.enquete.findUnique({
             where: {
                 id: id,

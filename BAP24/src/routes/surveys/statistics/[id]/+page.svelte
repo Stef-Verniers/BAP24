@@ -2,9 +2,7 @@
   import Header from "../../../../components/Header.svelte";
   import Percentage from "../../../../components/Percentage.svelte";
   import Toasts from "../../../../components/Toasts.svelte";
-  import { onMount } from "svelte";
   import type { PageServerLoad } from "./$types";
-  import { addToast } from "../../../../stores";
   import { makeDateReadable } from "../../../../stores";
   import { howManyDaysLeft } from "../../../../stores";
   export let data: PageServerLoad;
@@ -19,8 +17,6 @@
     $: if (answeredSurveys) {
         firstelement = answeredSurveys[0];
         lastelement = answeredSurveys[answeredSurveys.length - 1];
-        console.log(answeredSurveys);
-        console.log(lastelement);
     }
 
 </script>

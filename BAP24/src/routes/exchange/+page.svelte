@@ -50,7 +50,6 @@
 
     // Met deze functie filteren we de reeds ingewisselde producten uit de lijst
     function excludeExchangedProducts(items, exchangedIds) {
-        console.log(items, exchangedIds)
         return items.filter(item => !exchangedIds.includes(item.id));
     }
 
@@ -70,7 +69,6 @@
     // We bevestigen dat we dit product willen verzilveren
     async function confirmSelection(selectedCoupon) {
         isLoading = true;
-        console.log(selectedCoupon)
         const response = await fetch(`/exchange/${selectedCoupon}/redeem`, {
             method: "POST",
             headers: {

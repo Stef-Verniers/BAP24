@@ -27,7 +27,6 @@
     // Functie om de enquête te verwijderen
     async function destroy() {
         const surveyId = data.survey.id
-        console.log(data.userId)
         const response = await fetch(`/surveys/${surveyId}/destroy`, {
             method: 'DELETE',
             headers: {
@@ -43,7 +42,6 @@
             addToast({ message: 'Er ging iets mis, probeer het later opnieuw..', type: 'error', timeout: 5000 });
         } else {
             localStorage.setItem("toast", JSON.stringify({ message: 'De enquête werd met succes verwijderd!', type: 'success', timeout: 5000 }));
-            console.log('Enquête verwijderd');
             goto(`/dashboard`);
         }
     }

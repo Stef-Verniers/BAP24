@@ -70,7 +70,6 @@
 
     // We navigeren door de enquête
     const cycleQ = (e) => {
-        console.log(enquete)
         let currentQ = document.querySelector(".active");
         let element = currentQ?.querySelector("input, textarea, select");
         let myForm = document.getElementById("myForm");
@@ -150,7 +149,6 @@
     }
     currentId = nextQuestion(currentQ?.id);
     buttonText = currentId < 10 ? `Volgende (${currentId}/10)` : "Bevestigen"; 
-    console.log(buttonText)
 
 }
 

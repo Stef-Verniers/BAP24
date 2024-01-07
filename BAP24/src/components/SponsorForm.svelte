@@ -21,7 +21,6 @@
     async function handleSubmit(event) {
         event.preventDefault();
         const form = event.target
-        console.log(myForm.owner.value)
         const response = await fetch('/dashboard/admin/create/sponsor', {
             method: 'POST',
             headers: {

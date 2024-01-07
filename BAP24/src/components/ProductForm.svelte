@@ -34,9 +34,7 @@
         });
 
         const res = await response.json();
-        console.log(res)
         if (res.success) {
-            console.log('ok')
             form.reset();
         }
         dispatch('productFormSubmitted', res);

@@ -1,11 +1,11 @@
 import { json } from "@sveltejs/kit";
 import { prisma } from "$lib/server/prisma.js";
 
+
+// Met deze functie maken we een nieuw product en schrijven het naar de database
 export async function POST({ request }) {
     try {
         const formData = await request.json();
-        console.log(formData);
-        console.log(request.body);
         await prisma.product.create({
             data: {
                 name: formData.name,

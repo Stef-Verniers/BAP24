@@ -17,8 +17,6 @@
         }
     })
 
-    console.log(data.surveyName)
-
     // Functie die mollie aanroept
     async function mollie() {
         try {
@@ -33,9 +31,6 @@
                 })
             });
             const responseData = await response.json();
-
-            console.log(responseData)
-
             sessionStorage.setItem('paymentId', responseData.paymentId);
 
             // Controleer of de operatie succesvol was en of er een checkout URL is

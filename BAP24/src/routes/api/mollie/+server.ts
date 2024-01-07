@@ -5,11 +5,10 @@ import type { PaymentMethod } from "@mollie/api-client";
 import { prisma } from "$lib/server/prisma";
 
 
-// Mollie integratie... 
+// Mollie integratie
 export async function POST({ request }) {
     try {
         const requestBody = await request.json();
-        console.log(requestBody)
         const userId = requestBody.loggedUser;
         const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
