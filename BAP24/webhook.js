@@ -1,6 +1,7 @@
 import http from 'http';
 import express from 'express';
 import dotenv from 'dotenv';
+import { createMollieClient } from '@mollie/api-client';
 
 const app = express();
 dotenv.config()
