@@ -1,8 +1,11 @@
 // webhook.js
 import express from 'express';
 import { createMollieClient } from '@mollie/api-client';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const router = express.Router();
+
 
 const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE});
 
