@@ -43,6 +43,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
     const exchangedProducts = await prisma.exchangedReward.findMany({
         where: {
+            productId: products.id,
             exhanged: false
         },
         include: {
