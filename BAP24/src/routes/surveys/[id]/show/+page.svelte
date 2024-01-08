@@ -63,7 +63,7 @@
     <div class="wrapper" id="preflight">
         <section class="container">
             <div class="preflight">
-                <h1>{data.survey?.title}</h1>
+                <h1 class="survey_title">{data.survey?.title}</h1>
                 <p>{userGender} {data.owner} | 🏫 {data.school}</p>
                 <p>📓 {data.department}</p>
             </div>
@@ -91,6 +91,11 @@
         background-color: hsl(167, 46, 98);
         height: auto;
     }
+    .wrapper {
+        margin-top: 2rem;
+        margin-inline: auto;
+        width: calc(100% - 50px);
+    }
 
     .intro > h1, .preflight > h1 {
         font-size: 1.6rem;
@@ -111,7 +116,6 @@
     .about {
         margin-top: 2rem;
         margin-bottom: 2rem;
-        margin-inline: 25px;
     }
     .about > h2 {
         font-size: 1.1rem;
@@ -149,6 +153,16 @@
     }
     button:hover {
         cursor: pointer;
+    }
+    .survey_title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: calc(1.3rem * 1.3);
+        background-color: hsl(167 46% 38% / 1);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        color: white;
+        
     }
     @media screen and (min-width: 768px) {
         .intro {
