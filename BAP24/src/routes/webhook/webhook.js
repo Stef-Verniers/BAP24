@@ -2,7 +2,7 @@
 import express from 'express';
 import { createMollieClient } from '@mollie/api-client';
 import dotenv from 'dotenv';
-
+import { prisma } from '$lib/server/prisma';
 dotenv.config();
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         const payment = await mollieClient.payments.get(paymentId);
 
         console.log('Betaling ontvangen:', payment);
-
+        console.log(res.body.status)
         res.status(200).send('OK');
         if (res.body.status === 'paid') {
             await prisma.enquete.update({
