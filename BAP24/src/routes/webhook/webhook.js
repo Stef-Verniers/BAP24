@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
 async function updateDatabaseWithPayment(paymentId, id) {
     console.log('Database update voor betaling ID:', paymentId);
-    prisma.enquete.update({
+    await prisma.enquete.update({
         where: {
             userId: id,
         },
