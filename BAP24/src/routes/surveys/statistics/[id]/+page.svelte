@@ -19,6 +19,8 @@
         lastelement = answeredSurveys[answeredSurveys.length - 1];
     }
 
+    console.log(answeredSurveys.length);
+
 </script>
 
 <Header {data} />
@@ -32,6 +34,7 @@
             Kijk dan eens even naar de statistieken hieronder!
         </p>
     </div>
+    {#if answeredSurveys.length > 0}
     <div class="container">
         <section class="stats__screen">
             <h2>Algemene statistieken</h2>
@@ -77,6 +80,12 @@
             </div>
         </section>
     </div>
+    {:else}
+    <div class="no__surveys">
+        <h1>Er zijn nog geen antwoorden ingevuld</h1>
+        <p>Wanneer er antwoorden zijn ingevuld, kan je hier de statistieken bekijken.</p>
+    </div>
+    {/if}
 </main>
 
 <style>
@@ -97,15 +106,26 @@
         width: 100%;
         margin-bottom: 3rem;
         border-radius: 5px;
+        width: calc(100% - 50px);
+        margin-inline: auto;
     }
     .item:nth-last-child(1) {
         padding-bottom: 1rem;
     }
-    .wrapper h1 {
+    .wrapper h1, .no__surveys h1 {
         font-size: 2rem;
         color: Black;
         font-weight: bold;
         margin-bottom: 8px;
+    }
+    .no__surveys h1 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .wrapper p, .no__surveys p {
+        width: auto;
+        font-size: 0.9rem;
+        line-height: calc(0.9rem * 1.3);
     }
     h2 {
         font-size: 1.1rem;
@@ -179,6 +199,18 @@
     .list__duration {
         grid-column: 3;
     }
+    .no__surveys {
+        width: calc(100% - 50px);
+        margin-inline: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #eeeeee;
+        border-radius: 5px;
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+        padding: 1rem;
+    }
 
     @media (min-width: 1025px) {
         main {
@@ -235,7 +267,10 @@
         .overview {
             grid-column: 2;
             margin-top: 0;
-        
+        }
+        .no__surveys {
+            width: calc(80% + 25px);
+            padding: 2rem 0;
         }
 
     }
@@ -249,6 +284,10 @@
         }
         .item__group > .item > p {
             font-size: 0.9rem !important;
+        }
+        .no__surveys {
+            width: calc(70% - 25px);
+            padding: 2rem 0
         }
     }
 </style>
