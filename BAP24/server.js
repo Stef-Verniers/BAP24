@@ -1,7 +1,7 @@
 import http from 'http';
 import express from 'express';
 import { handler } from './build/handler.js';
-import router from './routes/webhook/webhook.js';
+import router from './src/routes/webhook/webhook.js';
 import cors from 'cors';
 
 const app = express();
