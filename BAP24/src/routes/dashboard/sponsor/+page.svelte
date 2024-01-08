@@ -22,6 +22,7 @@
     let sponsor = data.sponsor;
     $: sponsor;
 
+
     // We halen de data op van de server tijdens het renderen van de pagina
     onMount(async () => {
         
@@ -31,6 +32,8 @@
             addToast(toast);
             localStorage.removeItem("toast");
         }
+
+        console.log(products)
 
         productForm = document.getElementById("productForm");
     })
@@ -52,7 +55,9 @@
 
     // We sluiten het formulier
     function closeForm() {
+        console.log(activeForm)
         activeForm = '';
+        showForm = false;
         productForm.style.background = 'hsl(167 46% 38% / 1)';
     }
 
@@ -139,6 +144,19 @@
         selectedItem = '';
     }
 
+    // We veranderen de tekst naar een icoon
+    function getCategoryIcon(category) {
+        const lowerCaseCategory = category.toLowerCase();
+        if (lowerCaseCategory == 'eten') {
+            return '🍔';
+        } else if (lowerCaseCategory == 'drinken') {
+            return '🍺';
+        } else if (lowerCaseCategory == 'overig') {
+            return '🎁';
+        }
+        return ''; // Standaard terugvalicoon als geen overeenkomsten worden gevonden
+    }
+
     // We gebruiken Sveltekits reactive declaration om het huidig gekozen item te vinden in alle items
     $: results = products.filter(item => (item?.username || item?.name || item?.title).toLowerCase().includes(searchValue.toLowerCase()));
     $: products = data.products;
@@ -187,10 +205,11 @@
                     {#each products as product}
                         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
                         <div class="result">
-                            <h3>{product.name}</h3>
-                            <h3>{product.points}</h3>
+                            <h3 class="pr__name centered">{product.name}</h3>
+                            <h3 class="pr__points centered">{product.points}</h3>
+                            <h3 class="pr__type centered">{getCategoryIcon(product.category.category)}</h3>
                             <!-- svelte-ignore a11y-click-events-have-key-events -->
-                            <h3 class="icon" on:click={() => openModal(product)}>🗑️</h3>
+                            <h3 class="icon pr__icon centered" on:click={() => openModal(product)}>🗑️</h3>
                         </div>
                     {/each}
                 </div>
@@ -275,21 +294,42 @@
     }
     .result, .list {
         display: grid;
-        grid-template-columns: 55% 25% 20%;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr 1fr;
         align-items: center;
         width: 100%;
-        padding: 0.5rem 0;
-        padding-bottom: 3px;
         margin: 0.5rem auto;
         background-color: rgb(218, 218, 218);
-        min-height: 2.3rem;
-        height: auto;
+        min-height: 5rem;
         border-radius: 5px;
         text-align: center;
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
     }
     .result h3, .list h3 {
         border-right: solid 1px gray;
-        font-size: 0.7rem;
+        font-size: 0.9rem;
+    }
+    .pr__name {
+        grid-column: 1/4;
+        grid-row: 1;
+        border-bottom: solid 1px gray;
+        border-right: none !important;
+        height: 100%;
+        padding-top: 6px;
+        background-color: #FF360D;
+        color: white;
+        border-radius: 5px 5px 0 0;
+    }
+    .pr__type {
+        grid-column: 1;
+        grid-row: 2;
+        border-right: 1px solid gray !important;
+        padding-bottom: 3px;
+        
+    }
+    .pr__type, .pr__points, .pr__icon  {
+        height: 100%;
+        padding-top: 6px;
     }
     .list {
         grid-template-columns: 33% 33% 33%;
@@ -307,12 +347,16 @@
         align-items: center;
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
     }
+    .exchange__list > * {
+        padding-top: 6px;
+    }
     .ex__name {
         grid-column: 1;
         grid-row: 1;
         height: 100%;
         border-bottom: 1px solid gray !important;
-        background-color: #bdbdbd;
+        background-color: #FF360D;
+        color: white
     }
     .ex__date {
         grid-column: 2;
@@ -476,12 +520,10 @@
         main {
             min-height: calc(90vh - 4rem - 5px);
         }
-        /* .centered {
-            display: none;
-        } */
         .exchange__list {
             grid-template-columns: 40% 40% 15% 5%;
             grid-template-rows: 100%;
+            height: 2.3rem;
         }
         .container {
             width: calc(80% + 25px);
@@ -528,15 +570,13 @@
         }
         .result, .list {
             display: grid;
-            grid-template-columns: 55% 25% 20%;
+            grid-template-columns: 61% 13% 13% 13%;
+            grid-template-rows: 1fr;
             align-items: center;
             width: 100%;
-            padding: 0.5rem 0;
-            padding-bottom: 3px;
             margin: 0.5rem auto;
             background-color: rgb(218, 218, 218);
             min-height: 2.3rem;
-            height: auto;
             border-radius: 5px;
             text-align: center;
         }
@@ -548,9 +588,6 @@
         }
         .product__button {
             display: none;
-        }
-        .result {
-            grid-template-columns: 70% 15% 15%;
         }
         .list {
             grid-template-columns: 50% 25% 15% 10%;
@@ -570,6 +607,7 @@
             grid-row: 1;
             height: 100%;
             border-bottom: none !important;
+            border-radius: 5px 0 0 5px;
         }
         .ex__date {
             grid-column: 3;
@@ -589,6 +627,22 @@
             height: 100%;
             display: flex !important;
             background-color: #acf3cf;
+        }
+        .pr__name {
+            grid-column: 1;
+            height: 2.3rem;
+            border-bottom: none !important;
+            border-radius: 5px 0 0 5px;
+        }
+        .pr__icon {
+            grid-column: 4;
+            height: 100%;
+            display: flex !important;
+        }
+        .pr__type {
+            grid-column: 3;
+            grid-row: 1;
+            border-bottom: none !important;
         }
     }
     @media (min-width: 1250px) {

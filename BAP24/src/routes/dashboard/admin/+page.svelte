@@ -51,6 +51,7 @@
     // We openen een modal
     function openModal(result) {
         selectedItem = result;
+        console.log(selectedItem)
         showModal = true;
     }
 
@@ -94,7 +95,7 @@
         let type;
         if (selectedItem.username) {
             type = 'user';
-        } else if (selectedItem.name && selectedItem.owner) {
+        } else if (selectedItem.name && selectedItem.ownerId) {
             type = 'sponsor';
         } else if (selectedItem.name && selectedItem.points) {
             type = 'product';

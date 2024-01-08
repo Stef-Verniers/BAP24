@@ -37,15 +37,18 @@ export const load: PageServerLoad = async ({ locals }) => {
     // We zoeken de producten van deze sponsor
     const products = await prisma.product.findMany({
         where: {
-            sponsorId: sponsor?.id
+            sponsorId: sponsor?.id,
+        },
+        include: {
+            sponsor: true,
+            category: true
         }
     })
 
     const exchangedProducts = await prisma.exchangedReward.findMany({
-        // where: {
-        //     productId: products.id,
-        //     exhanged: false
-        // },
+        where: {
+            exchanged: false
+        },
         include: {
             user: true,
             product: {
@@ -55,6 +58,8 @@ export const load: PageServerLoad = async ({ locals }) => {
             }
         }
     });
+
+    console.log(exchangedProducts)
 
     // We halen de verschillende productcategorieën op
     const rewards = await prisma.rewardCategories.findMany({});
