@@ -2,7 +2,7 @@
 import express from 'express';
 import { createMollieClient } from '@mollie/api-client';
 import dotenv from 'dotenv';
-import prisma from '../../lib/server/prisma.js';
+import { prisma } from '../../lib/server/prisma.js';
 dotenv.config();
 const router = express.Router();
 
