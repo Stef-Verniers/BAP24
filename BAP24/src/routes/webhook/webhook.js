@@ -2,7 +2,7 @@
 import express from 'express';
 import { createMollieClient } from '@mollie/api-client';
 import dotenv from 'dotenv';
-import { prisma } from '$lib/server/prisma';
+import prisma from '../../lib/prisma.js';
 dotenv.config();
 const router = express.Router();
 
@@ -17,21 +17,19 @@ router.post('/', async (req, res) => {
         const payment = await mollieClient.payments.get(paymentId);
 
         console.log('Betaling ontvangen:', payment);
+
         console.log(res.body.status)
         res.status(200).send('OK');
-        if (res.body.status === 'paid') {
+        if (payment.status === 'paid') {
             await prisma.enquete.update({
                 where: {
-                    userId: res.body.metadata.currentLoggedInUser
+                    userId: payment.metadata.currentLoggedInUser
                 },
                 data: {
                     isPaid: true
                 }
-            })
-            localStorage.setItem("toast", JSON.stringify({ message: 'Met succes toegevoegd!', type: 'success', timeout: 5000 }));
-        }
-        if (res.body.status !== 'paid') {
-            localStorage.setItem("toast", JSON.stringify({ message: `Er is iets misgegaan! (${res.body.status})`, type: 'error', timeout: 5000 }));
+            });
+            console.log('Betaling verwerkt en database bijgewerkt');
         }
     } catch (error) {
         console.error('Fout bij verwerken van webhook:', error);
