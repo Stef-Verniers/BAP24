@@ -8,12 +8,8 @@ const app = express();
 const server = http.createServer(app);
 const PORT = 3000;
 
+app.use('/webhook', cors(), express.json(), express.urlencoded({ extended: true }),router);
 app.use(handler);
-app.use(cors());
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-
-app.use('/webhook', router);
 
 
 server.listen(PORT, () => {
