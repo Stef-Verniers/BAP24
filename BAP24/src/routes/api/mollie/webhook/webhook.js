@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     console.log('Webhook ontvangen', res.body);    
     console.log('Webhook ontvangen', req.body);
     try {
-        console.log(req.body)
+        console.log('Webhook ontvangen na de try', req.body);
         const paymentId = req.body.id;
         console.log()
         const payment = await mollieClient.payments.get('tr_FyWE8jC2EN');
