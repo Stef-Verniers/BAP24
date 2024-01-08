@@ -24,7 +24,7 @@
             return;
         }
 
-        if (!regex.test(email)) {
+        if (!emailRegex.test(email)) {
             // Toon een toastbericht als email niet geldig is
             addToast({ message: "Email heeft geen geldig email-formaat", type: "error", timeout: 5000 });
             return;
