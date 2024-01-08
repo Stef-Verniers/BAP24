@@ -19,6 +19,7 @@
 
     // Functie die mollie aanroept
     async function mollie() {
+        console.log('test')
         try {
             const response = await fetch('/api/mollie', {
                 method: 'POST',

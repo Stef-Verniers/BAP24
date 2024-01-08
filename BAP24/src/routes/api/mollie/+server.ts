@@ -9,6 +9,7 @@ import { prisma } from "$lib/server/prisma";
 export async function POST({ request }) {
     try {
         const requestBody = await request.json();
+        console.log(requestBody);
         const userId = requestBody.loggedUser;
         const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });
@@ -26,14 +27,6 @@ export async function POST({ request }) {
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
         });
-      // await prisma.enquete.update({
-      //   where: {
-      //     userId: userId
-      //   },
-      //   data: {
-      //     isPaid: true
-      //   }
-      // })
       const checkoutUrl = payment.getCheckoutUrl();
       return json({
         message: 'Checkout URL gegenereerd',
