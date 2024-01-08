@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/mollie/webhook', router);
+app.use('/webhook', router);
 app.use(handler);
 
 server.listen(PORT, () => {
