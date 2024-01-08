@@ -192,8 +192,8 @@ model EnqueteResponse {
   userId    String
   completed Boolean   @default(false)
   time      String
-  startTime DateTime? // Tijd waarop de gebruiker begint met het invullen van de enquête
-  endTime   DateTime? // Tijd waarop de gebruiker de enquête voltooit
+  startTime DateTime?
+  endTime   DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -204,7 +204,7 @@ model exchangedReward {
   userId    String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
-  exhanged  Boolean  @default(false)
+  exchanged Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
