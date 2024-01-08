@@ -19,6 +19,20 @@ router.post('/', async (req, res) => {
         console.log('Betaling ontvangen:', payment);
 
         res.status(200).send('OK');
+        if (res.body.status === 'paid') {
+            await prisma.enquete.update({
+                where: {
+                    userId: res.body.metadata.currentLoggedInUser
+                },
+                data: {
+                    isPaid: true
+                }
+            })
+            localStorage.setItem("toast", JSON.stringify({ message: 'Met succes toegevoegd!', type: 'success', timeout: 5000 }));
+        }
+        if (res.body.status !== 'paid') {
+            localStorage.setItem("toast", JSON.stringify({ message: `Er is iets misgegaan! (${res.body.status})`, type: 'error', timeout: 5000 }));
+        }
     } catch (error) {
         console.error('Fout bij verwerken van webhook:', error);
         res.status(500).send('Er is een fout opgetreden');
