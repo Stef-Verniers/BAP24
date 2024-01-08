@@ -1,7 +1,7 @@
 import http from 'http';
 import express from 'express';
 import { handler } from './build/handler.js';
-import router from './src/routes/api/mollie/webhook/webhook.js';
+import router from './routes/webhook/webhook.js';
 import cors from 'cors';
 
 const app = express();
@@ -17,4 +17,5 @@ app.use(handler);
 
 server.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);
+  console.log(router)
 });
