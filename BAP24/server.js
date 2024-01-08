@@ -9,6 +9,7 @@ const server = http.createServer(app);
 const PORT = 3000;
 
 app.use(cors());
+app.use(express.json())
 app.use('/api/mollie/webhook', router);
 app.use(handler);
 
