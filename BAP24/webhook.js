@@ -8,11 +8,12 @@ dotenv.config()
 const server = http.createServer(app);
 const PORT = 3000;
 
-// const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY });
+const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE });
 console.log(process.env.MOLLIE);
 console.log('tis werkend');
 
-// app.post((req, res) => {
-//     const event = req.body;
-
-// })
+app.post('/webhook', async (req, res) => {
+    const event = req.body;
+    const payment = await mollieClient.payments.get('tr_HG5gTsQewm');
+    console.log(payment);
+})
