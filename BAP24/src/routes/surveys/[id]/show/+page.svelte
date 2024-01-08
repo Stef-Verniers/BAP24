@@ -157,7 +157,7 @@
     .survey_title {
         font-size: 1.3rem;
         font-weight: 700;
-        line-height: calc(1.3rem * 1.3);
+        line-height: calc(1.3rem * 1.5);
         background-color: hsl(167 46% 38% / 1);
         padding: 1rem;
         margin-bottom: 1rem;
