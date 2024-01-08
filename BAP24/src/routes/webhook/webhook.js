@@ -3,7 +3,7 @@ import express from 'express';
 import { createMollieClient } from '@mollie/api-client';
 import dotenv from 'dotenv';
 dotenv.config();
-import { prisma } from '../../../lib/server/prisma.js';
+import { prisma } from '../../../src/lib/server/prisma.js';
 const router = express.Router();
 
 const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE});
