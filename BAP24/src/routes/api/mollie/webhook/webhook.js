@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
         console.log(req.body)
         const paymentId = req.body.id;
         console.log()
-        const payment = await mollieClient.payments.get(paymentId);
+        const payment = await mollieClient.payments.get('tr_FyWE8jC2EN');
 
         console.log('Betaling ontvangen:', payment);
 
