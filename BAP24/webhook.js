@@ -14,6 +14,6 @@ console.log('tis werkend');
 
 app.post('/webhook', async (req, res) => {
     const event = req.body;
-    const payment = await mollieClient.payments.get('tr_HG5gTsQewm');
+    const payment = await mollieClient.payments.get('tr_WLaYhYY9ZW');
     console.log(payment);
 })
