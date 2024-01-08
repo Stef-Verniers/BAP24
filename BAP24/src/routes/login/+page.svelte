@@ -9,7 +9,7 @@
     export let form: ActionData;
 
     // Regex voor email
-    const regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    const regex = /^\w+@[a-zA-Z_\d]+?\.[a-zA-Z]{2,3}$/;
 
     function submitForm() {
         let form = document.getElementById("myForm");

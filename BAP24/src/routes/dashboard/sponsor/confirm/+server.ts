@@ -6,7 +6,6 @@ export async function PATCH({ request, locals }) {
     const session = await locals.auth.validate();
     try {
         const { item } = await request.json();
-        console.log(item)
         const getExchangedProduct = await prisma.exchangedReward.findUnique({
             where: {
                 id: item.id,
@@ -14,7 +13,7 @@ export async function PATCH({ request, locals }) {
                 productId: item.productId
             }
         });
-        if (getExchangedProduct && !getExchangedProduct.exhanged) {
+        if (getExchangedProduct && !getExchangedProduct.exchanged) {
             await prisma.exchangedReward.update({
                 where: {
                     id: item.id,
@@ -22,7 +21,7 @@ export async function PATCH({ request, locals }) {
                     productId: item.productId
                 },
                 data: {
-                    exhanged: true
+                    exchanged: true
                 }
             });
         }

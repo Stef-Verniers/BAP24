@@ -4,19 +4,24 @@ import { auth } from "$lib/server/lucia.js";
 // We maken een nieuwe gebruiker aan
 export async function POST({ request, locals }) {
     let session = await locals.auth.validate();
-    const { name, email, password } = await request.json();
-    let username = name
+    const formdata = await request.formData();
+
+    let name = formdata.get('name');
+    let email = formdata.get('email');
+    let password = formdata.get('password');
+    let username = String(name);
+    email = String(email).toLowerCase();
     // Lucia maakt het aanmaken wel vrij ingewikkeld
     try {
         const user = await auth.createUser({
             key: {
                 providerId: "email", 
-                providerUserId: email.toLowerCase(), 
-                password,
+                providerUserId: email, 
+                password: String(password),
             },
             attributes: {
                 username,
-                email,
+                email: String(email),
                 additional: false,
                 credits: 0
             }

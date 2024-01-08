@@ -8,7 +8,7 @@ let myForm;
 onMount(() => { myForm = document.getElementById('myForm') });
 
 // Regex voor email
-const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+const emailRegex = /^\w+@[a-zA-Z_\d]+?\.[a-zA-Z]{2,3}$/;
 
 const dispatch = createEventDispatcher();
 
@@ -51,17 +51,16 @@ async function handleSubmit(event) {
         return;
     }
 
+    const formData = new FormData(event.target);
+
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('requirePassword', confirmPassword);
+
     const response = await fetch('/register/create', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            email: email,
-            password: password,
-            requirePassword: confirmPassword,
-        })
+        body: formData
     });
 
     const res = await response.json();

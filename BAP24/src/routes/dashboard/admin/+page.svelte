@@ -139,12 +139,12 @@
         activeForm = '';
         searchValue = '';
         showForm = false;
-        addToast({ message: 'Met succes toegevoegd!', type: 'success', timeout: 5000 });
     }
 
     // We vangen de data op van de productform uit de component
     function productFormSubmit(res) {
         const response = res.detail;
+        data = {...data}
         allItems = [...users, ...sponsors, ...response.body, ...surveys];
         activeForm = '';
         searchValue = '';
