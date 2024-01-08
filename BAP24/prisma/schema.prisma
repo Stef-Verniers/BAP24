@@ -108,7 +108,7 @@ model Institute {
 model RewardCategories {
   id       Int       @id @default(autoincrement())
   category String
-  Products Product[] // Relatie naar Producten
+  Products Product[]
 }
 
 model Additional_Information {
@@ -161,9 +161,9 @@ model EnqueteQuestion {
   enqueteId Int
   enquete   Enquete         @relation(fields: [enqueteId], references: [id], onDelete: Cascade)
   text      String
-  type      String // Bijvoorbeeld 'open' of 'meerkeuze'
-  options   EnqueteOption[] // Alleen als het een meerkeuzevraag is
-  answers   EnqueteAnswer[] // Antwoorden op deze specifieke vraag
+  type      String
+  options   EnqueteOption[]
+  answers   EnqueteAnswer[]
 }
 
 model EnqueteOption {
