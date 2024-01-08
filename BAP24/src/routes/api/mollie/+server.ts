@@ -26,14 +26,14 @@ export async function POST({ request }) {
           },
           method: ['ideal', 'bancontact', 'belfius', 'creditcard', 'paypal', 'paysafecard', 'sofort'] as PaymentMethod[],
         });
-      await prisma.enquete.update({
-        where: {
-          userId: userId
-        },
-        data: {
-          isPaid: true
-        }
-      })
+      // await prisma.enquete.update({
+      //   where: {
+      //     userId: userId
+      //   },
+      //   data: {
+      //     isPaid: true
+      //   }
+      // })
       const checkoutUrl = payment.getCheckoutUrl();
       return json({
         message: 'Checkout URL gegenereerd',
