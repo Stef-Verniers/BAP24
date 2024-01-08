@@ -85,6 +85,7 @@
       @media (min-width: 1025px) {
         .container{
           width: 500px;
+          margin-inline: auto;
         }
         .redirect {
           min-width: 400px;
