@@ -1,7 +1,7 @@
 import http from 'http';
 import express from 'express';
 import { handler } from './build/handler.js';
-import webhookRouter from './routes/webhook'
+import webhookRouter from './routes/api/mollie/webhook/webhook.js'
 
 const app = express();
 const server = http.createServer(app);
