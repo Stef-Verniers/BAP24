@@ -5,11 +5,11 @@ import router from './src/routes/api/mollie/webhook/webhook.js';
 import cors from 'cors';
 
 const app = express();
-app.use(cors());
 const server = http.createServer(app);
 const PORT = 3000;
 
 app.use(handler);
+app.use(cors());
 
 server.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);
