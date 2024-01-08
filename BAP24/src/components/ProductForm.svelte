@@ -3,7 +3,7 @@
     import { onMount, tick } from "svelte";
     import { createEventDispatcher } from "svelte";
     import type { PageData } from "../routes/$types";
-    export let data: PageData & { sponsors: any[], rewards: any[] };
+    export let data: PageData & { sponsors: any[], rewards: any[], sponsor: any, user: any };
 
     const { rewards, sponsor, sponsors } = data;
     const dispatch = createEventDispatcher();
@@ -13,6 +13,8 @@
     onMount(() => {
         myProductForm = document.getElementById('myProductForm');
     });
+
+    $: data = { ...data, sponsors: sponsors, rewards: rewards, sponsor: sponsor };
     
     // We voegen een nieuwe product toe aan de database
     async function handleSubmit(event) {

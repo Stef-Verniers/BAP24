@@ -3,7 +3,7 @@ import { prisma } from "$lib/server/prisma.js";
 
 export async function POST({ request }) {
     try {
-
+        // We ontvangen de data voor het toevoegen van een sponsor
         const { name, address, city, owner, link } = await request.json();
         await prisma.sponsor.create({
             data: {
@@ -22,8 +22,8 @@ export async function POST({ request }) {
                 sponsor: true
             }
         })
+        // We geven de nieuwe data terug
         const getUpdatedSponsors = await prisma.sponsor.findMany({});
-
         return json({ message: 'Data succesvol ontvangen', success: true, body: getUpdatedSponsors});
     } catch (error) {
         console.log(error)

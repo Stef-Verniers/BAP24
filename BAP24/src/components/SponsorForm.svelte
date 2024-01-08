@@ -37,6 +37,8 @@
         const res = await response.json();
         if (response.ok) {
             form.reset();
+            localStorage.setItem("toast", JSON.stringify({ message: 'Met succes toegevoegd!', type: 'success', timeout: 5000 }));
+            location.reload();
         }
         dispatch('sponsorformSubmitted', res);
     }

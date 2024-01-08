@@ -208,6 +208,11 @@
             </section> 
         </div>
         <h4 class="exchange">Verzilverde items</h4>
+        {#if !data?.exchangedProducts.length}
+            <div class="no__sponsor">
+                <h2>Er zijn nog geen items verzilverd...</h2>
+            </div>
+        {/if}
         <div class="results">
             {#each data?.exchangedProducts as reward}
                 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
