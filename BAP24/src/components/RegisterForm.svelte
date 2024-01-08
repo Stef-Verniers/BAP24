@@ -8,7 +8,7 @@ let myForm;
 onMount(() => { myForm = document.getElementById('myForm') });
 
 // Regex voor email
-const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+const emailRegex = /^\w+@[a-zA-Z_\d]+?\.[a-zA-Z]{2,3}$/;
 
 const dispatch = createEventDispatcher();
 
