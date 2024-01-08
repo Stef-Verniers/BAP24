@@ -77,13 +77,11 @@
       background-color: #eeeeee;
       padding: 2rem 2rem;
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.43);
-      min-width: 70%;
+      min-width: 80%;
       text-align: center;
+      margin-inline: auto;
+      font-size: 0.8rem !important;
     }
-
-      @media (min-width: 768px) {
-
-      }
       @media (min-width: 1025px) {
         .container{
           width: 500px;
