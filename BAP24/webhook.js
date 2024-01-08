@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const PORT = 3000;
 
 // const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE_API_KEY });
-console.log(process.env.MOLLIE_API_KEY);
+console.log(process.env.MOLLIE);
 
 // app.post((req, res) => {
 //     const event = req.body;
