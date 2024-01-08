@@ -80,12 +80,18 @@
       min-width: 80%;
       text-align: center;
       margin-inline: auto;
-      font-size: 0.8rem !important;
+      font-size: 0.9rem !important;
     }
       @media (min-width: 1025px) {
         .container{
           width: 500px;
-            margin: auto;
+        }
+        .redirect {
+          min-width: 400px;
+          font-size: 0.8rem !important;
+        }
+        .redirect p {
+          font-size: 0.8rem !important;
         }
       }
       @media (min-width: 1250px) {}
