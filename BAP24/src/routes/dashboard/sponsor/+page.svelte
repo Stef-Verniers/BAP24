@@ -19,6 +19,8 @@
     let activeForm = '' ;
     let productForm;
     let slider;
+    let sponsor = data.sponsor;
+    $: sponsor;
 
     // We halen de data op van de server tijdens het renderen van de pagina
     onMount(async () => {
@@ -60,32 +62,58 @@
         showModal = true;
     }
 
-        // We verwijderen een item door de slider te verslepen
-        async function slideToDelete() {
-        slider = document.getElementById("myRange");
+    // Zet item op disabled
+    async function disableItem(result) {
+        selectedItem = result;
+        console.log(selectedItem)
+        const response = await fetch(`/dashboard/sponsor/confirm`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                item: selectedItem,
+                test: 'test'
+            })
+        });
+        const res = await response.json()
+        if (!res) {
+                showModal = false;
+                addToast({ message: 'Verwijderen mislukt...', type: 'error', timeout: 5000 });
+                } else {
+                showModal = false;
+                products = products.filter(product => product.id !== selectedItem.id);
+                addToast({ message: 'Met succes verwijderd!', type: 'success', timeout: 5000 });
+                // products = res.body;
+            }
+    }
 
-        let type;
-        if (selectedItem.username) {
-            type = 'user';
-        } else if (selectedItem.name && selectedItem.owner) {
-            type = 'sponsor';
-        } else if (selectedItem.name && selectedItem.points) {
-            type = 'product';
-        }
+    // We verwijderen een item door de slider te verslepen
+    async function slideToDelete() {
+    slider = document.getElementById("myRange");
 
-        if (slider.value == 100) {
-            const response = await fetch(`/dashboard/admin/destroy`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    item: selectedItem,
-                    type: type
-                })
-            });
-            const res = await response.json()
-            if (!res) {
+    let type;
+    if (selectedItem.username) {
+        type = 'user';
+    } else if (selectedItem.name && selectedItem.owner) {
+        type = 'sponsor';
+    } else if (selectedItem.name && selectedItem.points) {
+        type = 'product';
+    }
+
+    if (slider.value == 100) {
+        const response = await fetch(`/dashboard/admin/destroy`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                item: selectedItem,
+                type: type
+            })
+        });
+        const res = await response.json()
+        if (!res) {
                 showModal = false;
                 addToast({ message: 'Verwijderen mislukt...', type: 'error', timeout: 5000 });
                 } else {
@@ -145,6 +173,13 @@
         <div class="intro">
             <h1>Welkom {data.username}</h1>
         </div>
+        {#if !sponsor}
+        <div class="mobile-container">
+            <div class="no__sponsor">
+                <h2>Er is nog geen etablissement gelinkt aan jouw profiel...</h2>
+            </div>
+        </div>
+        {:else}
         <div class="mobile-container">
             <div class="form__content">
                 <h4 class="product__label">Mijn Producten</h4>
@@ -177,20 +212,30 @@
             {#each data?.exchangedProducts as reward}
                 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
                 <!-- svelte-ignore a11y-no-static-element-interactions -->
-                <div class="list" on:touchend={() => openModal(reward)}>
-                    <h3>{reward.product.name}</h3>
-                    <h3>{reward.user.username}</h3>
-                    <h3>{makeDateReadable(reward.createdAt)}</h3>
+                <div class='list exchange__list'>
+                    <h3 class="ex__name centered">{reward.product.name}</h3>
+                    <h3 class="ex__user centered">{reward.user.username}</h3>
+                    <h3 class="ex__date centered">{makeDateReadable(reward.createdAt)}</h3>
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <h3 class="icon screen" on:click={() => openModal(reward)}>🗑️</h3>
+                    <h3 class="icon screen ex__icon centered" on:click={() => disableItem(reward)}>✅</h3>
                 </div>
             {/each}
         </div>
+        {/if}
     </div>
 </main>
 <Footer />
 
 <style>
+    .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .disabled {
+        opacity: 0.3;
+        pointer-events: none;
+    }
     main {
         overflow: hidden;    
         background-color: hsl(167, 46, 98);
@@ -246,6 +291,42 @@
         font-size: 0.7rem !important;
         text-indent: 0.5rem;
         align-items: center;
+    }
+    .exchange__list {
+        margin-bottom: 1rem;
+        grid-template-columns: 70% 30%;
+        grid-template-rows: 50% 50%;
+        height: 5rem;
+        padding: 0 !important;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+    }
+    .ex__name {
+        grid-column: 1;
+        grid-row: 1;
+        height: 100%;
+        border-bottom: 1px solid gray !important;
+        background-color: #bdbdbd;
+    }
+    .ex__date {
+        grid-column: 2;
+        grid-row: 1;
+        height: 100%;
+        border-bottom: 1px solid gray !important;
+        border-right: none !important;
+    }
+    .ex__user {
+        grid-column: 1;
+        grid-row: 2;
+        height: 100%;
+    }
+    .ex__icon {
+        grid-column: 2;
+        grid-row: 2;
+        height: 100%;
+        display: flex !important;
+        background-color: #acf3cf;
     }
     .list h3 {
         font-size: 0.7rem;
@@ -321,6 +402,7 @@
         font-size: 1rem;
         margin-top: 0.5rem;
         color: white;
+        line-height: calc(1rem * 1.3);
     }
     strong {
         font-weight: bold;
@@ -372,9 +454,29 @@
     .icon {
         cursor: pointer;
     }
+    .no__sponsor {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        background-color: #eee;
+        border-radius: 5px;
+        font-size: 0.8rem !important;
+        line-height: calc(0.8rem * 1.3);
+        box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
+    }
     @media screen and (min-width: 1025px) {
         main {
             min-height: calc(90vh - 4rem - 5px);
+        }
+        /* .centered {
+            display: none;
+        } */
+        .exchange__list {
+            grid-template-columns: 40% 40% 15% 5%;
+            grid-template-rows: 100%;
         }
         .container {
             width: calc(80% + 25px);
@@ -419,6 +521,20 @@
             flex-direction: row;
             gap: 3rem
         }
+        .result, .list {
+            display: grid;
+            grid-template-columns: 55% 25% 20%;
+            align-items: center;
+            width: 100%;
+            padding: 0.5rem 0;
+            padding-bottom: 3px;
+            margin: 0.5rem auto;
+            background-color: rgb(218, 218, 218);
+            min-height: 2.3rem;
+            height: auto;
+            border-radius: 5px;
+            text-align: center;
+        }
         .results {
             width: 100%;
             margin: 0 auto;
@@ -440,6 +556,34 @@
         .screen {
             display: block;
             grid-column: 4;
+        }
+        .no__sponsor {
+            font-size: 0.9rem !important;
+        }
+        .ex__name {
+            grid-column: 1;
+            grid-row: 1;
+            height: 100%;
+            border-bottom: none !important;
+        }
+        .ex__date {
+            grid-column: 3;
+            grid-row: 1;
+            height: 100%;
+            border-right: 1px solid gray !important;
+            border-bottom: none !important;
+        }
+        .ex__user {
+            grid-column: 2;
+            grid-row: 1;
+            height: 100%;
+        }
+        .ex__icon {
+            grid-column: 4;
+            grid-row: 1;
+            height: 100%;
+            display: flex !important;
+            background-color: #acf3cf;
         }
     }
     @media (min-width: 1250px) {

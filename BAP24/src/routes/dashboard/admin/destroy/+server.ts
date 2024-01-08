@@ -16,7 +16,6 @@ export async function DELETE({ request }) {
         const products = await prisma.product.findMany({});
         const users = await prisma.user.findMany({});
         const sponsors = await prisma.sponsor.findMany({});
-
         
         return json({ message: 'Met succes verwijderd', body: [...products, ...users, ...sponsors] }, { status: 200 });
     } catch (e) {
