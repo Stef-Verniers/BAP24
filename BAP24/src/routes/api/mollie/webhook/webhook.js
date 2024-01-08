@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 const router = express.Router();
 
-
 const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE});
 
 router.post('/', async (req, res) => {
@@ -16,7 +15,7 @@ router.post('/', async (req, res) => {
 
         console.log('Betaling ontvangen:', payment);
 
-        res.status(200).send('OK');W
+        res.status(200).send('OK');
     } catch (error) {
         console.error('Fout bij verwerken van webhook:', error);
         res.status(500).send('Er is een fout opgetreden');
