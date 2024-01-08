@@ -9,6 +9,7 @@ const router = express.Router();
 const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE});
 
 router.post('/', async (req, res) => {
+    
     console.log('Webhook ontvangen', req.body);
     try {
         console.log(req.body)
