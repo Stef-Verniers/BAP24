@@ -1,4 +1,3 @@
-import createMollieClient from '@mollie/api-client';
 import http from 'http';
 import express from 'express';
 import dotenv from 'dotenv';
