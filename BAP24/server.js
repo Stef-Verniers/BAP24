@@ -8,12 +8,13 @@ const app = express();
 const server = http.createServer(app);
 const PORT = 3000;
 
+app.use(handler);
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/webhook', router);
-app.use(handler);
+
 
 server.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);
