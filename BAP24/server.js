@@ -4,8 +4,8 @@ import { handler } from './build/handler.js';
 import router from './src/routes/api/mollie/webhook/webhook.js';
 import cors from 'cors';
 
-app.use(cors());
 const app = express();
+app.use(cors());
 const server = http.createServer(app);
 const PORT = 3000;
 
