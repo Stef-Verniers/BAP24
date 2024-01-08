@@ -17,6 +17,8 @@ export async function POST({ request, locals }) {
             attributes: {
                 username,
                 email,
+                additional: false,
+                credits: 0
             }
         });
         session = await auth.createSession({
@@ -26,8 +28,8 @@ export async function POST({ request, locals }) {
         locals.auth.setSession(session);
         return json({ message: 'Data succesvol ontvangen', success: true });
     } catch (error) {
-        console.log(error)
-        if (error.code === 'P2002') {
+        console.log(error);
+        if ((error as { code: string }).code === 'P2002') {
             return json({ message: 'Er is al een account gemaakt met dit mailadres', success: false }, { status: 500 });
         }
         return json({ message: error, success: false }, { status: 500 });

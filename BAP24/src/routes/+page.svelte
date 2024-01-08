@@ -7,6 +7,7 @@
     import home2 from '$lib/images/home2.png'
     import home3 from '$lib/images/home3.png'
     import hero from '$lib/images/hero2.png'
+    import { navigateTo } from '../stores';
     import type { PageData } from './$types';
     export let data: PageData;
 </script>
@@ -18,7 +19,7 @@
         <div class="section-text">
             <h1>Een platform met een échte bijdrage</h1>
             <p>Welkom op BAP24, een platform gericht naar studenten die hulp nodig hebben bij het zoeken naar deelnemers van jouw thesis.</p>
-            <button class="cta-button"><a href="/register">Registreer je meteen!</a></button>
+            <button class="cta-button" on:click={() => navigateTo('/register')}>Registreer je meteen!</button>
         </div>
         <div class="section-image hero-image">
             <img id="hero__image" src={hero} alt="hero" />
@@ -150,12 +151,10 @@
         padding-inline: 1rem;
         margin-top: 1rem;
         box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.23);
-    }
-    .cta-button > a {
-        color: white;
-        text-decoration: none;
-        cursor: pointer;
         font-size: 1.3rem;
+    }
+    .cta-button:hover {
+        cursor: pointer;
     }
     .section-image > img {
         width: 100%;

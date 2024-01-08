@@ -3,7 +3,7 @@
     import Coupon from "../../components/Coupon.svelte";
     import type { PageData } from './$types';
     import { onMount } from "svelte";
-    import { addToast } from "../../stores";
+    import { addToast, navigateTo } from "../../stores";
     import Toasts from "../../components/Toasts.svelte";
     import { goto } from "$app/navigation";
     export let data: PageData;
@@ -167,9 +167,15 @@
                 {#each exchangedProducts as coupon, i}
                     <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <!-- svelte-ignore a11y-no-static-element-interactions -->
-                    <div class="coupon no__teaser" on:click={() => openModal(coupon)}>
+                    {#if coupon.exhanged}
+                    <div class="coupon no__teaser">
                         <Coupon title={coupon.product.name} sponsor={coupon.product.sponsor.name} points={coupon.product.points} />
                     </div>
+                    {:else}
+                    <div class="coupon" on:click={() => navigateTo(`/exchange/${coupon.productId}/redeemed`)}>
+                        <Coupon title={coupon.product.name} sponsor={coupon.product.sponsor.name} points={coupon.product.points} />
+                    </div>
+                    {/if}
                 {/each}
             {:else}
                 <div class="no__results">

@@ -4,10 +4,8 @@
     import { enhance } from "$app/forms";
     import Toasts from "../../components/Toasts.svelte";
     import { addToast } from "../../stores";
-    import type { ActionData, PageData } from "./$types.js";
+    import type { ActionData } from "./$types.js";
     import { tick } from "svelte";
-
-    export let data: PageData;
     export let form: ActionData;
 
     // Regex voor email
