@@ -1,5 +1,4 @@
 node_modules
-BAP24/prisma/migrations/*/*
 BAP24/static/images/*
 BAP24/static/**
 BAP24/yarn-error.log
