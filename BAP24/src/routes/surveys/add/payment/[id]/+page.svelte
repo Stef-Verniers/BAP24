@@ -97,7 +97,7 @@
             {/if}
         </div>
         <div class="form" id="myForm">
-            <button on:click={mollie}>Betaal €10</button>
+            <button on:click={mollie}>Betaal €7.99</button>
             <p>of</p>
             <button on:click={credits}>Betaal 25 creditpoints</button>
         </div>
