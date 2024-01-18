@@ -153,7 +153,7 @@
             }}>
                 {#each questions as question, key}
                 <div class="question-container">
-                    <label for={question.id}>{question.text} {key += 1}/{data.questions.length}</label>
+                    <label for={question.id}>{question.text}  ({key += 1}/{data.questions.length})</label>
                     {#if question.type === "string"}
                         <input type="text" id={question.id} name={`question-${question.id}`} placeholder="Typ hier je antwoord" required>
                     {:else if question.type === "textarea"}
