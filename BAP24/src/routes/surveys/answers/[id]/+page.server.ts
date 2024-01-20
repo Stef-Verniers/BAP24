@@ -1,5 +1,5 @@
 import { auth } from "$lib/server/lucia";
-import type { PageServerLoad,Actions } from './$types.js';
+import type { PageServerLoad } from './$types.js';
 import { redirect } from "@sveltejs/kit";
 import { prisma } from "$lib/server/prisma.js";
 

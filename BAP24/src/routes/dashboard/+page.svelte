@@ -140,7 +140,7 @@
                 </div>
             </div>
             <div class="item">
-                <button class="enq" on:click={() => navigateTo(`/surveys/statistics/${data.userId}`)}>Bekijk antwoorden</button>
+                <button class="enq" on:click={() => navigateTo(`/surveys/answers/${data.userId}`)}>Bekijk antwoorden</button>
             </div>
             <div class="item">
                 <button class="enq" on:click={() => navigateTo(`/surveys/${data.getSurvey?.id}/show`)}>Bekijk mijn enquête</button>
