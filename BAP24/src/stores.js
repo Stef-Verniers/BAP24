@@ -75,5 +75,8 @@ export function howManyDaysLeft(deadline) {
     const endDate = new Date(deadline);
     const difference = endDate.getTime() - now.getTime();
     const differenceDays = Math.ceil(difference / (1000 * 3600 * 24));
+    if (differenceDays < 0) {
+        return 'De deadline is verstreken';
+    }
     return differenceDays;
 }
