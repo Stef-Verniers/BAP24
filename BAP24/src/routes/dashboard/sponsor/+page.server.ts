@@ -32,8 +32,6 @@ export const load: PageServerLoad = async ({ locals }) => {
         }
     })
 
-    console.log(sponsor)
-
     // We zoeken de producten van deze sponsor
     const products = await prisma.product.findMany({
         where: {
@@ -58,8 +56,6 @@ export const load: PageServerLoad = async ({ locals }) => {
             }
         }
     });
-
-    console.log(exchangedProducts)
 
     // We halen de verschillende productcategorieën op
     const rewards = await prisma.rewardCategories.findMany({});

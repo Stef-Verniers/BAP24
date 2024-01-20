@@ -9,12 +9,10 @@ const mollieClient = createMollieClient({ apiKey: process.env.MOLLIE});
 
 router.post('/', async (req, res) => {
     try {
-        console.log('Webhook ontvangen na de try', req.body);
         const paymentId = req.body.id;
         const payment = await mollieClient.payments.get(paymentId);
         res.status(200).send('OK');
         if (payment.status === 'paid') {
-            console.log('Betaling verwerkt en database bijgewerkt');
             await updateDatabaseWithPayment(paymentId, payment.metadata.currentLoggedInUser);
         }
     } catch (error) {
@@ -24,7 +22,6 @@ router.post('/', async (req, res) => {
 });
 
 async function updateDatabaseWithPayment(paymentId, id) {
-    console.log('Database update voor betaling ID:', paymentId);
     await prisma.enquete.update({
         where: {
             userId: id,

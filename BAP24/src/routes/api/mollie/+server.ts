@@ -9,7 +9,6 @@ import { prisma } from "$lib/server/prisma";
 export async function POST({ request }) {
     try {
         const requestBody = await request.json();
-        console.log(requestBody);
         const userId = requestBody.loggedUser;
         const surveyName = requestBody.surveyTitle;
         const mollieClient = createMollieClient({ apiKey: MOLLIE });

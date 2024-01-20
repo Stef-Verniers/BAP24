@@ -32,9 +32,6 @@
             addToast(toast);
             localStorage.removeItem("toast");
         }
-
-        console.log(products)
-
         productForm = document.getElementById("productForm");
     })
 
@@ -55,7 +52,6 @@
 
     // We sluiten het formulier
     function closeForm() {
-        console.log(activeForm)
         activeForm = '';
         showForm = false;
         productForm.style.background = 'hsl(167 46% 38% / 1)';
@@ -70,7 +66,6 @@
     // Zet item op disabled
     async function disableItem(result) {
         selectedItem = result;
-        console.log(selectedItem)
         const response = await fetch(`/dashboard/sponsor/confirm`, {
             method: "PATCH",
             headers: {

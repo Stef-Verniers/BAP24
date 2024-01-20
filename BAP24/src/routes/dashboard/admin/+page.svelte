@@ -51,7 +51,6 @@
     // We openen een modal
     function openModal(result) {
         selectedItem = result;
-        console.log(selectedItem)
         showModal = true;
     }
 
