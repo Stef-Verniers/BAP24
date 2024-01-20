@@ -278,6 +278,9 @@
             width: calc(80% + 25px);
             padding: 2rem 0;
         }
+        .wrapper h1{
+        font-size: 2rem;
+    }
 
     }
     @media (min-width: 1250px) {
