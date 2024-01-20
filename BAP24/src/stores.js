@@ -57,6 +57,19 @@ export function makeDateReadable (date) {
     return convertedDate;
 };
 
+export function showDateAndTime (date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+
+    const convertedDate = `${day}/${month}/${year} ${hour}:${minutes}`;
+    return convertedDate;
+
+}
+
 export function howManyDaysLeft(deadline) {
     const now = new Date();
     const endDate = new Date(deadline);

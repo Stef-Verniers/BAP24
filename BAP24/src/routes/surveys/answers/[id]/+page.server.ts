@@ -42,7 +42,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
                 include: {
                     EnqueteQuestion: {
                         include: {
-                            options: true, // Als je de opties van de vragen wilt ophalen
+                            options: true,
                             answers: {
                                 where: {
                                     userId: session?.user?.userId

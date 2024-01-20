@@ -3,8 +3,9 @@
   import Percentage from "../../../../components/Percentage.svelte";
   import Toasts from "../../../../components/Toasts.svelte";
   import type { PageServerLoad } from "./$types";
-  import { makeDateReadable } from "../../../../stores";
+  import { makeDateReadable, showDateAndTime } from "../../../../stores";
   import { howManyDaysLeft } from "../../../../stores";
+  import { navigateTo } from "../../../../stores";
   export let data: PageServerLoad;
 
     let answeredSurveys = [];
@@ -18,8 +19,6 @@
         firstelement = answeredSurveys[0];
         lastelement = answeredSurveys[answeredSurveys.length - 1];
     }
-
-    console.log(answeredSurveys.length);
 
 </script>
 
@@ -59,7 +58,7 @@
             </div>
         </section>
         <section class="respond__list">
-            <h2>Recente antwoorden</h2>
+            <h2>Ingevulde enquêtes</h2>
             <div class="wrapper overview">
                 <div class="mobile">
                     <div class="item head">
@@ -69,11 +68,15 @@
                     </div>
                     <div class="item item__list">
                         {#each answeredSurveys as answer}
-                        <div class="list">
-                            <p class="list__id">{answer.id}</p>
-                            <p class="list__end">{makeDateReadable(answer.endTime)}</p>
-                            <p class="list__duration">{answer.time}</p>
-                        </div>
+                            <!-- svelte-ignore a11y-no-static-element-interactions -->
+                            <!-- svelte-ignore a11y-click-events-have-key-events -->
+                            <div class="list">
+                                <p class="list__id">{answer.id}</p>
+                                <p class="list__end">{showDateAndTime(answer.endTime)}</p>
+                                <p class="list__duration">{answer.time}</p>
+                                <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                                <p class="no-indent icon" on:click={() => navigateTo(`/surveys/answer/${answer.enqueteId}/${answer.userId}`)}>👁️</p>
+                            </div>
                         {/each}
                     </div>  
                 </div>
@@ -103,17 +106,20 @@
     }
     .wrapper {
         height: auto;
-        width: 100%;
         margin-bottom: 3rem;
         border-radius: 5px;
+    }
+    .title {
+        text-align: left;
+        font-size: 1.3rem;
         width: calc(100% - 50px);
-        margin-inline: auto;
+        margin-inline: 25px;
     }
     .item:nth-last-child(1) {
         padding-bottom: 1rem;
     }
     .wrapper h1, .no__surveys h1 {
-        font-size: 2rem;
+        font-size: 1.3rem;
         color: Black;
         font-weight: bold;
         margin-bottom: 8px;
@@ -162,7 +168,7 @@
     }
     .head, .list {
         display: grid;
-        grid-template-columns: 20% 40% 40%;
+        grid-template-columns: 10% 35% 45% 10%;
         background-color: #eeeeee;
         margin: 0;
         height: 2.3rem;
