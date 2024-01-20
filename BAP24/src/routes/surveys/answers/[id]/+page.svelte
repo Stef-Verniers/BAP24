@@ -29,9 +29,9 @@
 
 <main>
     <div class="wrapper title">
-        <h1>Jouw statistieken</h1>
-        <p>Ben je benieuwd hoe goed jouw enquete het doet?
-            Kijk dan eens even naar de statistieken hieronder!
+        <h1>Jouw ingevulde enquêtes</h1>
+        <p>Ben je benieuwd naar wat je respondenten hebben geantwoord?
+            Kijk dan eens even naar de resultaten hieronder!
         </p>
     </div>
     {#if answeredSurveys.length > 0}
