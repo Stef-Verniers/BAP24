@@ -38,12 +38,21 @@
     }
 
     // Als de survey al in de localstorage staat, dan wordt de enquête gestart.
+    // Als het blijkt dat de deadline verstreken is kan de enquête niet meer ingevuld worden.
     // Er wordt tevens gecontroleerd of alle velden zijn ingevuld.
     onMount(() => {
         preflight = document.getElementById("preflight");
         surveyScreen = document.getElementById("survey");
         surveyForm = document.getElementById("surveyForm");
         const surveyStarted = JSON.parse(localStorage.getItem("surveyStarted"));
+        const calculateDeadline = new Date(data.survey.deadline);
+        calculateDeadline.setHours(calculateDeadline.getHours() - 1);
+        console.log(calculateDeadline, new Date())
+        if (!surveyStarted && calculateDeadline < new Date()) {
+            localStorage.setItem("toast", JSON.stringify({ message: 'Deze enquête kan niet langer ingevuld worden', type: 'error', timeout: 5000 }));
+            goto(`/surveys`);
+            return;
+        }
         if (surveyStarted) stopwatchValue = surveyStarted.stopwatch;
         if (surveyStarted && surveyStarted["started?"] === true) {
             startSurvey();

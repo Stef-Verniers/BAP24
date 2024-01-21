@@ -24,8 +24,14 @@
     // We navigeren door alle ingevulde enquêtes en filteren deze uit de lijst zodat we nooit een enquête 2 keer kunnen invullen
     let ingevuldeEnqueteIds = data.respondents.map(respondent => respondent.enqueteId);
     surveys = surveys.filter(survey => !ingevuldeEnqueteIds.includes(survey.id));
-    //We sorteren op deadline zodat de enquêtes met de kortste deadline bovenaan komen te staan
-    surveys.sort((a, b) => a.deadline - b.deadline);
+
+    // Filtering van de enquêtes op basis van de deadline
+    const currentDate = new Date()
+    // Tijdsverhoging
+    currentDate.setHours(currentDate.getHours() + 1);
+    surveys = surveys.filter(survey => new Date(survey.deadline) >= currentDate);
+    // Sorteren op deadline
+    surveys.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
     // We filteren de enquêtes op basis van de opgegeven details van de gebruiker
     const filteredSurveys = surveys.filter(survey => survey.userId !== data.userId)
