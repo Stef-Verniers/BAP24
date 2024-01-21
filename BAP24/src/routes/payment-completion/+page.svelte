@@ -31,10 +31,9 @@
 <main>
     <div class="container">
       <div class="title">
-          <h1>Gelukt! ✅</h1>
+          <h1>Je betaling wordt verwerkt</h1>
       </div>
       <div class="redirect">
-        <p>Uw betaling is succesvol verwerkt!</p>
         <p>U wordt automatisch doorverwezen naar de homepagina ({$countdown})</p>
     </div>
     </div>
