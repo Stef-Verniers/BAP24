@@ -13,7 +13,7 @@
             countdown.update(n => {
                 if (n === 1) {
                     clearInterval(interval);
-                    navigateTo("/dashboard");
+                    // navigateTo("/dashboard");
                   }
                 return n - 1;
             });
@@ -63,7 +63,6 @@
       font-size: 0.7rem;
     }
     p:first-child {
-      margin-bottom: 1rem;
       font-weight: 500;
     }
     .redirect {
