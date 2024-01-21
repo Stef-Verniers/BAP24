@@ -14,8 +14,6 @@ router.post('/', async (req, res) => {
         res.status(200).send('OK');
         if (payment.status === 'paid') {
             await updateDatabaseWithPayment(paymentId, payment.metadata.currentLoggedInUser);
-        } else {
-            res.redirect('/payment-failed');
         }
     } catch (error) {
         console.error('Fout bij verwerken van webhook:', error);
