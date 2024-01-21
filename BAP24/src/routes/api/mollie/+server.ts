@@ -19,7 +19,7 @@ export async function POST({ request }) {
             value: '7.99'
           },
           description:  `${surveyName} - ` + userId,
-          redirectUrl: 'https://bap24.hosted-power.dev/payment-success',
+          redirectUrl: 'https://bap24.hosted-power.dev/interlude',
           webhookUrl: 'https://bap24.hosted-power.dev/webhook',
           metadata: {
             currentLoggedInUser: userId,
