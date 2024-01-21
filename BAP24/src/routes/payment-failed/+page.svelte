@@ -13,7 +13,7 @@
             countdown.update(n => {
                 if (n === 1) {
                     clearInterval(interval);
-                    // navigateTo("/dashboard");
+                    navigateTo("/dashboard");
                   }
                 return n - 1;
             });
@@ -31,10 +31,10 @@
 <main>
     <div class="container">
       <div class="title">
-          <h1>Gelukt! ✅</h1>
+        <h1>Er ging iets mis tijdens het uitvoeren van uw betaling...</h1>
       </div>
       <div class="redirect">
-        <p>Uw betaling is succesvol verwerkt!</p>
+        <p>Probeer het later nog eens opnieuw!</p>
         <p>U wordt automatisch doorverwezen naar de homepagina ({$countdown})</p>
     </div>
     </div>
@@ -48,12 +48,14 @@
     }
     .title {
         color: black;
+        height: auto;
         margin-bottom: 2rem;
     }
     .title > h1 {
-        font-size: 2rem;
+        font-size: 1.3rem;
         font-weight: bold;
         text-align: left;
+        line-height: calc(1.3rem * 1.3);
     }
     .container {
         width: calc(100% - 50px);
@@ -94,6 +96,10 @@
         .redirect p {
           font-size: 0.8rem !important;
         }
+        .title > h1 {
+          font-size: 2rem;
+          line-height: calc(2rem * 1.3);
+      }
       }
       @media (min-width: 1250px) {}
 
