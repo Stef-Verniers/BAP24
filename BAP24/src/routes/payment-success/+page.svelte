@@ -31,11 +31,11 @@
 <main>
     <div class="container">
       <div class="title">
-          <h1>Gelukt! ✅</h1>
+          <h1>Uw bestelling is met succes ontvangen! ✅</h1>
       </div>
       <div class="redirect">
-        <p>Uw betaling is succesvol verwerkt!</p>
-        <p>U wordt automatisch doorverwezen naar de homepagina ({$countdown})</p>
+        <p>Uw betaling wordt verwerkt!</p>
+        <p>U wordt automatisch doorverwezen naar de homepagina ({$countdown}) met een feedback boodschap</p>
     </div>
     </div>
 </main>
