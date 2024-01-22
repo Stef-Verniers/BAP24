@@ -147,14 +147,14 @@
                 <p>Klik aan wat voor soort vraag je wil, stel de vraag en ga door tot je klaar bent om ze te publiceren</p>
             </div>
             <div class="wrapper highlight">
-                <h1 id="highlight__title">Tips & tricks</h1>
+                <h1 id="highlight__title">Tips & tricks:</h1>
                 <p>We geven je graag volgende tips & tricks mee zodat jouw enquête luchtig blijft</p>
                 <ul class="tips">
                     <li>Maak gebruik van de verschillende vraagsoorten die beschikbaar zijn</li>
                     <li>Hou je enquête zo kort mogelijk. Stel gerichte en duidelijke vragen</li>
                     <li>Persoonlijke vragen hoe je best voor het einde 😉</li>
                     <li>Vermijd neutrale opties. Bvb: misschien</li>
-                    <li>Voorzie bij meerkeuze vragen een niet-van-toepassing optie</li>
+                    <li>Voorzie bij meerkeuzevragen een niet-van-toepassing optie</li>
                 </ul>
             </div>
             <div class="factory">
