@@ -3,7 +3,7 @@
     import Footer from "../../components/Footer.svelte";
     import type { PageData } from './$types';
     import { onMount } from "svelte";
-    import { addToast } from "../../stores";
+    import { addToast, capitalize } from "../../stores";
     import Toasts from "../../components/Toasts.svelte";
     import { makeDateReadable } from "../../stores";
     import { navigateTo } from "../../stores";
@@ -203,7 +203,7 @@
             <div class="data-container">
                 <div class="data-item">
                     <p>🧠 Leeftijdscategorie</p>
-                    <h3>{data.age?.category}</h3>
+                    <h3>{capitalize(data.age?.category)}</h3>
                 </div>
                 <div class="data-item">
                     <p>🌍 Nationaliteit</p>
@@ -211,11 +211,11 @@
                 </div>
                 <div class="data-item">
                     <p>⚧️ Geslacht / Gender</p>
-                    <h3>{data.sex?.sex}</h3>
+                    <h3>{capitalize(data.sex?.sex)}</h3>
                 </div>
                 <div class="data-item">
                     <p>🛠️ Huidig beroepsstatuut</p>
-                    <h3>{data.occupation?.occupation}</h3>
+                    <h3>{capitalize(data.occupation?.occupation)}</h3>
                 </div>
                 <div class="data-item">
                     <p>📓 Studieveld / Werkomgeving</p>

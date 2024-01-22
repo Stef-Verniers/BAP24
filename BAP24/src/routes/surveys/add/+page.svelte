@@ -5,11 +5,10 @@
     import { enhance } from "$app/forms";
     export let data: PageData;
     export let form;
-    import { addToast } from '../../../stores';
+    import { addToast, capitalize } from '../../../stores';
     import Toasts from '../../../components/Toasts.svelte';
     import { tick } from "svelte";
     import { onMount } from 'svelte';
-  import { all } from 'axios';
 
     let theButton;
     let buttonText = ""
@@ -227,7 +226,7 @@ function previousQ() {
                     <select name="ageCategory" id="enq">
                         <option value="" disabled selected>Kies een optie</option>
                     {#each age as ageCategory}
-                        <option value={ageCategory.id}>{ageCategory.category}</option>
+                        <option value={ageCategory.id}>{capitalize(ageCategory.category)}</option>
                     {/each}
                     </select>
                     </div>
@@ -245,7 +244,7 @@ function previousQ() {
                     <select name="occupation" id="enq">
                         <option value="" disabled selected>Kies een optie</option>
                     {#each occupation as job}
-                        <option value={job.id}>{job.occupation}</option>
+                        <option value={job.id}>{capitalize(job.occupation)}</option>
                     {/each}
                     </select>
                 </div>
@@ -264,7 +263,7 @@ function previousQ() {
                     <select name="sex" id="enq">
                         <option value="" disabled selected>Kies een optie</option>
                     {#each sex as gender}
-                        <option value={gender.id}>{gender.sex}</option>
+                        <option value={gender.id}>{capitalize(gender.sex)}</option>
                     {/each}
                     </select>
                 </div>
