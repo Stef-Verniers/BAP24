@@ -69,10 +69,7 @@ async function handleSubmit(event) {
 
 </script>
 
-<form id="myForm" method="POST" action="/register/create" on:submit={handleSubmit} use:enhance={() => async ({ update }) => {
-    await update()
-    await tick();
-    }}>
+<form id="myForm" method="POST" on:submit={handleSubmit}>
     <label for="name">Voor + achternaam</label>
         <input type="text" name="name" required />
 
