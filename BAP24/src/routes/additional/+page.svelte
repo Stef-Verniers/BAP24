@@ -3,7 +3,7 @@
     import Logo from "../../components/Logo.svelte";
     import { enhance } from "$app/forms";
     import Toasts from "../../components/Toasts.svelte";
-    import { addToast } from "../../stores";
+    import { addToast, capitalize } from "../../stores";
     import { tick } from "svelte";
     import type { ActionData, PageData } from "./$types.js";
     import { onMount } from "svelte";
@@ -18,6 +18,8 @@
             localStorage.removeItem("toast");
         }
     });
+
+    console.log(capitalize('dit is een test'))
 
     // We maken een leeg object aan
     export let info = {
@@ -165,7 +167,7 @@
                     <select name="age" id="enq">
                         <option value="" disabled selected>Kies een optie</option>
                     {#each age as ageCategory}
-                        <option value="{ageCategory.id}">{ageCategory.category}</option>
+                        <option value="{ageCategory.id}">{capitalize(ageCategory.category)}</option>
                     {/each}
                     </select>
                     </div>
@@ -182,7 +184,7 @@
                         <h2>Wat is je geslacht / gender?</h2>
                         {#each sex as gender}
                             <input type="radio" id={`gender-${gender.id}`} name="sex" value={gender.id} required>
-                            <label for={`gender-${gender.id}`}>{gender.sex}</label>
+                            <label for={`gender-${gender.id}`}>{capitalize(gender.sex)}</label>
                         {/each}
                     </div>
                 <div class="question hidden" id="4">
@@ -190,7 +192,7 @@
                     <select name="occupation" id="enq">
                         <option value="" disabled selected>Kies een optie</option>
                     {#each occupation as job}
-                        <option value={job.id}>{job.occupation}</option>
+                        <option value={job.id}>{capitalize(job.occupation)}</option>
                     {/each}
                     </select>
                     </div>
@@ -199,7 +201,7 @@
                     <select name="department" id="enq">
                         <option value="" disabled selected>Kies een optie</option>
                     {#each department as field}
-                        <option value={field.id}>{field.department}</option>
+                        <option value={field.id}>{capitalize(field.department)}</option>
                     {/each}
                     </select>
                     </div>
