@@ -9,6 +9,7 @@
     import Toasts from '../../../components/Toasts.svelte';
     import { tick } from "svelte";
     import { onMount } from 'svelte';
+  import { all } from 'axios';
 
     let theButton;
     let buttonText = ""
@@ -60,7 +61,8 @@
 
     // We spelen wat met de data omtrent filtering en sorteren
     let age = data.getAge
-    let department = data.getDepartment
+    let allDepartments = data.getDepartment
+    let department = allDepartments.sort((a,b) => a.department.localeCompare(b.department));
     let occupation = data.getJob
     let nationalityObject = data.getNationalities;
     let nationalities = nationalityObject.map(n => n.name.common)
@@ -73,11 +75,8 @@
         let currentQ = document.querySelector(".active");
         let element = currentQ?.querySelector("input, textarea, select");
         let myForm = document.getElementById("myForm");
-        if (theButton) {
-            if (currentQ?.id === "5") {
-                theButton.innerHTML = "Bevestigen";
-            }
-        }
+
+        console.log(enquete)
 
         // Geen geldige element? Dan stoppen we meteen
         if (!element) {
@@ -125,6 +124,12 @@
                     return;
                 }
             }
+            if (element.type === "number") {
+                if (value.includes("-")) {
+                    addToast({ message: "Gelieve een geldige numerieke waarde in te geven", type: "error", timeout: 5000 });
+                    return 
+                }
+            }
             enquete[element.name] = value;
             nextQuestion(currentQ?.id);
             break;
@@ -148,6 +153,7 @@
             break;
     }
     currentId = nextQuestion(currentQ?.id);
+    console.log(currentId < 10 ? `Volgende (${currentId}/10)` : "Bevestigen")
     buttonText = currentId < 10 ? `Volgende (${currentId}/10)` : "Bevestigen"; 
 
 }
