@@ -43,7 +43,8 @@
     nationalities.sort((a, b) => a.localeCompare(b));
     let sex = data.sex.filter(s => s.id !== 1);
     let occupation = data.occupation.filter(s => s.id !== 1);
-    let department = data.department;
+    let getDepartments = data.department
+    let department = getDepartments.sort((a,b) => a.department.localeCompare(b.department));
     
     // De functie die ons door de vragen zal guiden
     const cycleQ = (e) => {
