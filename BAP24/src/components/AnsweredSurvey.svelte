@@ -80,6 +80,7 @@
             font-size: 0.7rem;
             margin: 1vh 0;
             font-weight: 600;
+            line-height: calc(0.7rem * 1.5);
         }
         input[type='text'] {
             border-radius: 5px;

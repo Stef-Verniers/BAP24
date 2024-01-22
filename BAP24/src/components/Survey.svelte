@@ -86,7 +86,7 @@ questions = data.questions;
     .survey-intro > h1 {
         font-size: 1rem;
         font-weight: 700;
-        line-height: calc(1rem * 1.3);
+        line-height: calc(1rem * 1.5);
     }
     .question-container {
         display: flex;
@@ -102,6 +102,7 @@ questions = data.questions;
         font-size: 0.7rem;
         margin: 1vh 0;
         font-weight: 600;
+        line-height: calc(0.7rem * 1.3);
     }
     input[type='text'] {
         border-radius: 5px;
